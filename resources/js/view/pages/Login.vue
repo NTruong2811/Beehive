@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <div class="overlay"></div>
-        <form action="" method="post">
+        <form action="" method="post" id="login">
             <div class="title">
                 <p>Welcome to</p>
                 <img src="images/logo.svg" alt="" /> <br />
@@ -13,15 +13,18 @@
 
             <div class="input" style="">
                 <div class="field">
-                    <input type="search" placeholder="Your email" /><i
-                        class="fa-solid fa-user"
-                    ></i>
+                    <input
+                        type="search"
+                        placeholder="Your email"
+                        name="email"
+                    /><i class="fa-solid fa-user"></i>
                 </div>
                 <div class="field">
                     <input
                         type="password"
                         placeholder="Password"
                         autocomplete="new-password"
+                        name="password"
                     />
                     <i class="fa-solid fa-key"></i>
                 </div>
@@ -33,9 +36,11 @@
                 </div>
                 <span> Lost Password? </span>
             </div>
-            <button type="submit" id="submit">Login into your account</button>
+            <button type="button" id="submit">Login into your account</button>
             <br />
-            <span id="register">Don't have account</span>
+            <router-link to="/register">
+                <span id="register">Don't have account</span></router-link
+            >
             <div class="panel-bot">
                 <ul>
                     <li><i class="fa-regular fa-image"></i>Photos</li>
@@ -187,7 +192,7 @@ form #submit {
     border-radius: 50px;
     transition: 0.4s linear;
 }
-.panel-bot ul li i{
+.panel-bot ul li i {
     background-color: #626c7242;
     width: 45px;
     height: 45px;
@@ -197,8 +202,36 @@ form #submit {
 </style>
 <script>
 import $ from "jquery";
+import axios from "axios";
 export default {
     setup() {},
-    mounted() {},
+    mounted() {
+        var navigate = this.$router;
+
+        $("#submit").click(function () {
+            var formData = {
+                password: $('input[name="password"]').val(),
+                email: $('input[name="email"]').val(),
+            };
+            if (formData["password"] != "" && formData["email"] != "") {
+                axios.post("/api/login", formData).then(function (res) {
+                    var { data } = res;
+                    if (data["status"] == 0) {
+                        alert(data.message);
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(data["user"])
+                        );
+                        localStorage.setItem("token", data["token"]);
+                        navigate.go("/");
+                    } else {
+                        alert(data.message);
+                    }
+                });
+            } else {
+                alert("We are missing something ?");
+            }
+        });
+    },
 };
 </script>

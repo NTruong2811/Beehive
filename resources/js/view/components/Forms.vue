@@ -5,7 +5,7 @@
                 <div class="show">
                     <img
                         class="avt"
-                        src="https://yeuphaidep.com/wp-content/uploads/2022/05/he-nu-cuoi-khinh-bi.jpg"
+                        src=""
                         alt=""
                     />
                     <input type="text" placeholder="What's new, NTruong?" />
@@ -14,7 +14,7 @@
                     <div class="write">
                         <img
                             class="avt"
-                            src="https://yeuphaidep.com/wp-content/uploads/2022/05/he-nu-cuoi-khinh-bi.jpg"
+                            src=""
                             alt=""
                         />
                         <textarea

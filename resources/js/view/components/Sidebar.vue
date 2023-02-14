@@ -5,11 +5,7 @@
             <div class="list">
                 <ul>
                     <li>
-                        <img
-                            class="avt"
-                            src="https://yeuphaidep.com/wp-content/uploads/2022/05/he-nu-cuoi-khinh-bi.jpg"
-                            alt=""
-                        />
+                        <img class="avt" src="" alt="" />
                         <div class="detail">
                             <span>duless</span>
                             <p class="status">
@@ -18,77 +14,49 @@
                         </div>
                     </li>
                     <li>
-                        <img
-                            class="avt"
-                            src="https://yeuphaidep.com/wp-content/uploads/2022/05/he-nu-cuoi-khinh-bi.jpg"
-                            alt=""
-                        />
+                        <img class="avt" src="" alt="" />
                         <div class="detail">
                             <span>duless</span>
                             <p class="status">an hour ago</p>
                         </div>
                     </li>
                     <li>
-                        <img
-                            class="avt"
-                            src="https://yeuphaidep.com/wp-content/uploads/2022/05/he-nu-cuoi-khinh-bi.jpg"
-                            alt=""
-                        />
+                        <img class="avt" src="" alt="" />
                         <div class="detail">
                             <span>duless</span>
                             <p class="status">an hour ago</p>
                         </div>
                     </li>
                     <li>
-                        <img
-                            class="avt"
-                            src="https://yeuphaidep.com/wp-content/uploads/2022/05/he-nu-cuoi-khinh-bi.jpg"
-                            alt=""
-                        />
+                        <img class="avt" src="" alt="" />
                         <div class="detail">
                             <span>duless</span>
                             <p class="status">an hour ago</p>
                         </div>
                     </li>
                     <li>
-                        <img
-                            class="avt"
-                            src="https://yeuphaidep.com/wp-content/uploads/2022/05/he-nu-cuoi-khinh-bi.jpg"
-                            alt=""
-                        />
+                        <img class="avt" src="" alt="" />
                         <div class="detail">
                             <span>duless</span>
                             <p class="status">an hour ago</p>
                         </div>
                     </li>
                     <li>
-                        <img
-                            class="avt"
-                            src="https://yeuphaidep.com/wp-content/uploads/2022/05/he-nu-cuoi-khinh-bi.jpg"
-                            alt=""
-                        />
+                        <img class="avt" src="" alt="" />
                         <div class="detail">
                             <span>duless</span>
                             <p class="status">an hour ago</p>
                         </div>
                     </li>
                     <li>
-                        <img
-                            class="avt"
-                            src="https://yeuphaidep.com/wp-content/uploads/2022/05/he-nu-cuoi-khinh-bi.jpg"
-                            alt=""
-                        />
+                        <img class="avt" src="" alt="" />
                         <div class="detail">
                             <span>duless</span>
                             <p class="status">an hour ago</p>
                         </div>
                     </li>
                     <li>
-                        <img
-                            class="avt"
-                            src="https://yeuphaidep.com/wp-content/uploads/2022/05/he-nu-cuoi-khinh-bi.jpg"
-                            alt=""
-                        />
+                        <img class="avt" src="" alt="" />
                         <div class="detail">
                             <span>duless</span>
                             <p class="status">an hour ago</p>
@@ -118,8 +86,8 @@
 </template>
 <style>
 .sidebar {
-    height: auto;
-    padding: 50px 0px !important;
+    max-height: 100vh;
+    padding: 150px 0px !important;
 }
 .friends {
     height: 50vh;
