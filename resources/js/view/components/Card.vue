@@ -24,7 +24,7 @@
             <span
                 v-if="action == 'Accept'"
                 href="#"
-                class="btn btn-primary"
+                class="btn btn-primary Accept"
                 @click="AcceptFriend(item.id)"
                 >{{ action }}</span
             >
@@ -45,10 +45,12 @@
 }
 .card-text {
     color: #4f52619d;
+    
 }
 </style>
 <script>
 import { AcceptFriend } from "../../services/Users";
+import $ from "jquery";
 export default {
     setup() {},
     props: {
@@ -61,6 +63,15 @@ export default {
                 console.log(res);
             });
         },
+    },
+    mounted() {
+        $(".Accept").click(function () {
+            $(this).empty();
+            $(this).html(
+                '<i class="fa-solid fa-users" data-v-3a9acd52=""></i>'
+            );
+            $(this).css({ "background-color": "#d3d3d39d", color: "black" });
+        });
     },
 };
 </script>

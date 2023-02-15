@@ -1,7 +1,9 @@
 <template>
     <div class="beehive-navbar">
         <div class="logo">
-            <img src="/images/logo.png" alt="" />
+            <router-link to="/">
+                <img src="/images/logo.png" alt="" />
+            </router-link>
         </div>
         <ul>
             <li class="">
@@ -19,16 +21,11 @@
             </li>
         </ul>
         <div class="user">
-            <router-link
-                :to="{
-                    path: '/profile',
-                    query: { id: UserInfor.id },
-                }"
-            >
+            <a :href="'/profile?id=' + this.userInfor.id" >
                 <div class="avt">
                     <img src="/images/profile_avatar.jpg" alt="" />
                 </div>
-            </router-link>
+            </a>
         </div>
     </div>
 </template>
@@ -75,6 +72,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    position: relative;
 }
 .beehive-navbar ul li i {
     margin: auto;

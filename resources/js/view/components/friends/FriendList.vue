@@ -48,10 +48,8 @@ export default {
                 .catch(function (err) {
                     console.log(err);
                 });
+            this.isLoading = false;
             console.log(this.Friends);
-            if (this.Friends.length != 0) {
-                this.isLoading = false;
-            }
         },
     },
 };

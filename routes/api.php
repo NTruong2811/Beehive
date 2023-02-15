@@ -32,7 +32,8 @@ Route::middleware('auth:sanctum')->group(function () {
         //     return 1;
         // })->name('GetUserProfile');
         Route::get('/list-friend', [UsersController::class, 'ListFriend'])->name('ListFriend');
+        Route::get('/new-friend', [UsersController::class, 'NewFriend'])->name('NewFriend');
         Route::post('/add-friend', [UsersController::class, 'AddFriend'])->name('AddFriend');
-        Route::post('/accept-friend',[UsersController::class,'AcceptFriend'])->name('AcceptFriend');
+        Route::post('/accept-friend', [UsersController::class, 'AcceptFriend'])->name('AcceptFriend');
     });
 });

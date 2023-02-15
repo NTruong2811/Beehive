@@ -1,4 +1,5 @@
 <template>
+    <Navbar></Navbar>
     <div class="profile">
         <div class="head">
             <div class="banner">
@@ -9,7 +10,15 @@
                     <div class="row h-100">
                         <div class="user col-3">
                             <div class="avatar">
-                                <div class="avt add_friend">
+                                <!-- hiện kết bạn khi chưa là bạn bè  -->
+                                <div
+                                    class="avt add_friend"
+                                    v-show="
+                                        checkNewFriend == null &&
+                                        checkFriendList == null &&
+                                        checkAcceptFriend == null
+                                    "
+                                >
                                     <img :src="UserProfile.avatar" alt="" />
                                     <div
                                         class="overlay"
@@ -21,10 +30,46 @@
                                         <i class="fa-solid fa-user-plus"></i>
                                     </div>
                                 </div>
+
+                                <!-- hiện chất nhận kết bạn khi nhận lời mời từ người này -->
+                                <div
+                                    class="avt checkNewFriend"
+                                    v-show="checkNewFriend != null"
+                                >
+                                    <img :src="UserProfile.avatar" alt="" />
+                                    <div
+                                        class="overlay"
+                                        v-on:click="
+                                            AcceptFriend(checkNewFriend)
+                                        "
+                                    >
+                                        <i class="fa-solid fa-user-check"></i>
+                                    </div>
+                                </div>
+                                <!-- hiện đã gửi lời kết bạn tới người này -->
+                                <div
+                                    class="avt checkNewFriend"
+                                    v-show="checkAcceptFriend != null"
+                                >
+                                    <img :src="UserProfile.avatar" alt="" />
+                                    <div class="overlay">
+                                        <i class="fa-solid fa-user-check"></i>
+                                    </div>
+                                </div>
+                                <!-- hiện đã là bạn bè với người này -->
+                                <div
+                                    class="avt checkListFriend"
+                                    v-show="checkFriendList != null"
+                                >
+                                    <img :src="UserProfile.avatar" alt="" />
+                                    <div class="overlay">
+                                        <i class="fa-solid fa-users"></i>
+                                    </div>
+                                </div>
                                 <h3 class="name">{{ UserProfile.name }}</h3>
                             </div>
                         </div>
-                        <div class="col-9 h-100">
+                        <div class="col-9 h-100 profile_nav">
                             <ul>
                                 <router-link
                                     :to="{
@@ -205,6 +250,7 @@
 }
 .user_nav ul li {
     list-style: none;
+    position: relative;
 }
 .user_nav ul li {
     text-align: center;
@@ -453,13 +499,25 @@ li {
 </style>
 <script>
 import $ from "jquery";
-import { GetUserProfile, AddFriend } from "../../services/Users";
+import Navbar from "../components/Navbar.vue";
+import {
+    GetUserProfile,
+    AddFriend,
+    ListFriend,
+    NewFriend,
+    AcceptFriend,
+} from "../../services/Users";
 export default {
     setup() {},
-    components: {},
+    components: {
+        Navbar,
+    },
     data() {
         return {
             UserProfile: "",
+            checkNewFriend: null,
+            checkFriendList: null,
+            checkAcceptFriend: null,
         };
     },
     mounted() {
@@ -491,9 +549,16 @@ export default {
             $(this).hide();
             $(this).parent().find(".more-desc").show();
         });
+
+        $(".profile_nav ul li").click(function () {
+            $(this).find(".notification").remove();
+        });
     },
     created() {
         this.GetUserProfile();
+        this.CheckNewFriend();
+        this.CheckFriendList();
+        this.CheckAcceptFriend();
     },
     methods: {
         async GetUserProfile() {
@@ -510,6 +575,79 @@ export default {
             };
             AddFriend(data).then(function (res) {
                 console.log(res);
+            });
+        },
+        // kiểm tra actor này có trong danh sách kêt bạn không
+        async CheckNewFriend() {
+            const id = this.userInfor.id;
+            const IdUserInPage = parseInt(this.$route.query.id);
+            if (id != IdUserInPage) {
+                this.checkNewFriend = await NewFriend(id)
+                    .then(function (res) {
+                        const { data } = res;
+                        let check = null;
+                        data.map(function (item) {
+                            if (IdUserInPage == item.FriendInfor.id) {
+                                check = item;
+                            }
+                        });
+                        return check;
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            }
+        },
+        // kiểm tra actor này có trong list friend hay ko
+        async CheckFriendList() {
+            const id = this.userInfor.id;
+            const IdUserInPage = parseInt(this.$route.query.id);
+            if (id != IdUserInPage) {
+                this.checkFriendList = await ListFriend(id)
+                    .then(function (res) {
+                        const { data } = res;
+                        let check = null;
+                        data.map(function (item) {
+                            if (IdUserInPage == item.FriendInfor.id) {
+                                check = item.id;
+                            }
+                        });
+                        return check;
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            }
+        },
+        // kiểm tra đã gửi kết bạn với actor này chưa
+        async CheckAcceptFriend() {
+            const id = this.userInfor.id;
+            const IdUserInPage = parseInt(this.$route.query.id);
+            if (id != IdUserInPage) {
+                this.checkAcceptFriend = await NewFriend(IdUserInPage)
+                    .then(function (res) {
+                        const { data } = res;
+                        let check = null;
+                        data.map(function (item) {
+                            if (item.RequesterId == id) {
+                                check = item.RequesterId;
+                            }
+                        });
+                        return check;
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            }
+        },
+        AcceptFriend(id) {
+            AcceptFriend(id).then(function (res) {
+                $(".fa-user-check")
+                    .closest(".overlay")
+                    .html(
+                        '<i class="fa-solid fa-users" data-v-3a9acd52=""></i>'
+                    );
+                $(".fa-user-check").remove();
             });
         },
     },

@@ -9,6 +9,9 @@ export function AddFriend(data) {
 export function ListFriend(id) {
     return instance.get("users/list-friend?id=" + id);
 }
+export function NewFriend(id) {
+    return instance.get("users/new-friend?id=" + id);
+}
 export function AcceptFriend(id) {
     return instance.post("users/accept-friend", { id: id });
 }

@@ -19,7 +19,7 @@ class UsersController extends Controller
     public function ListFriend(Request $request)
     {
         $userId = $request->id;
-        $Friendship = Friendship::where('status', '==', 1)->where(
+        $Friendship = Friendship::where('status', '=', 1)->where(
             function ($query) use ($request) {
                 return $query
                     ->where('RequesterId', '=', $request->id)
@@ -36,6 +36,25 @@ class UsersController extends Controller
             }
 
             array_push($list_friend, $item);
+        }
+        return $list_friend;
+    }
+    public function NewFriend(Request $request)
+    {
+        $userId = $request->id;
+        $Friendship = Friendship::where('status', '=', 0)->where(
+            function ($query) use ($request) {
+                return $query
+                    ->where('RequesterId', '=', $request->id)
+                    ->orWhere('AddresseeId', '=', $request->id);
+            }
+        )->get();
+        $list_friend = [];
+        foreach ($Friendship as $item) {
+            if ($item['RequesterId'] != $userId) {
+                $item['FriendInfor'] = users::find($item['RequesterId']);
+                array_push($list_friend, $item);
+            }
         }
         return $list_friend;
     }

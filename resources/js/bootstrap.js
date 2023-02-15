@@ -21,6 +21,9 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 import Echo from "laravel-echo";
 
 import Pusher from "pusher-js";
+
+import $ from "jquery";
+import toastr from "toastr";
 window.Pusher = Pusher;
 
 window.Echo = new Echo({
@@ -31,10 +34,34 @@ window.Echo = new Echo({
 });
 
 let user = JSON.parse(localStorage.getItem("user"));
+localStorage.setItem("notification", { NewFriend: 0 });
 if (user != null) {
     let channel = window.Echo.channel("channel-AddFriend" + user.id);
     channel.listen("AddFriendEvent", function (e) {
-        console.log(e);
-        alert("You have a friend request from " + e.FromUser);
+        $(document).ready(function () {
+            toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+
+            //     $(".fa-users")
+            //         .closest("li")
+            //         .append(
+            //             `
+            //     <div
+            //      class="nofification"
+            //      style="
+            //          position: absolute;
+            //          right: -4px;
+            //          top: -4px;
+            //          padding: 0% 10%;
+            //          background-color: #e41e3f;
+            //          border-radius: 100%;
+            //          color: white;
+            //     ">
+            //     ` +
+            //                 1 +
+            //                 `
+            //  </div>`
+            //         );
+        });
+        // alert("You have a friend request from " + e.FromUser);
     });
 }
