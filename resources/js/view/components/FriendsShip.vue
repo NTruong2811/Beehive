@@ -2,32 +2,6 @@
     <TabContents :dataTab="TabContents"></TabContents>
     <div class="Friend_ship container">
         <router-view></router-view>
-        <!-- <div id="Friend_List" v-for="item in Friends" :key="item">
-            <router-link
-                v-if="item.status == 1"
-                :to="{
-                    path: '/profile',
-                    query: { id: item.RequesterInfor.id },
-                }"
-            >
-                <div class="infor">
-                    <div class="avt">
-                        <img :src="item.RequesterInfor.avatar" alt="" />
-                    </div>
-                    <div class="meta">
-                        <div class="post-by">
-                            <span>
-                                <strong>{{
-                                    item.RequesterInfor.name
-                                }}</strong></span
-                            >
-                            <br />
-                            <span class="time">4 weeks ago</span>
-                        </div>
-                    </div>
-                </div>
-            </router-link>
-        </div> -->
     </div>
 </template>
 <style scoped>

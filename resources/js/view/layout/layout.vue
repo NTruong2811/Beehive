@@ -21,7 +21,7 @@
                         <Sidebar></Sidebar>
                     </div>
                     <div class="chatList">
-                        <!-- <Chat></Chat> -->
+                        <Chat></Chat>
                     </div>
                 </div>
             </div>

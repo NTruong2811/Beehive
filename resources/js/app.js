@@ -2,11 +2,13 @@ import "./bootstrap";
 
 import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
-
 import routes from "./routes";
 import App from "./App.vue";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import { GetTypeNotifi } from "./services/Notification";
+import $ from "jquery";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -39,4 +41,14 @@ router.beforeEach((to, from, next) => {
             next("/");
         }
     }
+    GetTypeNotifi().then(function (res) {
+        var { data } = res;
+        data.map(function (item) {
+            if (to.fullPath.search(item.page_url) != -1) {
+                $("." + item.name)
+                    .find(".nofification")
+                    .remove();
+            }
+        });
+    });
 });

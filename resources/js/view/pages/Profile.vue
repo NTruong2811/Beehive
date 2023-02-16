@@ -93,7 +93,7 @@
                                         query: { id: UserProfile.id },
                                     }"
                                 >
-                                    <li>
+                                    <li class="AddFriend">
                                         <i class="fa-solid fa-users"></i>
                                         <br /><span>Friends</span>
                                     </li>

@@ -54,16 +54,13 @@ export default {
     mounted() {
         var nav = $(".tabcontent ul li a");
         var url = location.href;
-        console.log(url);
-        console.log(url.search("/friendship/new_friend?id=3"));
         for (let index = 0; index < nav.length; index++) {
-            console.log(nav[index].getAttribute("href"));
             if (url.search(nav[index].getAttribute("href")) != -1) {
                 // let el = nav[index].closest("a").getAttribute("href");
                 // if (url.search(el) != -1) {
                 //     nav[index].classList.add("active");
                 // }
-                console.log(nav[index].closest('li'));
+                console.log(nav[index].closest("li"));
             }
         }
     },

@@ -19,11 +19,12 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
  */
 
 import Echo from "laravel-echo";
-
 import Pusher from "pusher-js";
-
 import $ from "jquery";
 import toastr from "toastr";
+
+// import { Base64 } from "../../public/js/Global";
+import { AddFriend, CheckNotifiUnread } from "./services/Notification";
 window.Pusher = Pusher;
 
 window.Echo = new Echo({
@@ -33,35 +34,71 @@ window.Echo = new Echo({
     forceTLS: true,
 });
 
-let user = JSON.parse(localStorage.getItem("user"));
-localStorage.setItem("notification", { NewFriend: 0 });
-if (user != null) {
+const user = JSON.parse(localStorage.getItem("user"));
+let url = new URL(location.href);
+let params = new URLSearchParams(url.search);
+
+let IdUserCurentPage = params.get("id");
+
+// -----------------------notification -----------------------
+
+// status = 1
+if (user != null && user.id == IdUserCurentPage) {
     let channel = window.Echo.channel("channel-AddFriend" + user.id);
     channel.listen("AddFriendEvent", function (e) {
-        $(document).ready(function () {
-            toastr.success('Have fun storming the castle!', 'Miracle Max Says')
-
-            //     $(".fa-users")
-            //         .closest("li")
-            //         .append(
-            //             `
-            //     <div
-            //      class="nofification"
-            //      style="
-            //          position: absolute;
-            //          right: -4px;
-            //          top: -4px;
-            //          padding: 0% 10%;
-            //          background-color: #e41e3f;
-            //          border-radius: 100%;
-            //          color: white;
-            //     ">
-            //     ` +
-            //                 1 +
-            //                 `
-            //  </div>`
-            //         );
+        let data = {
+            message: e.FromUser + " sent you a friend request",
+            ByUser: e.sendFrom,
+            ToUser: e.sendTo,
+            TypeNotifi: 1,
+            status: 0,
+        };
+        AddFriend(data).then(function (res) {
+            var { data } = res;
+            var Base64Notifi = localStorage.getItem("notification");
+            var LocalNotifi = JSON.parse(Base64.decode(Base64Notifi));
+            console.log(LocalNotifi);
+            LocalNotifi.map(function (item) {
+                if (item.name == "AddFriend") {
+                    item.data.push(data);
+                    NotifiClient(item.name, item.data.length);
+                }
+            });
         });
-        // alert("You have a friend request from " + e.FromUser);
     });
+
+    CheckNotifiUnread(user.id).then(function (res) {
+        const { data } = res;
+        data.map(function (item) {
+            if (item.data.length >= 1) {
+                NotifiClient(item.name, item.data.length);
+            }
+        });
+        localStorage.setItem(
+            "notification",
+            Base64.encode(JSON.stringify(data))
+        );
+    });
+}
+
+function NotifiClient(NameClass, NotiNumber) {
+    $("." + NameClass).append(
+        `
+      <div
+        class="nofification"
+        style="
+        font-size: 14px;
+        position: absolute;
+        right: -4px;
+        top: -4px;
+        padding: 0% 5%;
+        background-color: #e41e3f;
+        border-radius: 100%;
+        color: white;
+       ">
+` +
+            NotiNumber +
+            `
+</div>`
+    );
 }

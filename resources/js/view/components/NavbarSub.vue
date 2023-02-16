@@ -94,7 +94,6 @@
     height: 100px;
     overflow: hidden;
     border-radius: 100%;
-
     margin-bottom: 10px !important;
     border: 2px solid #4f52611c;
     padding: 5px !important;

@@ -67,5 +67,7 @@
     <div id="app"></div>
 </body>
 <script src="{{ mix('js/app.js') }}"></script>
+<script src="/js/global.js"></script>
+
 
 </html>

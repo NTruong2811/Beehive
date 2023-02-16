@@ -21509,16 +21509,13 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var nav = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tabcontent ul li a");
     var url = location.href;
-    console.log(url);
-    console.log(url.search("/friendship/new_friend?id=3"));
     for (var index = 0; index < nav.length; index++) {
-      console.log(nav[index].getAttribute("href"));
       if (url.search(nav[index].getAttribute("href")) != -1) {
         // let el = nav[index].closest("a").getAttribute("href");
         // if (url.search(el) != -1) {
         //     nav[index].classList.add("active");
         // }
-        console.log(nav[index].closest('li'));
+        console.log(nav[index].closest("li"));
       }
     }
   }
@@ -22479,7 +22476,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TabContents, {
     dataTab: $data.TabContents
-  }, null, 8 /* PROPS */, ["dataTab"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div id=\"Friend_List\" v-for=\"item in Friends\" :key=\"item\">\r\n            <router-link\r\n                v-if=\"item.status == 1\"\r\n                :to=\"{\r\n                    path: '/profile',\r\n                    query: { id: item.RequesterInfor.id },\r\n                }\"\r\n            >\r\n                <div class=\"infor\">\r\n                    <div class=\"avt\">\r\n                        <img :src=\"item.RequesterInfor.avatar\" alt=\"\" />\r\n                    </div>\r\n                    <div class=\"meta\">\r\n                        <div class=\"post-by\">\r\n                            <span>\r\n                                <strong>{{\r\n                                    item.RequesterInfor.name\r\n                                }}</strong></span\r\n                            >\r\n                            <br />\r\n                            <span class=\"time\">4 weeks ago</span>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </router-link>\r\n        </div> ")])], 64 /* STABLE_FRAGMENT */);
+  }, null, 8 /* PROPS */, ["dataTab"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -22907,10 +22904,9 @@ var _hoisted_8 = {
     "height": "100vh"
   }
 };
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_9 = {
   "class": "chatList"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Chat></Chat> ")], -1 /* HOISTED */);
-
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Navbar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Navbar");
   var _component_Headmain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Headmain");
@@ -22918,9 +22914,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TabContents = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TabContents");
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
   var _component_Sidebar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Sidebar");
+  var _component_Chat = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Chat");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Navbar)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Headmain), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Forms), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TabContents, {
     dataTab: $data.TabContents
-  }, null, 8 /* PROPS */, ["dataTab"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Sidebar)]), _hoisted_9])])])]);
+  }, null, 8 /* PROPS */, ["dataTab"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Sidebar)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Chat)])])])])]);
 }
 
 /***/ }),
@@ -23115,7 +23112,9 @@ var _hoisted_26 = /*#__PURE__*/_withScopeId(function () {
   }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Profile")], -1 /* HOISTED */);
 });
 var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+    "class": "AddFriend"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "fa-solid fa-users"
   }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Friends")], -1 /* HOISTED */);
 });
@@ -23391,6 +23390,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
 /* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _services_Notification__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/Notification */ "./resources/js/services/Notification.js");
 
 window._ = (lodash__WEBPACK_IMPORTED_MODULE_0___default());
 
@@ -23414,6 +23414,9 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 
 
+
+// import { Base64 } from "../../public/js/Global";
+
 window.Pusher = (pusher_js__WEBPACK_IMPORTED_MODULE_3___default());
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
   broadcaster: "pusher",
@@ -23422,38 +23425,48 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
   forceTLS: true
 });
 var user = JSON.parse(localStorage.getItem("user"));
-localStorage.setItem("notification", {
-  NewFriend: 0
-});
-if (user != null) {
+var url = new URL(location.href);
+var params = new URLSearchParams(url.search);
+var IdUserCurentPage = params.get("id");
+
+// -----------------------notification -----------------------
+
+// status = 1
+if (user != null && user.id == IdUserCurentPage) {
   var channel = window.Echo.channel("channel-AddFriend" + user.id);
   channel.listen("AddFriendEvent", function (e) {
-    jquery__WEBPACK_IMPORTED_MODULE_4___default()(document).ready(function () {
-      toastr__WEBPACK_IMPORTED_MODULE_5___default().success('Have fun storming the castle!', 'Miracle Max Says');
-
-      //     $(".fa-users")
-      //         .closest("li")
-      //         .append(
-      //             `
-      //     <div
-      //      class="nofification"
-      //      style="
-      //          position: absolute;
-      //          right: -4px;
-      //          top: -4px;
-      //          padding: 0% 10%;
-      //          background-color: #e41e3f;
-      //          border-radius: 100%;
-      //          color: white;
-      //     ">
-      //     ` +
-      //                 1 +
-      //                 `
-      //  </div>`
-      //         );
+    var data = {
+      message: e.FromUser + " sent you a friend request",
+      ByUser: e.sendFrom,
+      ToUser: e.sendTo,
+      TypeNotifi: 1,
+      status: 0
+    };
+    (0,_services_Notification__WEBPACK_IMPORTED_MODULE_6__.AddFriend)(data).then(function (res) {
+      var data = res.data;
+      var Base64Notifi = localStorage.getItem("notification");
+      var LocalNotifi = JSON.parse(Base64.decode(Base64Notifi));
+      console.log(LocalNotifi);
+      LocalNotifi.map(function (item) {
+        if (item.name == "AddFriend") {
+          item.data.push(data);
+          NotifiClient(item.name, item.data.length);
+        }
+      });
     });
-    // alert("You have a friend request from " + e.FromUser);
   });
+  (0,_services_Notification__WEBPACK_IMPORTED_MODULE_6__.CheckNotifiUnread)(user.id).then(function (res) {
+    var data = res.data;
+    data.map(function (item) {
+      if (item.data.length >= 1) {
+        NotifiClient(item.name, item.data.length);
+      }
+    });
+    localStorage.setItem("notification", Base64.encode(JSON.stringify(data)));
+  });
+}
+function NotifiClient(NameClass, NotiNumber) {
+  jquery__WEBPACK_IMPORTED_MODULE_4___default()("." + NameClass).append("\n      <div\n        class=\"nofification\"\n        style=\"\n        font-size: 14px;\n        position: absolute;\n        right: -4px;\n        top: -4px;\n        padding: 0% 5%;\n        background-color: #e41e3f;\n        border-radius: 100%;\n        color: white;\n       \">\n" + NotiNumber + "\n</div>");
 }
 
 /***/ }),
@@ -23552,6 +23565,33 @@ __webpack_require__.r(__webpack_exports__);
 
 function search(keyword) {
   return _config__WEBPACK_IMPORTED_MODULE_0__["default"].get("search?keyword=" + keyword);
+}
+
+/***/ }),
+
+/***/ "./resources/js/services/Notification.js":
+/*!***********************************************!*\
+  !*** ./resources/js/services/Notification.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AddFriend": () => (/* binding */ AddFriend),
+/* harmony export */   "CheckNotifiUnread": () => (/* binding */ CheckNotifiUnread),
+/* harmony export */   "GetTypeNotifi": () => (/* binding */ GetTypeNotifi)
+/* harmony export */ });
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ "./resources/js/services/config.js");
+
+function GetTypeNotifi() {
+  return _config__WEBPACK_IMPORTED_MODULE_0__["default"].get("/notification/GetTypeNotifi");
+}
+function AddFriend(data) {
+  return _config__WEBPACK_IMPORTED_MODULE_0__["default"].post("/notification/add-friend", data);
+}
+function CheckNotifiUnread(id) {
+  return _config__WEBPACK_IMPORTED_MODULE_0__["default"].get("/notification/CheckNotifiUnread?id=" + id);
 }
 
 /***/ }),
@@ -93973,11 +94013,14 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
 /* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
 /* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ "./node_modules/bootstrap/dist/css/bootstrap.min.css");
+/* harmony import */ var _services_Notification__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/Notification */ "./resources/js/services/Notification.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_7__);
 
 
 
@@ -93985,8 +94028,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_6__.createRouter)({
-  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_6__.createWebHistory)(),
+
+
+var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_8__.createRouter)({
+  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_8__.createWebHistory)(),
   routes: _routes__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
@@ -94015,6 +94060,14 @@ router.beforeEach(function (to, from, next) {
       next("/");
     }
   }
+  (0,_services_Notification__WEBPACK_IMPORTED_MODULE_6__.GetTypeNotifi)().then(function (res) {
+    var data = res.data;
+    data.map(function (item) {
+      if (to.fullPath.search(item.page_url) != -1) {
+        jquery__WEBPACK_IMPORTED_MODULE_7___default()("." + item.name).find(".nofification").remove();
+      }
+    });
+  });
 });
 })();
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GlobalActionController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,5 +36,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/new-friend', [UsersController::class, 'NewFriend'])->name('NewFriend');
         Route::post('/add-friend', [UsersController::class, 'AddFriend'])->name('AddFriend');
         Route::post('/accept-friend', [UsersController::class, 'AcceptFriend'])->name('AcceptFriend');
+    });
+    Route::prefix('/notification')->group(function () {
+        Route::get('/GetTypeNotifi', [NotificationController::class, 'GetTypeNotifi'])->name('GetTypeNotifi');
+        Route::post('/add-friend', [NotificationController::class, 'AddFriend'])->name('AddFriend');
+        Route::get('/CheckNotifiUnread', [NotificationController::class, 'CheckNotifiUnread'])->name('CheckNotifiUnread');
     });
 });
