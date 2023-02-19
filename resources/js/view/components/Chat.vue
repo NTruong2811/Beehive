@@ -1,17 +1,21 @@
 <template>
-    <div class="chat">
+    <div class="chat" v-show="FriendId != null">
         <div class="windown">
             <div class="chat_head">
                 <div class="infor">
                     <div class="avt">
                         <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
+                            :src="FriendInfor.avatar"
                             alt=""
                         />
                     </div>
                     <div class="meta">
                         <div class="post-by">
-                            <span> <strong>Irina Petrova</strong></span>
+                            <span>
+                                <strong
+                                    >{{ FriendInfor.name }}</strong
+                                ></span
+                            >
                             <br />
                             <span class="time">4 weeks ago</span>
                         </div>
@@ -34,7 +38,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="chat_content">
+            <!-- <div class="chat_content">
                 <div class="line_chat">
                     <div class="avt">
                         <img
@@ -70,7 +74,7 @@
                         <span>Hello</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="action_sender">
                 <form action="" method="post">
                     <input type="text" /><button>
@@ -79,7 +83,7 @@
                 </form>
             </div>
         </div>
-        <div class="list">
+        <!-- <div class="list">
             <div class="infor">
                 <div class="avt">
                     <img
@@ -89,7 +93,7 @@
                     />
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 <style scoped>
@@ -215,8 +219,31 @@
 </style>
 <script>
 import $ from "jquery";
+import { GetUserProfile } from "../../services/Users";
 export default {
+    props: {
+        FriendId: Number,
+    },
     setup() {},
+    data() {
+        return {
+            FriendInfor: "",
+        };
+    },
+    created(){
+      this.GetFriend();
+    },
+    methods: {
+        async GetFriend() {
+            this.FriendInfor = await GetUserProfile(this.FriendId).then(
+                function (res) {
+                    const { data } = res;
+                    return data;
+                }
+            );
+            console.log(this.FriendInfor);
+        },
+    },
     mounted() {
         $(".chat .close").click(function () {
             $(".windown").hide();

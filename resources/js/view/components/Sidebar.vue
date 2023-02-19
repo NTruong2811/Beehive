@@ -4,55 +4,21 @@
             <h5>Friends</h5>
             <div class="list">
                 <ul>
-                    <li>
-                        <img class="avt" src="" alt="" />
+                    <li
+                        v-for="item in Friends"
+                        :key="item"
+                        v-on:click="OpenChat(item.FriendInfor.id)"
+                    >
+                        <img
+                            class="avt"
+                            :src="item.FriendInfor.avatar"
+                            alt=""
+                        />
                         <div class="detail">
-                            <span>duless</span>
+                            <span>{{ item.FriendInfor.name }}</span>
                             <p class="status">
                                 <i class="fa-solid fa-circle"></i> online
                             </p>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="avt" src="" alt="" />
-                        <div class="detail">
-                            <span>duless</span>
-                            <p class="status">an hour ago</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="avt" src="" alt="" />
-                        <div class="detail">
-                            <span>duless</span>
-                            <p class="status">an hour ago</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="avt" src="" alt="" />
-                        <div class="detail">
-                            <span>duless</span>
-                            <p class="status">an hour ago</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="avt" src="" alt="" />
-                        <div class="detail">
-                            <span>duless</span>
-                            <p class="status">an hour ago</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="avt" src="" alt="" />
-                        <div class="detail">
-                            <span>duless</span>
-                            <p class="status">an hour ago</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="avt" src="" alt="" />
-                        <div class="detail">
-                            <span>duless</span>
-                            <p class="status">an hour ago</p>
                         </div>
                     </li>
                     <li>
@@ -82,6 +48,9 @@
                 >
             </div>
         </div>
+    </div>
+    <div class="chat_list" >
+        <Chat :FriendId="FriendId" :key="FriendId"></Chat>
     </div>
 </template>
 <style>
@@ -113,6 +82,7 @@
     display: flex;
     gap: 10px;
     margin: 5px 0px !important;
+    cursor: pointer;
 }
 .friends .list ul li span {
     font-weight: 500;
@@ -151,3 +121,40 @@
     cursor: pointer;
 }
 </style>
+
+<script>
+import { ListFriend,GetUserProfile } from "../../services/Users";
+import Chat from "./Chat.vue";
+export default {
+    components: {
+        Chat,
+    },
+    setup() {},
+    data() {
+        return {
+            Friends: [],
+            FriendId: null,
+        };
+    },
+    created() {
+        this.GetListFrined();
+    },
+    methods: {
+        async GetListFrined() {
+            this.Friends = await ListFriend(this.userInfor.id).then(function (
+                res
+            ) {
+                const { data } = res;
+                return data;
+            });
+            console.log(this.Friends);
+        },
+        OpenChat(id) {
+            this.FriendId = id;
+        },
+    },
+    mounted() {
+
+    },
+};
+</script>
