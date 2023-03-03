@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->string('description');
+        Schema::create('participants', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('UserId');
+            $table->foreign('UserId')->references('id')->on('users');
+            $table->unsignedBigInteger('RoomId');
+            $table->foreign('RoomId')->references('id')->on('rooms');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('description');
-        });
+        //
     }
 };

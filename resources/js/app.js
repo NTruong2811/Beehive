@@ -7,6 +7,8 @@ import App from "./App.vue";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import "./services/ActionServices/BeehiveCall"
+import "./services/ActionServices/Chat"
 import { GetTypeNotifi } from "./services/Notification";
 import $ from "jquery";
 

@@ -4,17 +4,12 @@
             <div class="chat_head">
                 <div class="infor">
                     <div class="avt">
-                        <img
-                            :src="FriendInfor.avatar"
-                            alt=""
-                        />
+                        <img :src="FriendInfor.avatar" alt="" />
                     </div>
                     <div class="meta">
                         <div class="post-by">
                             <span>
-                                <strong
-                                    >{{ FriendInfor.name }}</strong
-                                ></span
+                                <strong>{{ FriendInfor.name }}</strong></span
                             >
                             <br />
                             <span class="time">4 weeks ago</span>
@@ -27,9 +22,12 @@
                             <i class="fa-solid fa-phone"></i>
                         </li>
                         <li>
-                            <i class="fa-solid fa-video"></i>
+                            <i
+                                class="fa-solid fa-video"
+                                v-on:click="VideoCall"
+                            ></i>
                         </li>
-                        <li>
+                        <li class="down">
                             <i class="fa-solid fa-angle-down"></i>
                         </li>
                         <li class="close">
@@ -38,69 +36,45 @@
                     </ul>
                 </div>
             </div>
-            <!-- <div class="chat_content">
-                <div class="line_chat">
-                    <div class="avt">
-                        <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
-                            alt=""
-                        />
+            <div class="chat_content" id="chat_content">
+                <div class="line_chat" v-for="item in ChatDetail" :key="item">
+                    <div
+                        class="receiver"
+                        v-if="item.UserId != this.userInfor.id"
+                    >
+                        <div class="avt">
+                            <img :src="FriendInfor.avatar" alt="" />
+                        </div>
+                        <div class="content">
+                            <span>{{ item.message }}</span>
+                        </div>
                     </div>
-                    <div class="content">
-                        <span>Hello</span>
-                    </div>
-                </div>
-                <div class="line_chat">
-                    <div class="avt">
-                        <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
-                            alt=""
-                        />
-                    </div>
-                    <div class="content">
-                        <span
-                            >Hello1111111111111111111111111111111111111111111111111111111</span
-                        >
+                    <div class="sender" v-if="item.UserId == this.userInfor.id">
+                        <div class="content">
+                            <span>{{ item.message }}</span>
+                        </div>
+                        <div class="avt">
+                            <img :src="this.userInfor.avatar" alt="" />
+                        </div>
                     </div>
                 </div>
-                <div class="line_chat">
-                    <div class="avt">
-                        <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
-                            alt=""
-                        />
-                    </div>
-                    <div class="content">
-                        <span>Hello</span>
-                    </div>
-                </div>
-            </div> -->
+            </div>
             <div class="action_sender">
-                <form action="" method="post">
-                    <input type="text" /><button>
+                <form action="" method="post" v-on:submit.prevent="SendMessage">
+                    <input
+                        autocomplete="off"
+                        type="text"
+                        name="message"
+                    /><button>
                         <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </form>
             </div>
         </div>
-        <!-- <div class="list">
-            <div class="infor">
-                <div class="avt">
-                    <img
-                        style="width: 55px; height: 55px; border-radius: 100%"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
-                        alt=""
-                    />
-                </div>
-            </div>
-        </div> -->
     </div>
 </template>
 <style scoped>
 .chat {
-    position: fixed;
-    right: 0px;
-    bottom: 0px;
     display: flex;
 }
 .tabcontent ul {
@@ -124,6 +98,8 @@
 }
 .chat_content {
     padding: 3%;
+    max-height: 76%;
+    overflow-y: auto;
 }
 .chat_content .line_chat {
     display: flex;
@@ -132,14 +108,30 @@
 }
 .chat_content .line_chat .content {
     background-color: #fbfafc;
-    padding: 8px 10px 0px 10px;
+    padding: 8px 15px 0px 15px;
     border-radius: 20px;
     height: auto;
-    width: 80%;
+    width: 69%;
 }
 .chat_content .line_chat .content span {
     /* line-height: 30px; */
     word-wrap: break-word;
+}
+.receiver {
+    display: flex;
+    /* justify-content: flex-end; */
+    width: 100%;
+    gap: 10px;
+}
+.sender {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 10px;
+}
+.sender .content {
+    background: linear-gradient(135deg, #c395f1 0%, #8224e3 75%);
+    color: white;
 }
 .windown {
     width: 355px;
@@ -220,6 +212,9 @@
 <script>
 import $ from "jquery";
 import { GetUserProfile } from "../../services/Users";
+import { Calling } from "../../services/ActionServices/BeehiveCall";
+import { GetChatDetail, SendMessage } from "../../services/Chat";
+import "../../services/ActionServices/BeehiveCall";
 export default {
     props: {
         FriendId: Number,
@@ -228,12 +223,34 @@ export default {
     data() {
         return {
             FriendInfor: "",
+            ChatDetail: [],
+            RoomId: "",
         };
     },
-    created(){
-      this.GetFriend();
+    created() {
+        this.GetFriend();
     },
     methods: {
+        SendMessage(e) {
+            var message = e.target.message.value;
+            var data = {
+                UserId: this.userInfor.id,
+                ToUser: this.FriendId,
+                RoomId: this.RoomId,
+                message: message,
+                type: 0,
+            };
+            this.ChatDetail.push(data);
+            SendMessage(data)
+                .then(function (res) {
+                    $(".chat_content").scrollTop(
+                        $(".chat_content").height() + 500
+                    );
+                })
+                .catch(function (res) {
+                    console.log(res.request.response);
+                });
+        },
         async GetFriend() {
             this.FriendInfor = await GetUserProfile(this.FriendId).then(
                 function (res) {
@@ -241,29 +258,48 @@ export default {
                     return data;
                 }
             );
-            console.log(this.FriendInfor);
+        },
+        VideoCall() {
+            const id = this.userInfor.id;
+            Calling(id, this.FriendId);
         },
     },
-    mounted() {
+    async mounted() {
+        if (this.FriendId != null) {
+            this.ChatDetail = await GetChatDetail(this.FriendId).then(function (
+                res
+            ) {
+                const { data } = res;
+                return data;
+            });
+            this.RoomId = this.ChatDetail[0].RoomId;
+            $(document).ready(function () {
+                $(".chat_content").scrollTop($(".chat_content").height() + 500);
+            });
+        }
+
+        const user = JSON.parse(localStorage.getItem("user"));
+        var VueThis = this;
+        window.Echo.channel("channelchat" + user.id).listen(
+            "ChatEvent",
+            function (res) {
+                VueThis.ChatDetail.push(res);
+                $(document).ready(function () {
+                    $(".chat_content").scrollTop(
+                        $(".chat_content").height() + 500
+                    );
+                });
+            }
+        );
+
         $(".chat .close").click(function () {
-            $(".windown").hide();
-            $(".chat .list").append(
-                `
-            <div class="infor">
-                <div class="avt">
-                    <img
-                        style="width: 55px; height: 55px; border-radius: 100%;"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
-                        alt=""
-                    />
-                </div>
-            </div>`
-            );
+            $(".windown").hide()
         });
-        $(".chat .list .infor").click(function () {
-            $(this).hide();
-            $(".windown").show();
-        });
+
+        // $(".chat .list .infor").click(function () {
+        //     $(this).hide();
+        //     $(".windown").show();
+        // });
     },
 };
 </script>

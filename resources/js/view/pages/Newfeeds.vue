@@ -182,8 +182,11 @@ import Post from "../components/Post.vue";
 import $ from "jquery";
 export default {
     setup() {},
-    components:{
-      Post
+    props: {
+        dataTab: Array,
+    },
+    components: {
+        Post,
     },
     mounted() {
         $(".more-desc").click(function () {
@@ -196,6 +199,20 @@ export default {
             $(this).hide();
             $(this).parent().find(".more-desc").show();
         });
+        this.$emit("update:dataTab", [
+            {
+                name: "Newfeeds",
+                path: "Newfeeds",
+            },
+            {
+                name: "Posts",
+                path: "Posts",
+            },
+            {
+                name: "Photos",
+                path: "Photos",
+            },
+        ]);
     },
 };
 </script>

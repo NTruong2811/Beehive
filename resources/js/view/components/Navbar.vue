@@ -6,9 +6,11 @@
             </router-link>
         </div>
         <ul>
-            <li class="">
-                <i class="fa-solid fa-signs-post"></i>
-            </li>
+            <router-link to="/">
+                <li class="">
+                    <i class="fa-solid fa-signs-post"></i>
+                </li>
+            </router-link>
             <li>
                 <i class="fa-solid fa-newspaper"></i>
             </li>
@@ -16,12 +18,14 @@
                 <i class="fa-solid fa-users"></i>
             </li>
             <li><i class="fa-solid fa-shop"></i></li>
-            <li>
-                <i class="fa-solid fa-forward-step"></i>
-            </li>
+            <router-link to="/media">
+                <li>
+                    <i class="fa-solid fa-forward-step"></i>
+                </li>
+            </router-link>
         </ul>
         <div class="user">
-            <a :href="'/profile?id=' + this.userInfor.id" >
+            <a :href="'/profile?id=' + this.userInfor.id">
                 <div class="avt">
                     <img src="/images/profile_avatar.jpg" alt="" />
                 </div>
@@ -30,6 +34,9 @@
     </div>
 </template>
 <style scoped>
+a {
+    color: #4f5261bb;
+}
 .beehive-navbar {
     position: relative;
     width: inherit;
@@ -99,6 +106,9 @@ ul .active {
     display: flex;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+ul .active a {
+    color: white;
 }
 ul .active i {
     margin: auto;

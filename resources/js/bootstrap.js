@@ -57,7 +57,6 @@ if (user != null && user.id == IdUserCurentPage) {
             var { data } = res;
             var Base64Notifi = localStorage.getItem("notification");
             var LocalNotifi = JSON.parse(Base64.decode(Base64Notifi));
-            console.log(LocalNotifi);
             LocalNotifi.map(function (item) {
                 if (item.name == "AddFriend") {
                     item.data.push(data);

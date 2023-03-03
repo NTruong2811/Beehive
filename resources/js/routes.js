@@ -1,14 +1,14 @@
 import layout from "./view/layout/layout";
 import Newfeeds from "./view/pages/Newfeeds";
+import Media from "./view/pages/Media";
 import Login from "./view/pages/Login";
 import Register from "./view/pages/Register";
 import Profile from "./view/pages/Profile";
 import FriendShip from "./view/components/FriendsShip";
 import FriendList from "./view/components/friends/FriendList";
 import NewFriend from "./view/components/friends/NewFriend";
-
 import Activity from "./view/components/Activity";
-
+import Call from "./view/pages/Call";
 const routes = [
     {
         path: "/",
@@ -17,6 +17,10 @@ const routes = [
             {
                 path: "/",
                 component: Newfeeds,
+            },
+            {
+                path: "/media",
+                component: Media,
             },
         ],
         meta: { AppProduct: true },
@@ -31,6 +35,11 @@ const routes = [
         path: "/register",
         component: Register,
         meta: { Auth: true },
+    },
+    {
+        path: "/call",
+        component: Call,
+        meta: { AppProduct: true },
     },
     {
         path: "/profile",

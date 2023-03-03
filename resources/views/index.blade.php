@@ -26,7 +26,8 @@
             margin: 0px !important;
             padding: 0px !important;
         }
-/* 
+
+        /*
         #app {
             display: grid;
             grid-template-columns: 80px 1fr;
@@ -60,11 +61,122 @@
         }
 
         /* Handle on hover */
+        #calling {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+        }
+
+        #calling.show {
+            visibility: visible;
+            animation: fadein 0.5s;
+        }
+
+        #calling .action {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #calling .img {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            overflow: hidden;
+        }
+
+        #calling img {
+            width: 100%;
+            border-radius: 100%
+        }
+
+        #calling .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        #calling .icon .yes {
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            background-color: #2ED573;
+            margin: auto;
+            border-radius: 100%;
+            padding-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #calling .icon .no {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: #FF0000;
+            margin: auto;
+            border-radius: 100%;
+            padding-top: 4px;
+        }
+
+        @-webkit-keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        /* @-webkit-keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        } */
+
     </style>
 </head>
 
+
 <body>
     <div id="app"></div>
+    <div id="calling" class="">
+        <div class="action">
+            <div class="img">
+                <img src="/images/avt1.png" alt="">
+            </div>
+            <div class="icon">
+                <div class="yes">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="no">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="{{ mix('js/app.js') }}"></script>
 <script src="/js/global.js"></script>

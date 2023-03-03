@@ -1,5 +1,5 @@
 <template>
-    <div class="item">
+    <div class="item" :data-video="VideoDetail.src">
         <div class="avt">
             <img
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
@@ -63,104 +63,10 @@
                             </div>
                         </span>
                     </div>
-                    <div class="media">
-                        <ul>
-                            <li>
-                                <img
-                                    src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/4/2022/12/woman-wearing-white-knitted-dress-709790-1-800x1200-2-450x320.jpg"
-                                    alt=""
-                                />
-                            </li>
-                            <li>
-                                <img
-                                    src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/4/2022/12/woman-wearing-white-knitted-dress-709790-1-800x1200-2-450x320.jpg"
-                                    alt=""
-                                />
-                            </li>
-                            <li>
-                                <img
-                                    src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/4/2022/12/woman-wearing-white-knitted-dress-709790-1-800x1200-2-450x320.jpg"
-                                    alt=""
-                                />
-                            </li>
-                            <li>
-                                <img
-                                    src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/4/2022/12/woman-wearing-white-knitted-dress-709790-1-800x1200-2-450x320.jpg"
-                                    alt=""
-                                />
-                            </li>
-                            <li>
-                                <img
-                                    src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/4/2022/12/woman-wearing-white-knitted-dress-709790-1-800x1200-2-450x320.jpg"
-                                    alt=""
-                                />
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="action">
-                        <ul>
-                            <li>
-                                <i class="fa-solid fa-heart"></i
-                                ><span>Liked </span>
-                                <div class="quantity">12</div>
-                            </li>
-                            <li>
-                                <span>Comments</span>
-                                <div class="quantity">1</div>
-                            </li>
-                            <li>Share +</li>
-                        </ul>
-                    </div>
-
-                    <div class="comments-list">
-                        <ul>
-                            <li class="item-cmt">
-                                <div class="avt">
-                                    <img
-                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="item-cmt-content">
-                                    <div class="item-cmt-header">
-                                        <div class="rep-by">
-                                            <span>
-                                                <strong>Irina Petrova</strong>
-                                                replied</span
-                                            >
-
-                                            <span class="time"
-                                                >4 weeks ago</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="comment">
-                                        <div class="text">
-                                            <span>Hello</span>
-                                        </div>
-                                        <ul>
-                                            <li>Reply</li>
-                                            <!-- <li>
-                                                            <i
-                                                                class="fa-solid fa-heart"
-                                                            ></i
-                                                            ><span>Liked</span>
-                                                        </li> -->
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="post-comment">
-                            <img class="avt" src="" alt="" />
-                            <input
-                                type="text"
-                                placeholder="Write some thing..."
-                            />
-                            <i class="fa-solid fa-paper-plane"></i>
-                        </div>
-                    </div>
                 </div>
+            </div>
+            <div class="item-video">
+                <video :src="VideoDetail.src" controls loop></video>
             </div>
         </div>
     </div>
@@ -178,12 +84,13 @@ ul {
 li {
     list-style: none;
 }
- .item {
+.item {
     display: flex;
     padding: 20px 0px;
     position: relative;
+    margin: 10px 0px;
 }
- .item::before {
+.item::before {
     content: "";
     width: 2px;
     height: 100%;
@@ -192,58 +99,58 @@ li {
     top: 65px;
     left: 22px;
 }
- .item .avt img {
+.item .avt img {
     width: 45px;
     height: 45px;
     border-radius: 100%;
     z-index: 100;
 }
- .item .content {
+.item .content {
     padding: 0px 20px;
 }
- .item .item-header .meta {
+.item .item-header .meta {
     display: flex;
     font-size: 15px;
 }
- .item .item-header .meta strong {
+.item .item-header .meta strong {
     font-weight: 600;
 }
- .item .item-header {
+.item .item-header {
     display: flex;
     justify-content: space-between;
 }
- .item .item-header .meta .time {
+.item .item-header .meta .time {
     font-size: 13px;
     color: rgba(0, 0, 0, 0.363);
 }
- .item .item-content {
+.item .item-content {
     margin: 15px 0px;
 }
- .item .item-content .description {
+.item .item-content .description {
     font-size: 15px;
 }
- .item .item-content .media ul {
+.item .item-content .media ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 15px;
     margin-top: 15px;
     width: 100%;
 }
- .item .item-content .media ul li {
+.item .item-content .media ul li {
     width: 100%;
     cursor: pointer;
 }
- .item .item-content .media ul li:first-child {
+.item .item-content .media ul li:first-child {
     grid-column-start: 1;
     grid-column-end: 4;
 }
- .item .item-content .media ul li img {
+.item .item-content .media ul li img {
     width: 100%;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
         rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
- .item .item-content .action ul {
+.item .item-content .action ul {
     margin: 15px 0px;
     display: flex;
     gap: 20px;
@@ -252,17 +159,17 @@ li {
     border-right: 0px;
     padding: 15px 0px;
 }
- .item .item-content .action ul li {
+.item .item-content .action ul li {
     display: flex;
     gap: 8px;
     color: #4f5261d7;
 }
- .item .item-content .action ul li .quantity {
+.item .item-content .action ul li .quantity {
     background-color: #4f52611c;
     padding: 0px 5px;
     border-radius: 100%;
 }
- .item .item-content .action ul li i {
+.item .item-content .action ul li i {
     margin-top: 2px;
 }
 .item-cmt {
@@ -332,15 +239,27 @@ li {
     top: 20%;
     transform: translate(-50%, 50%);
 }
+.item-video {
+    width: 100%;
+    overflow: hidden;
+}
+.item-video video {
+    max-width: 100%;
+    height: 500px;
+    cursor: pointer;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
 </style>
 
 <script>
-import $ from 'jquery'
+import $ from "jquery";
 export default {
-    setup() {
-        
+    setup() {},
+    props: {
+        VideoDetail: Object,
     },
-    mounted(){
+    mounted() {
         $(".more-desc").click(function () {
             $(this).next().show();
             $(this).hide();
@@ -351,6 +270,20 @@ export default {
             $(this).hide();
             $(this).parent().find(".more-desc").show();
         });
-    }
-}
+        var VueThis = this;
+        var observer = new IntersectionObserver(
+            function (entries, observer) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        $("[src='" + VueThis.VideoDetail.src + "']")[0].play();
+                    } else {
+                        $("[src='" + VueThis.VideoDetail.src + "']")[0].pause();
+                    }
+                });
+            },
+            { threshold: 0, rootMargin: "-350px 0px" }
+        );
+        observer.observe($("[data-video='" + this.VideoDetail.src + "']")[0]);
+    },
+};
 </script>

@@ -49,8 +49,23 @@
             </div>
         </div>
     </div>
-    <div class="chat_list" >
-        <Chat :FriendId="FriendId" :key="FriendId"></Chat>
+    <div class="chat_list">
+        <Chat
+            :FriendId="FriendId"
+            @ChatAction="ChatAction"
+            :key="FriendId"
+        ></Chat>
+        <div class="list">
+            <div class="infor" v-for="item in ListChat" :key="item">
+                <div class="avt">
+                    <img
+                        style="width: 55px; height: 55px; border-radius: 100%"
+                        :src="item.avatar"
+                        alt=""
+                    />
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <style>
@@ -120,10 +135,29 @@
     margin: 5px !important;
     cursor: pointer;
 }
+.chat_list {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    display: flex;
+}
+.chat_list .list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 10px;
+}
+.chat .list .avt img {
+    width: 55px;
+    height: 55px;
+}
+.infor{
+    margin: 5px 0px;
+}
 </style>
 
 <script>
-import { ListFriend,GetUserProfile } from "../../services/Users";
+import { ListFriend, GetUserProfile } from "../../services/Users";
 import Chat from "./Chat.vue";
 export default {
     components: {
@@ -134,6 +168,7 @@ export default {
         return {
             Friends: [],
             FriendId: null,
+            ListChat: [],
         };
     },
     created() {
@@ -152,9 +187,10 @@ export default {
         OpenChat(id) {
             this.FriendId = id;
         },
+        ChatAction(DataEvent) {
+           this.ListChat.fi
+        },
     },
-    mounted() {
-
-    },
+    mounted() {},
 };
 </script>
