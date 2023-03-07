@@ -6,4 +6,3 @@ window.Echo.channel("channelchat" + user.id).listen(
         console.log(res);
     }
 );
-console.log(user);

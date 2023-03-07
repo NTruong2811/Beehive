@@ -1,44 +1,40 @@
 <template>
     <div class="forms">
         <div class="post-new">
-            <form action="" method="post">
+            <form
+                action=""
+                method="post"
+                @submit.prevent="PostNew"
+                id="PostNew"
+            >
                 <div class="show">
-                    <img
-                        class="avt"
-                        src=""
-                        alt=""
-                    />
+                    <img class="avt" :src="user.avatar" alt="" />
                     <input type="text" placeholder="What's new, NTruong?" />
                 </div>
                 <div class="content">
-                    <div class="write">
-                        <img
-                            class="avt"
-                            src=""
-                            alt=""
-                        />
-                        <textarea
-                            placeholder="What's new, NTruong?"
-                            name=""
-                            id=""
-                            cols="30"
-                            rows="5"
-                            autofocus
-                        ></textarea>
-                    </div>
-                    <div class="files">
-                        <!-- <i class="fa-solid fa-file"></i> <span></span> -->
+                    <div class="post_type">
+                        <PostFrom
+                            v-if="CurrentType == 1"
+                            :user="user"
+                        ></PostFrom>
+                        <MucsicForm
+                            v-if="CurrentType == 3"
+                            :user="user"
+                        ></MucsicForm>
                     </div>
                     <div class="choise">
-                        <select name="" id="">
-                            <option value="">Post in: Profile</option>
-                            <option value="">Post in: Photo</option>
-                            <option value="">Post in: Watch</option>
-                            <option value="">Post in: Shop</option>
+                        <select name="type_post" id="" @change="ChangeType">
+                            <option
+                                v-for="item in ListTypePost"
+                                :key="item"
+                                :value="item.id"
+                            >
+                                Post in: {{ item.name }}
+                            </option>
                         </select>
                         <div class="button">
                             <span class="cancel">Cancel</span>
-                            <button>Post Update</button>
+                            <button type="submit">Post Update</button>
                         </div>
                     </div>
                 </div>
@@ -50,6 +46,9 @@
 .forms .post-new img {
     width: 50px;
     height: 50px;
+}
+.avt {
+    border-radius: 100%;
 }
 .forms .post-new form {
     width: 100%;
@@ -77,23 +76,6 @@
     font-size: 13px;
     height: 40px;
     margin-top: 5px;
-}
-.forms .post-new form .avt {
-    border-radius: 100%;
-}
-.forms .post-new form .write {
-    display: flex;
-    border-bottom: 1px solid;
-    border-color: #e7edf2;
-}
-.forms .post-new form textarea {
-    width: 100%;
-    border: 0px;
-    margin-left: 10px;
-    outline: none;
-    resize: none;
-    padding: 0px 2%;
-    font-size: 13px;
 }
 .forms .post-new form .choise {
     margin-top: 2%;
@@ -148,13 +130,77 @@ select::-ms-expand {
 
 <script>
 import $ from "jquery";
+import { GetTypePost, UpdatePost } from "../../services/Post";
+import PostFrom from "./Form/PostForm.vue";
+import MucsicForm from "./Form/MusicForm.vue";
+import axios from "axios";
+
 export default {
+    components: {
+        PostFrom,
+        MucsicForm,
+    },
     setup() {},
+    data() {
+        return {
+            user: this.userInfor,
+            ListTypePost: null,
+            CurrentType: 3,
+        };
+    },
+    created() {
+        this.TypePost();
+    },
+    methods: {
+        async TypePost() {
+            this.ListTypePost = await GetTypePost().then(function (res) {
+                const { data } = res.data;
+                return data;
+            });
+        },
+        ChangeType(e) {
+            this.CurrentType = e.target.value;
+        },
+        PostNew(e) {
+            // this.ValidateForm("PostNew");
+            if (this.CurrentType == 3) {
+                // const song_file = this.LoadFile(e.target.song_file.files[0], 2);
+                // const image_file = this.LoadFile(
+                //     e.target.song_image.files[0],
+                //     1
+                // );
+                const song_file = e.target.song_file.files[0];
+                const image_file = e.target.song_image.files[0];
+
+                var data = {
+                    user_id: this.userInfor.id,
+                    type_postId: this.CurrentType,
+                    description: e.target.description.value,
+                    song_name: e.target.song_name.value,
+                    song_artist: e.target.song_artist.value,
+                    song_file: song_file,
+                    image_file: image_file,
+                };
+                const formData = new FormData();
+
+                formData.append("user_id", this.userInfor.id);
+                formData.append("type_postId", this.CurrentType);
+                formData.append("description", e.target.description.value);
+                formData.append("song_name", e.target.song_name.value);
+                formData.append("song_artist", e.target.song_artist.value);
+                formData.append("song_file", e.target.song_file.files[0]);
+                formData.append("image_file", e.target.song_image.files[0]);
+                UpdatePost(formData).then(function (res) {
+                    console.log(res.data);
+                });
+            }
+        },
+    },
     mounted() {
         $(".forms .show input").click(function () {
             $(".forms .content").show();
             $(".forms .show").hide();
-            $(".forms .content").find('textarea').focus();
+            $(".forms .content").find("textarea").focus();
         });
         $(".cancel").click(function () {
             $(".forms .content").hide();

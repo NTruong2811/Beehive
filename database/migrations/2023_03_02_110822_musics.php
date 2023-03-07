@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('musics', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->unsignedBigInteger('post_id');
             $table->foreign('post_id')->references('id')->on('posts');
+            $table->string('image');
             $table->string('song_name');
             $table->string('song_artist');
             $table->string('src');
