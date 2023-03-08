@@ -1,12 +1,13 @@
 import "./bootstrap";
 
-import { createApp } from "vue";
+import { createApp, reactive } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import routes from "./routes";
 import App from "./App.vue";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import toastr from "toastr";
+import "toastr/build/toastr.css";
 import "./services/ActionServices/BeehiveCall";
 import "./services/ActionServices/Chat";
 import { GetTypeNotifi } from "./services/Notification";
@@ -18,6 +19,8 @@ const router = createRouter({
 });
 
 const app = createApp(App);
+
+const bus = reactive({ data: null });
 
 // Global variable
 app.config.globalProperties.userInfor = JSON.parse(
@@ -80,7 +83,6 @@ app.config.globalProperties.FileName = (FileElement) => {
         $("#" + FileElement)[0].innerText = $(this)[0].files[0].name;
     });
 };
-
 app.config.globalProperties.ValidateForm = (formId) => {
     let form = $(formId);
     console.log(form);
@@ -90,7 +92,9 @@ app.config.globalProperties.ValidateForm = (formId) => {
     form.find("input").each(function () {
         if ($(this).val() === "") {
             isValid = false;
-            $(this).after('<i class="fas fa-exclamation-triangle error-icon"></i>');
+            $(this).after(
+                '<i class="fas fa-exclamation-triangle error-icon"></i>'
+            );
         } else {
             $(this).removeClass("error-icon");
         }
@@ -118,6 +122,8 @@ app.config.globalProperties.ValidateForm = (formId) => {
 
     return isValid;
 };
+
+app.config.globalProperties.$toastr = toastr;
 
 app.use(router);
 app.mount("#app");

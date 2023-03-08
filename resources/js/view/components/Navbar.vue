@@ -18,7 +18,7 @@
                 <i class="fa-solid fa-users"></i>
             </li>
             <li><i class="fa-solid fa-shop"></i></li>
-            <router-link to="/media">
+            <router-link to="/watch">
                 <li>
                     <i class="fa-solid fa-forward-step"></i>
                 </li>

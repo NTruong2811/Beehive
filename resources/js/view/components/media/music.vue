@@ -1,21 +1,18 @@
 <template>
-    <div class="item" :data-music="MusicDetail.src">
+    <div class="item" :data-music="MusicDetail.music.src">
         <div class="avt">
-            <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
-                alt=""
-            />
+            <img :src="MusicDetail.user.avatar" alt="" />
         </div>
         <div class="content">
             <div class="item-header">
                 <div class="meta">
                     <div class="post-by">
                         <span>
-                            <strong>Irina Petrova</strong>
+                            <strong>{{ MusicDetail.user.name }}</strong>
                             posted an update</span
                         >
                         <br />
-                        <span class="time">4 weeks ago</span>
+                        <span class="time">{{ MusicDetail.created_at }}</span>
                     </div>
                 </div>
                 <div class="options">
@@ -27,6 +24,7 @@
                     <div class="description">
                         <span>
                             <div class="short-desc">
+                                {{ MusicDetail.description }}
                                 At vero eos et accusamus et iusto odio
                                 dignissimos ducimus qui blanditiis praesentium
                                 voluptatum deleniti atque corrupti quos dolores
@@ -69,21 +67,27 @@
                 <div class="music-player">
                     <div class="music-info">
                         <div class="album-art">
-                            <img :src="MusicDetail.album" alt="Album Art" />
+                            <img
+                                :src="MusicDetail.music.image"
+                                alt="Album Art"
+                            />
                         </div>
                         <div class="song-details">
                             <h2 class="song-title">
-                                {{ MusicDetail.SongName }}
+                                {{ MusicDetail.music.song_name }}
                             </h2>
                             <p class="artist-name">
-                                {{ MusicDetail.SongArtist }}
+                                {{ MusicDetail.music.song_artist }}
                             </p>
                         </div>
                     </div>
                     <div class="player-controls">
                         <audio controls>
                             <!-- <source src="horse.ogg" type="audio/ogg" /> -->
-                            <source :src="MusicDetail.src" type="audio/mpeg" />
+                            <source
+                                :src="MusicDetail.music.src"
+                                type="audio/mpeg"
+                            />
                             Your browser does not support the audio element.
                         </audio>
                     </div>
@@ -106,6 +110,7 @@ li {
     list-style: none;
 }
 .item {
+    width: 100%;
     display: flex;
     padding: 20px 0px;
     position: relative;
@@ -127,6 +132,7 @@ li {
     z-index: 100;
 }
 .item .content {
+    width: 100%;
     padding: 0px 20px;
 }
 .item .item-header .meta {
@@ -305,7 +311,7 @@ export default {
             function (entries, observer) {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
-                            $(entry.target).find("audio")[0].play();
+                        $(entry.target).find("audio")[0].play();
                     } else {
                         $(entry.target).find("audio")[0].pause();
                     }
@@ -313,7 +319,9 @@ export default {
             },
             { threshold: 0, rootMargin: "-350px 0px" }
         );
-        observer.observe($("[data-music='" + this.MusicDetail.src + "']")[0]);
+        observer.observe(
+            $("[data-music='" + this.MusicDetail.music.src + "']")[0]
+        );
     },
 };
 </script>

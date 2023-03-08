@@ -1,21 +1,18 @@
 <template>
-    <div class="item" :data-video="VideoDetail.src">
+    <div class="item" :data-video="VideoDetail.video.src">
         <div class="avt">
-            <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
-                alt=""
-            />
+            <img :src="VideoDetail.user.avatar" alt="" />
         </div>
         <div class="content">
             <div class="item-header">
                 <div class="meta">
                     <div class="post-by">
                         <span>
-                            <strong>Irina Petrova</strong>
+                            <strong>{{ VideoDetail.user.name }}</strong>
                             posted an update</span
                         >
                         <br />
-                        <span class="time">4 weeks ago</span>
+                        <span class="time">{{ VideoDetail.created_at }}</span>
                     </div>
                 </div>
                 <div class="options">
@@ -66,12 +63,15 @@
                 </div>
             </div>
             <div class="item-video">
-                <video :src="VideoDetail.src" controls loop></video>
+                <video :src="VideoDetail.video.src" controls loop></video>
             </div>
         </div>
     </div>
 </template>
 <style scoped>
+video::-webkit-media-controls-fullscreen-button {
+    display: none;
+}
 .more-desc,
 .hide-desc {
     color: #8224e3;
@@ -275,15 +275,21 @@ export default {
             function (entries, observer) {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
-                        $("[src='" + VueThis.VideoDetail.src + "']")[0].play();
+                        $(
+                            "[src='" + VueThis.VideoDetail.video.src + "']"
+                        )[0].play();
                     } else {
-                        $("[src='" + VueThis.VideoDetail.src + "']")[0].pause();
+                        $(
+                            "[src='" + VueThis.VideoDetail.video.src + "']"
+                        )[0].pause();
                     }
                 });
             },
             { threshold: 0, rootMargin: "-350px 0px" }
         );
-        observer.observe($("[data-video='" + this.VideoDetail.src + "']")[0]);
+        observer.observe(
+            $("[data-video='" + this.VideoDetail.video.src + "']")[0]
+        );
     },
 };
 </script>

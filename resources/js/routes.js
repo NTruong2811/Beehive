@@ -1,6 +1,6 @@
 import layout from "./view/layout/layout";
 import Newfeeds from "./view/pages/Newfeeds";
-import Media from "./view/pages/Media";
+import Watch from "./view/pages/Watch";
 import Login from "./view/pages/Login";
 import Register from "./view/pages/Register";
 import Profile from "./view/pages/Profile";
@@ -19,8 +19,8 @@ const routes = [
                 component: Newfeeds,
             },
             {
-                path: "/media",
-                component: Media,
+                path: "/watch",
+                component: Watch,
             },
         ],
         meta: { AppProduct: true },

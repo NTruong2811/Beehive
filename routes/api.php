@@ -6,6 +6,7 @@ use App\Http\Controllers\GlobalActionController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\WatchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,5 +54,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/post')->group(function () {
         Route::get('/get-type-post', [PostController::class, 'GetTypePost'])->name('GetTypePost');
         Route::post('/update-post', [PostController::class, 'UpdatePost'])->name('UpdatePost');
+    });
+    Route::prefix('/watch')->group(function () {
+        Route::get('/', [WatchController::class, 'Watch'])->name('Watch');
+        // Route::post('/update-post', [PostController::class, 'UpdatePost'])->name('UpdatePost');
     });
 });

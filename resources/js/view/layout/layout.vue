@@ -13,7 +13,6 @@
                     <div class="col-9">
                         <div class="beehive-main">
                             <FormLayout></FormLayout>
-                            <TabContents :dataTab="TabContents"></TabContents>
                             <router-view :dataTab="TabContents"></router-view>
                         </div>
                     </div>

@@ -17,4 +17,8 @@ class users extends Model
         'gender',
         'password'
     ];
+    public function post()
+    {
+        return $this->hasMany(posts::class);
+    }
 }

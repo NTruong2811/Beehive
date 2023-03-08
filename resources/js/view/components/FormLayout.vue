@@ -21,6 +21,10 @@
                             v-if="CurrentType == 3"
                             :user="user"
                         ></MucsicForm>
+                        <VideoForm
+                            v-if="CurrentType == 2"
+                            :user="user"
+                        ></VideoForm>
                     </div>
                     <div class="choise">
                         <select name="type_post" id="" @change="ChangeType">
@@ -111,16 +115,15 @@ select::-ms-expand {
     margin: 0px 4%;
 }
 .forms .post-new form .choise button {
-    background-color: #8224e3;
     background-image: linear-gradient(
         90deg,
         #8224e3 0,
         #a968ec 50%,
         #8224e3 100%
     );
-    box-shadow: 0 1px 2px 0 rgb(130 36 227 / 50%);
-    color: #fff;
     border: 0px;
+    box-shadow: 0 1px 2px 0 rgb(130 36 227 / 50%);
+    color: white;
     font-size: 12px;
     outline: none;
     padding: 2% 10%;
@@ -133,19 +136,20 @@ import $ from "jquery";
 import { GetTypePost, UpdatePost } from "../../services/Post";
 import PostFrom from "./Form/PostForm.vue";
 import MucsicForm from "./Form/MusicForm.vue";
-import axios from "axios";
-
+import VideoForm from "./Form/VideoForm.vue";
+import emitter from "../../services/changeData";
 export default {
     components: {
         PostFrom,
         MucsicForm,
+        VideoForm,
     },
     setup() {},
     data() {
         return {
             user: this.userInfor,
             ListTypePost: null,
-            CurrentType: 3,
+            CurrentType: 1,
         };
     },
     created() {
@@ -162,41 +166,52 @@ export default {
             this.CurrentType = e.target.value;
         },
         PostNew(e) {
-            // this.ValidateForm("PostNew");
+            const formData = new FormData();
             if (this.CurrentType == 3) {
-                // const song_file = this.LoadFile(e.target.song_file.files[0], 2);
-                // const image_file = this.LoadFile(
-                //     e.target.song_image.files[0],
-                //     1
-                // );
-                const song_file = e.target.song_file.files[0];
-                const image_file = e.target.song_image.files[0];
-
-                var data = {
-                    user_id: this.userInfor.id,
-                    type_postId: this.CurrentType,
-                    description: e.target.description.value,
-                    song_name: e.target.song_name.value,
-                    song_artist: e.target.song_artist.value,
-                    song_file: song_file,
-                    image_file: image_file,
-                };
-                const formData = new FormData();
-
+                const song_file = this.LoadFile(e.target.song_file.files[0], 2);
+                const image_file = this.LoadFile(
+                    e.target.song_image.files[0],
+                    1
+                );
                 formData.append("user_id", this.userInfor.id);
                 formData.append("type_postId", this.CurrentType);
                 formData.append("description", e.target.description.value);
                 formData.append("song_name", e.target.song_name.value);
                 formData.append("song_artist", e.target.song_artist.value);
-                formData.append("song_file", e.target.song_file.files[0]);
-                formData.append("image_file", e.target.song_image.files[0]);
-                UpdatePost(formData).then(function (res) {
-                    console.log(res.data);
-                });
+                formData.append("song_file", song_file);
+                formData.append("image_file", image_file);
+                console.log(e.target);
+            } else if (this.CurrentType == 2) {
+                const video_file = this.LoadFile(
+                    e.target.video_file.files[0],
+                    3
+                );
+                formData.append("user_id", this.userInfor.id);
+                formData.append("type_postId", this.CurrentType);
+                formData.append("description", e.target.description.value);
+                formData.append("video_file", video_file);
             }
+            UpdatePost(formData)
+                .then(function (res) {
+                    emitter.emit("update", res.data);
+                })
+                .catch((err) => {
+                    console.log(err.request.response);
+                });
+            $("#PostNew")[0].reset();
+        },
+        ValidateForm() {
+            let isValid = 0;
+            $(".post_type input").each(function () {
+                if ($(this).val().length == 0) {
+                    isValid += 1;
+                }
+            });
+            return isValid;
         },
     },
     mounted() {
+        console.log($("#PostNew")[0]);
         $(".forms .show input").click(function () {
             $(".forms .content").show();
             $(".forms .show").hide();
