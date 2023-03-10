@@ -12,9 +12,8 @@
                 <div class="row beehive-content">
                     <div class="col-9">
                         <div class="beehive-main">
-                            <Forms></Forms>
-                            <TabContents :dataTab="TabContents"></TabContents>
-                            <router-view></router-view>
+                            <FormLayout></FormLayout>
+                            <router-view :dataTab="TabContents"></router-view>
                         </div>
                     </div>
                     <div class="col-3 beehive-sidebar" style="height: 100vh">
@@ -50,7 +49,7 @@
 import Navbar from "../components/Navbar.vue";
 import Headmain from "../components/Head.vue";
 import Sidebar from "../components/Sidebar.vue";
-import Forms from "../components/Forms.vue";
+import FormLayout from "../components/FormLayout.vue";
 import TabContents from "../components/TabContents.vue";
 import Chat from "../components/Chat.vue";
 import $ from "jquery";
@@ -59,27 +58,14 @@ export default {
     setup() {},
     data() {
         return {
-            TabContents: [
-                {
-                    name: "Newfeeds",
-                    path: "Newfeeds",
-                },
-                {
-                    name: "Posts",
-                    path: "Posts",
-                },
-                {
-                    name: "Photos",
-                    path: "Photos",
-                },
-            ],
+            TabContents: [],
         };
     },
     components: {
         Navbar,
         Headmain,
         Sidebar,
-        Forms,
+        FormLayout,
         TabContents,
         Chat,
     },

@@ -49,7 +49,6 @@ export default {
                     console.log(err);
                 });
             this.isLoading = false;
-            console.log(this.Friends);
         },
     },
 };

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\AddFriendEvent;
+use App\Events\BeehiveCallAnswer;
+use App\Events\BeehiveCallOffer;
 use App\Models\Friendship;
 use App\Models\users;
 use Illuminate\Http\Request;
@@ -97,5 +99,15 @@ class UsersController extends Controller
                 'status' => 1
             ], 200);
         }
+    }
+
+    public function CallOffer(Request $request)
+    {
+        BeehiveCallOffer::dispatch($request);
+    }
+    public function CallAnswer(Request $request)
+    {
+        // return $request->all();
+        BeehiveCallAnswer::dispatch($request);
     }
 }

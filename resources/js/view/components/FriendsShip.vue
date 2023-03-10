@@ -53,13 +53,11 @@
 </style>
 <script>
 import { ListFriend } from "../../services/Users";
-import Forms from "./Forms.vue";
 import TabContents from "./TabContents.vue";
 import Card from "./Card.vue";
 export default {
     setup() {},
     components: {
-        Forms,
         TabContents,
         Card,
     },

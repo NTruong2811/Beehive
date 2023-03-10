@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('type_notification', function (Blueprint $table) {
-            $table->string('page_url');
+        Schema::table('musics', function (Blueprint $table) {
+            $table->string('image')->after('post_id');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('type_notification', function (Blueprint $table) {
-            $table->dropColumn('page_url');
+        Schema::table('musics', function (Blueprint $table) {
+            $table->dropColumn('name');
         });
     }
 };

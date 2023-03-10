@@ -182,8 +182,11 @@ import Post from "../components/Post.vue";
 import $ from "jquery";
 export default {
     setup() {},
-    components:{
-      Post
+    props: {
+        dataTab: Array,
+    },
+    components: {
+        Post,
     },
     mounted() {
         $(".more-desc").click(function () {

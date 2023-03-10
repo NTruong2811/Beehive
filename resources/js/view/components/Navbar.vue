@@ -6,9 +6,11 @@
             </router-link>
         </div>
         <ul>
-            <li class="">
-                <i class="fa-solid fa-signs-post"></i>
-            </li>
+            <router-link to="/">
+                <li class="">
+                    <i class="fa-solid fa-signs-post"></i>
+                </li>
+            </router-link>
             <li>
                 <i class="fa-solid fa-newspaper"></i>
             </li>
@@ -16,12 +18,17 @@
                 <i class="fa-solid fa-users"></i>
             </li>
             <li><i class="fa-solid fa-shop"></i></li>
-            <li>
-                <i class="fa-solid fa-forward-step"></i>
-            </li>
+            <router-link to="/watch">
+                <li>
+                    <i class="fa-solid fa-forward-step"></i>
+                </li>
+            </router-link>
         </ul>
         <div class="user">
-            <a :href="'/profile?id=' + this.userInfor.id" >
+            <div class="logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </div>
+            <a :href="'/profile?id=' + this.userInfor.id">
                 <div class="avt">
                     <img src="/images/profile_avatar.jpg" alt="" />
                 </div>
@@ -30,6 +37,9 @@
     </div>
 </template>
 <style scoped>
+a {
+    color: #4f5261bb;
+}
 .beehive-navbar {
     position: relative;
     width: inherit;
@@ -77,6 +87,18 @@
 .beehive-navbar ul li i {
     margin: auto;
 }
+.logout {
+    text-align: center;
+    /* height: 50px;
+    width: 50px; */
+    font-size: 18px;
+    width: 100%;
+    border-radius: 100%;
+    color: #4f5261bb;
+    margin: 10px 0px;
+    /* background-color: ; */
+    cursor: pointer;
+}
 .user {
     padding: 15%;
     position: absolute;
@@ -99,6 +121,9 @@ ul .active {
     display: flex;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+ul .active a {
+    color: white;
 }
 ul .active i {
     margin: auto;
@@ -135,6 +160,11 @@ export default {
                 nav[index].classList.remove("active");
             }
             $(this).addClass("active");
+        });
+
+        $(".logout").click(() => {
+            localStorage.clear();
+            this.$router.push("/login");
         });
     },
 };

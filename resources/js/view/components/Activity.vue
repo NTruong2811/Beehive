@@ -1,7 +1,7 @@
 <template>
     <!-- <TabContents :dataTab="TabContents"></TabContents> -->
     <div class="stream">
-        <Forms></Forms>
+        <FormLayout></FormLayout>
         <ul class="mt-5">
             <li class="item">
                 <div class="avt">
@@ -500,12 +500,12 @@
 </style>
 
 <script>
-import Forms from "./Forms.vue";
+import FormLayout from "./FormLayout.vue";
 import TabContents from "./TabContents.vue";
 export default {
     setup() {},
     components: {
-        Forms,
+        FormLayout,
         TabContents,
     },
     data() {

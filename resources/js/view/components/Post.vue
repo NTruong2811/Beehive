@@ -341,7 +341,16 @@ export default {
         
     },
     mounted(){
-        // console.log($('.media li img'));
+        $(".more-desc").click(function () {
+            $(this).next().show();
+            $(this).hide();
+            $(".hide-desc").show();
+        });
+        $(".hide-desc").click(function () {
+            $(this).prev().hide();
+            $(this).hide();
+            $(this).parent().find(".more-desc").show();
+        });
     }
 }
 </script>
