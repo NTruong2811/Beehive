@@ -182,7 +182,6 @@ export default {
                 const { data } = res;
                 return data;
             });
-            console.log(this.Friends);
         },
         OpenChat(id) {
             this.FriendId = id;

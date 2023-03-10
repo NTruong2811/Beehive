@@ -144,14 +144,14 @@ router.beforeEach((to, from, next) => {
             next("/");
         }
     }
-    GetTypeNotifi().then(function (res) {
-        var { data } = res;
-        data.map(function (item) {
-            if (to.fullPath.search(item.page_url) != -1) {
-                $("." + item.name)
-                    .find(".nofification")
-                    .remove();
-            }
-        });
-    });
+    // GetTypeNotifi().then(function (res) {
+    //     var { data } = res;
+    //     data.map(function (item) {
+    //         if (to.fullPath.search(item.page_url) != -1) {
+    //             $("." + item.name)
+    //                 .find(".nofification")
+    //                 .remove();
+    //         }
+    //     });
+    // });
 });

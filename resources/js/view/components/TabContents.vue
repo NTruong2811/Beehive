@@ -48,17 +48,18 @@
 import $ from "jquery";
 export default {
     setup() {},
+    data() {},
     props: {
         dataTab: Array,
     },
     mounted() {
-        var nav = $(".tabcontent ul li a");
-        var url = location.href;
-        for (let index = 0; index < nav.length; index++) {
-            if (url.search(nav[index].getAttribute("href")) != -1) {
-                console.log(nav[index].closest("li"));
-            }
-        }
+        // var nav = $(".tabcontent ul li a");
+        // var url = location.href;
+        // for (let index = 0; index < nav.length; index++) {
+        //     if (url.search(nav[index].getAttribute("href")) != -1) {
+        //         console.log(nav[index].closest("li"));
+        //     }
+        // }
     },
 };
 </script>

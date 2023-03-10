@@ -57,6 +57,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::prefix('/watch')->group(function () {
         Route::get('/', [WatchController::class, 'Watch'])->name('Watch');
-        // Route::post('/update-post', [PostController::class, 'UpdatePost'])->name('UpdatePost');
+        Route::get('/musics', [WatchController::class, 'Musics'])->name('Musics');
+        Route::get('/videos', [WatchController::class, 'Videos'])->name('Videos');
+
     });
 });

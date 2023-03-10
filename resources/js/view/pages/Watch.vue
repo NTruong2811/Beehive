@@ -1,16 +1,7 @@
 <template>
     <TabContents :dataTab="TabContents"></TabContents>
     <div class="watch">
-        <div class="watch-container">
-            <div class="item" v-for="item in WatchList" :key="item">
-                <div class="music-container" v-if="item.type_postId == 3">
-                    <music :MusicDetail="item"></music>
-                </div>
-                <div class="video-container" v-if="item.type_postId == 2">
-                    <videocm :VideoDetail="item"></videocm>
-                </div>
-            </div>
-        </div>
+        <router-view></router-view>
         <!-- More videos -->
     </div>
 </template>
@@ -20,7 +11,7 @@
     flex-direction: column;
     align-items: center;
     /* padding: 0px  15%; */
-    height: 100%;
+    height: auto;
 }
 .watch-container {
     position: relative;
@@ -80,46 +71,26 @@
 
 <script>
 import TabContents from "../components/TabContents.vue";
-import videocm from "../components/media/video.vue";
-import Music from "../components/media/music.vue";
-import { Watch } from "../../services/Watch";
-import emitter from "../../services/changeData";
+
 export default {
-    components: { videocm, Music,TabContents },
+    components: { TabContents },
     data() {
         return {
             TabContents: [
                 {
-                    name: "Newfeeds",
-                    path: "Newfeeds",
+                    name: "Watchs",
+                    path: "/watch",
                 },
                 {
-                    name: "Posts",
-                    path: "Posts",
+                    name: "Musics",
+                    path: "/watch/musics",
                 },
                 {
-                    name: "Photos",
-                    path: "Photos",
+                    name: "Videos",
+                    path: "/watch/videos",
                 },
             ],
-            WatchList: [],
         };
-    },
-    created() {
-        this.GetWatch();
-    },
-    methods: {
-        GetWatch() {
-            Watch().then((res) => {
-                this.WatchList = res.data;
-                console.log(res);
-            });
-        },
-    },
-    mounted() {
-        emitter.on("update", (data) => {
-            this.WatchList.unshift(data);
-        });
     },
 };
 </script>

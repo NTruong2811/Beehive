@@ -25,6 +25,9 @@
             </router-link>
         </ul>
         <div class="user">
+            <div class="logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </div>
             <a :href="'/profile?id=' + this.userInfor.id">
                 <div class="avt">
                     <img src="/images/profile_avatar.jpg" alt="" />
@@ -83,6 +86,18 @@ a {
 }
 .beehive-navbar ul li i {
     margin: auto;
+}
+.logout {
+    text-align: center;
+    /* height: 50px;
+    width: 50px; */
+    font-size: 18px;
+    width: 100%;
+    border-radius: 100%;
+    color: #4f5261bb;
+    margin: 10px 0px;
+    /* background-color: ; */
+    cursor: pointer;
 }
 .user {
     padding: 15%;
@@ -145,6 +160,11 @@ export default {
                 nav[index].classList.remove("active");
             }
             $(this).addClass("active");
+        });
+
+        $(".logout").click(() => {
+            localStorage.clear();
+            this.$router.push("/login");
         });
     },
 };

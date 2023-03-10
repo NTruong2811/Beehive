@@ -180,7 +180,6 @@ export default {
                 formData.append("song_artist", e.target.song_artist.value);
                 formData.append("song_file", song_file);
                 formData.append("image_file", image_file);
-                console.log(e.target);
             } else if (this.CurrentType == 2) {
                 const video_file = this.LoadFile(
                     e.target.video_file.files[0],
@@ -196,7 +195,7 @@ export default {
                     emitter.emit("update", res.data);
                 })
                 .catch((err) => {
-                    console.log(err.request.response);
+                    // console.log(err.request.response);
                 });
             $("#PostNew")[0].reset();
         },
@@ -211,7 +210,6 @@ export default {
         },
     },
     mounted() {
-        console.log($("#PostNew")[0]);
         $(".forms .show input").click(function () {
             $(".forms .content").show();
             $(".forms .show").hide();
