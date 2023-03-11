@@ -79,14 +79,13 @@
 <script>
 import Loading from "vue-loading-overlay";
 
-import videocm from "../media/video.vue";
-import Music from "../media/music.vue";
+import Music from "../WatchComponent/music.vue";
 import { Musics } from "../../../services/Watch";
 import emitter from "../../../services/changeData";
 import $ from "jquery";
 
 export default {
-    components: { videocm, Music, Loading },
+    components: { Music, Loading },
     data() {
         return {
             MusicsList: [],

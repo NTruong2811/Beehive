@@ -14,9 +14,16 @@
             <li>
                 <i class="fa-solid fa-newspaper"></i>
             </li>
-            <li>
-                <i class="fa-solid fa-users"></i>
-            </li>
+            <router-link
+                :to="{
+                    path: 'friendships',
+                    query: { id: this.UserInfor.id },
+                }"
+            >
+                <li>
+                    <i class="fa-solid fa-users"></i>
+                </li>
+            </router-link>
             <li><i class="fa-solid fa-shop"></i></li>
             <router-link to="/watch">
                 <li>
@@ -30,7 +37,7 @@
             </div>
             <a :href="'/profile?id=' + this.userInfor.id">
                 <div class="avt">
-                    <img src="/images/profile_avatar.jpg" alt="" />
+                    <img :src="this.UserInfor.avatar" alt="" />
                 </div>
             </a>
         </div>

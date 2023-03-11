@@ -49,7 +49,7 @@
 }
 </style>
 <script>
-import { AcceptFriend } from "../../services/Users";
+import { AcceptFriend } from "../../../services/Users";
 import $ from "jquery";
 export default {
     setup() {},

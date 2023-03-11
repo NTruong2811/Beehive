@@ -10,9 +10,9 @@ import Login from "./view/pages/Login";
 import Register from "./view/pages/Register";
 import Profile from "./view/pages/Profile";
 
-import FriendShip from "./view/components/FriendsShip";
-import FriendList from "./view/components/friends/FriendList";
-import NewFriend from "./view/components/friends/NewFriend";
+import FriendShip from "./view/pages/FriendsShip";
+import FriendList from "./view/components/FriendTab/FriendList";
+import NewFriend from "./view/components/FriendTab/NewFriend";
 
 import Activity from "./view/components/Activity";
 import Call from "./view/pages/Call";
@@ -43,6 +43,21 @@ const routes = [
                     },
                 ],
             },
+            {
+                path: "/friendships",
+                component: FriendShip,
+                redirect: "/friendships/friend_list",
+                children: [
+                    {
+                        path: "friend_list",
+                        component: FriendList,
+                    },
+                    {
+                        path: "new_friend",
+                        component: NewFriend,
+                    },
+                ],
+            }
         ],
         meta: { AppProduct: true },
     },
@@ -72,9 +87,9 @@ const routes = [
                 component: Activity,
             },
             {
-                path: "/friendship",
+                path: "friendships",
                 component: FriendShip,
-                redirect: "/friendship/friend_list",
+                redirect: "/profile/friendships/friend_list",
                 children: [
                     {
                         path: "friend_list",

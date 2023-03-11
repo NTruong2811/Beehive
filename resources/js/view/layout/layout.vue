@@ -1,6 +1,6 @@
 <template>
     <div class="beehive">
-        <div class="" style="width: 80px; z-index: 999999">
+        <div class="" style="width: 80px; z-index: 9999">
             <Navbar></Navbar>
         </div>
         <div

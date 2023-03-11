@@ -143,12 +143,55 @@
                 opacity: 1;
             }
         }
+
+        #loading_page {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #loading_page img {
+            width: 60px;
+            height: 60px;
+            animation: load_page 1s ease-in-out infinite;
+        }
+
+        @keyframes load_page {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .typewriter {
+            color: #8224e3;
+            font-weight: 600;
+            font-size: 22px;
+        }
     </style>
 </head>
 
 
 <body>
     <div id="app"></div>
+    {{-- <div id="loading_page">
+        <img src="/images/logo.png" alt="">
+        <div class="typewriter">Beehive</div>
+    </div> --}}
     <div id="calling" class="">
         <div class="action">
             <div class="img">
@@ -165,8 +208,12 @@
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // document.getElementById('loading_page').style.display = 'none'
+    });
+</script>
 <script src="{{ mix('js/app.js') }}"></script>
 <script src="/js/global.js"></script>
-
 
 </html>

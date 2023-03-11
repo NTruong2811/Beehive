@@ -58,7 +58,7 @@
     position: fixed;
     background-color: #fbfafc;
     right: 0px;
-    z-index: 99999;
+    z-index: 999;
 }
 .head .search {
     width: 100%;

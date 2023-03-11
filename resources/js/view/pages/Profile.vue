@@ -89,7 +89,7 @@
                                 </li>
                                 <router-link
                                     :to="{
-                                        path: '/friendship',
+                                        path: '/profile/friendships',
                                         query: { id: UserProfile.id },
                                     }"
                                 >
