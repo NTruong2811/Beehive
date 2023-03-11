@@ -134,9 +134,9 @@ select::-ms-expand {
 <script>
 import $ from "jquery";
 import { GetTypePost, UpdatePost } from "../../services/Post";
-import PostFrom from "./Form/PostForm.vue";
-import MucsicForm from "./Form/MusicForm.vue";
-import VideoForm from "./Form/VideoForm.vue";
+import PostFrom from "./FormComponent/PostForm.vue";
+import MucsicForm from "./FormComponent/MusicForm.vue";
+import VideoForm from "./FormComponent/VideoForm.vue";
 import emitter from "../../services/changeData";
 export default {
     components: {

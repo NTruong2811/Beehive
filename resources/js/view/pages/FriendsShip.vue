@@ -53,8 +53,8 @@
 </style>
 <script>
 import { ListFriend } from "../../services/Users";
-import TabContents from "./TabContents.vue";
-import Card from "./Card.vue";
+import TabContents from "../components/TabContents.vue";
+import Card from "../components/friendsComponent/FriendCard.vue"
 export default {
     setup() {},
     components: {

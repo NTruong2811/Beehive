@@ -318,6 +318,15 @@ export default {
         var formData = {};
         var navigate = this.$router;
 
+        function status_validate(message, status) {
+            $("#sub_title").text(message);
+            if (status == 1) {
+                $("#sub_title").css("color", "white");
+            } else {
+                $("#sub_title").css("color", "red");
+            }
+        }
+
         $("#submit").click(function (e) {
             if (tab == 1) {
                 var email = $('input[name="email"]').val();
@@ -332,17 +341,18 @@ export default {
                         .then(function (res) {
                             var { data } = res;
                             if (data.status == 1) {
-                                alert(data.message);
+                                status_validate(data.message, 2);
                             } else {
-                                $("#sub_title").text(
-                                    "We need your information !"
+                                status_validate(
+                                    "We need your information !",
+                                    1
                                 );
                                 $(".swiper-button-next").trigger("click");
                                 tab += 1;
                             }
                         });
                 } else {
-                    alert("Email is not correct");
+                    status_validate("Email is not correct!", 2);
                 }
             } else {
                 if (tab == 3) {
@@ -355,21 +365,22 @@ export default {
                             axios
                                 .post("/api/register", formData)
                                 .then(function (res) {
-                                    console.log(res);
                                     var { data } = res;
                                     if (data.status == 0) {
-                                        console.log(data);
-                                        alert(data.message);
+                                        status_validate(data.message, 1);
                                         navigate.push("/login");
                                     } else {
-                                        alert("We are missing something ?");
+                                        status_validate(
+                                            "We are missing something ?",
+                                            2
+                                        );
                                     }
                                 });
                         } else {
-                            alert("Password does not match");
+                            status_validate("Password does not match", 2);
                         }
                     } else {
-                        alert("We are missing something ?");
+                        status_validate("We are missing something ?", 2);
                     }
                 }
                 if (tab == 2) {
@@ -380,11 +391,12 @@ export default {
                         formData["name"] = name;
                         formData["birthday"] = birthday;
                         formData["gender"] = gender;
-                        $("#sub_title").text("Come on just one more step !");
+                        status_validate("Come on just one more step !", 1);
+
                         $(".swiper-button-next").trigger("click");
                         tab += 1;
                     } else {
-                        alert("We are missing something ?");
+                        status_validate("We are missing something ?", 2);
                     }
                 }
             }

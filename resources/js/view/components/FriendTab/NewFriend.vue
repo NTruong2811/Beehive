@@ -1,13 +1,13 @@
 <template>
-    <div id="Friend_List">
+    <div id="NewFriend">
         <loading v-model:active="isLoading" :is-full-page="fullPage" />
         <div class="item" v-for="item in Friends" :key="item">
-            <Card :item="item" :action="'View Profile'"></Card>
+            <Card :item="item" :action="'Accept'"></Card>
         </div>
     </div>
 </template>
 <style scoped>
-#Friend_List {
+#NewFriend {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
@@ -18,8 +18,8 @@
 </style>
 <script>
 import Loading from "vue-loading-overlay";
-import { ListFriend } from "../../../services/Users";
-import Card from "../Card.vue";
+import { NewFriend } from "../../../services/Users";
+import Card from "../friendsComponent/FriendCard.vue"
 export default {
     setup() {},
     components: {
@@ -34,13 +34,13 @@ export default {
         };
     },
     created() {
-        this.GetFriendList();
+        this.GetNewFriend();
     },
     methods: {
-        async GetFriendList() {
+        async GetNewFriend() {
             this.isLoading = true;
             const id = this.$route.query.id;
-            this.Friends = await ListFriend(id)
+            this.Friends = await NewFriend(id)
                 .then(function (res) {
                     const { data } = res;
                     return data;

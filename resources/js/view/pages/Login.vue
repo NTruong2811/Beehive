@@ -207,7 +207,14 @@ export default {
     setup() {},
     mounted() {
         var navigate = this.$router;
-
+        function status_validate(message, status) {
+            $("#sub_title").text(message);
+            if (status == 1) {
+                $("#sub_title").css("color", "white");
+            } else {
+                $("#sub_title").css("color", "red");
+            }
+        }
         $("#submit").click(function () {
             var formData = {
                 password: $('input[name="password"]').val(),
@@ -217,7 +224,7 @@ export default {
                 axios.post("/api/login", formData).then(function (res) {
                     var { data } = res;
                     if (data["status"] == 0) {
-                        alert(data.message);
+                        status_validate(data.message,1);
                         localStorage.setItem(
                             "user",
                             JSON.stringify(data["user"])
@@ -225,11 +232,12 @@ export default {
                         localStorage.setItem("token", data["token"]);
                         navigate.go("/");
                     } else {
-                        alert(data.message);
+                        status_validate(data.message,2);
                     }
                 });
             } else {
-                alert("We are missing something ?");
+                alestatus_validatert("We are missing something ?",2);
+
             }
         });
     },
