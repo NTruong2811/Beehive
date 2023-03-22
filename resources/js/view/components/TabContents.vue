@@ -43,23 +43,19 @@
     color: #8224e3 !important;
     font-weight: 600;
 }
+.router-link-exact-active div{
+    border-bottom: 2px solid #8224e3;
+}
 </style>
 <script>
 import $ from "jquery";
 export default {
     setup() {},
-    data() {},
     props: {
         dataTab: Array,
     },
     mounted() {
-        // var nav = $(".tabcontent ul li a");
-        // var url = location.href;
-        // for (let index = 0; index < nav.length; index++) {
-        //     if (url.search(nav[index].getAttribute("href")) != -1) {
-        //         console.log(nav[index].closest("li"));
-        //     }
-        // }
+      
     },
 };
 </script>

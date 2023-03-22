@@ -68,7 +68,6 @@ textarea {
 }
 </style>
 <script>
-import $ from "jquery";
 export default {
     props: {
         user: Object,

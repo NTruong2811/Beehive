@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('debug', function () {
+    echo 1;
+    echo Redis::get('debug');
+});
 Route::any('{all}', function () {
     return view('index');
 })->where(['all' => '.*']);

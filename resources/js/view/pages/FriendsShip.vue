@@ -1,5 +1,7 @@
 <template>
-    <TabContents :dataTab="TabContents"></TabContents>
+    <div class="">
+        <TabContents :dataTab="TabContents"></TabContents>
+    </div>
     <div class="Friend_ship container">
         <router-view></router-view>
     </div>
@@ -54,12 +56,10 @@
 <script>
 import { ListFriend } from "../../services/Users";
 import TabContents from "../components/TabContents.vue";
-import Card from "../components/friendsComponent/FriendCard.vue"
 export default {
     setup() {},
     components: {
         TabContents,
-        Card,
     },
     data() {
         return {

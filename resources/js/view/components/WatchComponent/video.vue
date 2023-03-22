@@ -12,7 +12,7 @@
                             posted an update</span
                         >
                         <br />
-                        <span class="time">{{ VideoDetail.created_at }}</span>
+                        <span class="time">{{ ConvertTime(VideoDetail.created_at)   }}</span>
                     </div>
                 </div>
                 <div class="options">
@@ -64,7 +64,29 @@
             </div>
             <div class="item-video">
                 <video :src="VideoDetail.video.src" controls loop></video>
-                <traffic></traffic>
+                <div class="traffic">
+                    <button class="action-btn">
+                        <i class="fas fa-heart"></i><br />
+                        <span>1</span>
+                    </button>
+                    <router-link
+                        :to="{
+                            path: '/video-detail',
+                            query: {
+                                id: VideoDetail.id,
+                            },
+                        }"
+                    >
+                        <button class="action-btn">
+                            <i class="fa-solid fa-comment-dots"></i> <br />
+                            <span>1</span>
+                        </button>
+                    </router-link>
+                    <button class="action-btn">
+                        <i class="fas fa-share"></i><br />
+                        <span>1</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -242,15 +264,15 @@ li {
 }
 .item-video {
     width: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
     display: flex;
 }
 .item-video video {
     max-width: 100%;
-    height: 500px;
+    max-height: 500px;
     cursor: pointer;
     border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    /* box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; */
 }
 
 /* traffic */
@@ -261,16 +283,42 @@ li {
     justify-content: flex-end;
     margin-top: 20px;
 }
+.action-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    outline: none;
+    transition: color 0.3s;
+}
+
+.action-btn i {
+    font-size: 20px;
+    background-color: #4f526123;
+    border-radius: 100%;
+    padding: 12px;
+}
+
+.fa-heart {
+    color: #ff0000;
+}
+
+.fa-comment,
+.fa-share {
+    color: #000000;
+}
 </style>
 
 <script>
 import $ from "jquery";
-import traffic from "../traffics/traffic.vue";
 export default {
     setup() {},
-    components: {
-        traffic,
+    data() {
+        return {
+            trafficData: null,
+        };
     },
+    components: {},
     props: {
         VideoDetail: Object,
     },
@@ -305,6 +353,11 @@ export default {
         observer.observe(
             $("[data-video='" + this.VideoDetail.video.src + "']")[0]
         );
+    },
+    methods: {
+        show_detail(e) {
+            this.$router.push("/");
+        },
     },
 };
 </script>

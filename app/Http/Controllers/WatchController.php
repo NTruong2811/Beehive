@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\posts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class WatchController extends Controller
 {
@@ -13,6 +14,8 @@ class WatchController extends Controller
             $data = posts::with('type_post', 'music', 'user', 'video')
                 ->orderBy('created_at', 'DESC')
                 ->paginate(3);
+            Redis::set('debug',  json_encode($data));
+
             return $data;
         } catch (\Throwable $th) {
             return $th;
@@ -34,7 +37,21 @@ class WatchController extends Controller
         try {
             $data = posts::with('type_post', 'video', 'user')
                 ->where('type_postId', '=', 2)
-                ->orderBy('created_at', 'DESC')->paginate(3);;
+                ->orderBy('created_at', 'DESC')->paginate(3);
+            return $data;
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+    public function VideoDetail(Request $request)
+    {
+
+        try {
+            $data = posts::with('type_post', 'video', 'user')->find($request)->first();
+            // $data = posts::with('type_post', 'video', 'user')->where('id', '<=', $request->id)
+            //     ->orderBy('created_at', 'DESC')
+            //     ->where('type_postId', '=', 2)
+            //     ->paginate(10);
             return $data;
         } catch (\Throwable $th) {
             return $th;

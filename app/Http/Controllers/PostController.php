@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\musics;
 use App\Models\posts;
+use App\Models\profiles;
 use App\Models\type_post;
 use App\Models\videos;
 use Illuminate\Http\Request;
@@ -60,11 +61,17 @@ class PostController extends Controller
                     'post_id' => $post->id,
                     'src' => $src
                 ]);
+            } elseif ($request->type_postId == 1) {
+                $src = Cloudinary::uploadFile($request->file('files')->getRealPath(), [
+                    'folder' => 'files'
+                ])->GetSecurePath();
+                $profile = profiles::create([
+                    'post_id' => $post->id,
+                    'files' => $src
+                ]);
             }
-            
-            $NewPost = posts::with('type_post', 'music', 'user','video')->find($post->id);
+            $NewPost = posts::with('type_post', 'music', 'user', 'video', 'profile')->find($post->id);
             return $NewPost;
-
         } catch (\Throwable $th) {
             //throw $th;
             return $th;
