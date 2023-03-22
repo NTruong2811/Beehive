@@ -16,7 +16,7 @@
             </li>
             <router-link
                 :to="{
-                    path: 'friendships',
+                    path: '/friendships',
                     query: { id: this.UserInfor.id },
                 }"
             >

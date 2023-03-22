@@ -1,19 +1,21 @@
 import layout from "./view/layout/layout";
+// main
 import Newfeeds from "./view/pages/Newfeeds";
 // watch
 import Watch from "./view/pages/Watch";
 import Watchs from "./view/components/WatchTab/Watchs";
 import Musics from "./view/components/WatchTab/Musics";
 import Videos from "./view/components/WatchTab/Videos";
-
+import VideoDetail from "./view/pages/VideoDetail";
+// auth
 import Login from "./view/pages/Login";
 import Register from "./view/pages/Register";
 import Profile from "./view/pages/Profile";
-
+// friends
 import FriendShip from "./view/pages/FriendsShip";
 import FriendList from "./view/components/FriendTab/FriendList";
 import NewFriend from "./view/components/FriendTab/NewFriend";
-
+// profile
 import Activity from "./view/components/Activity";
 import Call from "./view/pages/Call";
 const routes = [
@@ -57,7 +59,7 @@ const routes = [
                         component: NewFriend,
                     },
                 ],
-            }
+            },
         ],
         meta: { AppProduct: true },
     },
@@ -102,6 +104,11 @@ const routes = [
                 ],
             },
         ],
+        meta: { AppProduct: true },
+    },
+    {
+        path: "/video-detail",
+        component: VideoDetail,
         meta: { AppProduct: true },
     },
 ];

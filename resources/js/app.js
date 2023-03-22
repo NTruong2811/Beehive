@@ -29,7 +29,7 @@ app.config.globalProperties.userInfor = JSON.parse(
 // Global function
 app.config.globalProperties.LoadFile = (file, type) => {
     // image 1, sound 2, video 3
-    const SizeLimit = 5242880;
+    const SizeLimit = 6242880;
     const ImageTypeLimit = [
         "image/jpeg",
         "image/jpg",
@@ -121,6 +121,28 @@ app.config.globalProperties.ValidateForm = (formId) => {
     }
 
     return isValid;
+};
+app.config.globalProperties.ConvertTime = (postTime) => {
+    const now = new Date();
+
+    // Giả sử thời điểm bài đăng là "2022-03-15T12:00:00"
+    var postTime = new Date(postTime);
+
+    // Tính thời gian giữa hai thời điểm dưới dạng số giây
+    const diffSeconds = Math.floor((now - postTime) / 1000);
+
+    // Chuyển số giây thành đơn vị thời gian phù hợp
+    let diff;
+    if (diffSeconds < 60) {
+        diff = diffSeconds + " second";
+    } else if (diffSeconds < 3600) {
+        diff = Math.floor(diffSeconds / 60) + " minute";
+    } else if (diffSeconds < 86400) {
+        diff = Math.floor(diffSeconds / 3600) + " hour";
+    } else {
+        diff = Math.floor(diffSeconds / 86400) + " day";
+    }
+    return diff;
 };
 
 app.config.globalProperties.$toastr = toastr;

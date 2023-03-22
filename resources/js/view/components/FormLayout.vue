@@ -13,10 +13,10 @@
                 </div>
                 <div class="content">
                     <div class="post_type">
-                        <PostFrom
+                        <ProfileFrom
                             v-if="CurrentType == 1"
                             :user="user"
-                        ></PostFrom>
+                        ></ProfileFrom>
                         <MucsicForm
                             v-if="CurrentType == 3"
                             :user="user"
@@ -134,13 +134,13 @@ select::-ms-expand {
 <script>
 import $ from "jquery";
 import { GetTypePost, UpdatePost } from "../../services/Post";
-import PostFrom from "./FormComponent/PostForm.vue";
+import ProfileFrom from "./FormComponent/ProfileForm.vue";
 import MucsicForm from "./FormComponent/MusicForm.vue";
 import VideoForm from "./FormComponent/VideoForm.vue";
 import emitter from "../../services/changeData";
 export default {
     components: {
-        PostFrom,
+        ProfileFrom,
         MucsicForm,
         VideoForm,
     },
@@ -167,15 +167,16 @@ export default {
         },
         PostNew(e) {
             const formData = new FormData();
+            formData.append("user_id", this.userInfor.id);
+            formData.append("type_postId", this.CurrentType);
+            formData.append("description", e.target.description.value);
+
             if (this.CurrentType == 3) {
                 const song_file = this.LoadFile(e.target.song_file.files[0], 2);
                 const image_file = this.LoadFile(
                     e.target.song_image.files[0],
                     1
                 );
-                formData.append("user_id", this.userInfor.id);
-                formData.append("type_postId", this.CurrentType);
-                formData.append("description", e.target.description.value);
                 formData.append("song_name", e.target.song_name.value);
                 formData.append("song_artist", e.target.song_artist.value);
                 formData.append("song_file", song_file);
@@ -185,17 +186,22 @@ export default {
                     e.target.video_file.files[0],
                     3
                 );
-                formData.append("user_id", this.userInfor.id);
-                formData.append("type_postId", this.CurrentType);
-                formData.append("description", e.target.description.value);
                 formData.append("video_file", video_file);
+            } else if (this.CurrentType == 1) {
+                const files = this.LoadFile(
+                    e.target.files.files[0],
+                    1
+                );
+                formData.append("files", files);
             }
+
             UpdatePost(formData)
                 .then(function (res) {
-                    emitter.emit("update", res.data);
+                    console.log(res.request.response);
+                    // emitter.emit("update", res.data);
                 })
                 .catch((err) => {
-                    // console.log(err.request.response);
+                    console.log(err.request.response);
                 });
             $("#PostNew")[0].reset();
         },

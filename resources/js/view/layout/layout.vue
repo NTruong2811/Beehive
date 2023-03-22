@@ -13,7 +13,7 @@
                     <div class="col-9">
                         <div class="beehive-main">
                             <FormLayout></FormLayout>
-                            <router-view :dataTab="TabContents"></router-view>
+                            <router-view></router-view>
                         </div>
                     </div>
                     <div class="col-3 beehive-sidebar" style="height: 100vh">
@@ -50,23 +50,16 @@ import Navbar from "../components/Navbar.vue";
 import Headmain from "../components/Head.vue";
 import Sidebar from "../components/Sidebar.vue";
 import FormLayout from "../components/FormLayout.vue";
-import TabContents from "../components/TabContents.vue";
 import Chat from "../components/Chat.vue";
 import $ from "jquery";
 
 export default {
     setup() {},
-    data() {
-        return {
-            TabContents: [],
-        };
-    },
     components: {
         Navbar,
         Headmain,
         Sidebar,
         FormLayout,
-        TabContents,
         Chat,
     },
     mounted() {

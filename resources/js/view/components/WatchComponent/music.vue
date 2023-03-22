@@ -12,7 +12,9 @@
                             posted an update</span
                         >
                         <br />
-                        <span class="time">{{ MusicDetail.created_at }}</span>
+                        <span class="time">{{
+                            ConvertTime(MusicDetail.created_at)
+                        }}</span>
                     </div>
                 </div>
                 <div class="options">
@@ -92,7 +94,20 @@
                         </audio>
                     </div>
                 </div>
-                <traffic></traffic>
+                <div class="traffic">
+                    <button class="action-btn">
+                        <i class="fas fa-heart"></i><br />
+                        <span>1</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fa-solid fa-comment-dots"></i> <br />
+                        <span>1</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-share"></i><br />
+                        <span>1</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -307,20 +322,41 @@ video::-webkit-media-controls-panel {
 .action-btn[data-v-5a2d311e] {
     display: flex;
 }
+.action-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    outline: none;
+    transition: color 0.3s;
+}
+
+.action-btn i {
+    font-size: 20px;
+    background-color: #4f526123;
+    border-radius: 100%;
+    padding: 12px;
+}
+
+.fa-heart {
+    color: #ff0000;
+}
+
+.fa-comment,
+.fa-share {
+    color: #000000;
+}
 </style>
 
 <script>
 import $ from "jquery";
-import traffic from "../traffics/traffic.vue";
 
 export default {
     setup() {},
     props: {
         MusicDetail: Object,
     },
-    components: {
-        traffic,
-    },
+    components: {},
     mounted() {
         var VueThis = this;
 

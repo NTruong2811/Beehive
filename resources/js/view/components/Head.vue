@@ -7,7 +7,7 @@
                 <button hidden type="submit"></button>
             </form>
             <div class="search-result">
-                <TabContents :dataTab="TabContents"></TabContents>
+                <!-- <TabContents :dataTab="TabContents"></TabContents> -->
                 <SearchResult
                     :SearchResult="SearchResult"
                     :key="re_renderKey"
@@ -152,6 +152,7 @@
     border-radius: 100%;
     z-index: 100;
 }
+
 </style>
 <script>
 import $ from "jquery";
@@ -164,11 +165,11 @@ export default {
     setup() {},
     data() {
         return {
-            TabContents: [
-                { name: "Pepoles", path: "Pepoles" },
-                { name: "Photos", path: "Photos" },
-                { name: "Friends", path: "Friends" },
-            ],
+            // TabContents: [
+            //     { name: "Pepoles", path: "Pepoles" },
+            //     { name: "Photos", path: "Photos" },
+            //     { name: "Friends", path: "Friends" },
+            // ],
             SearchResult: [],
             re_renderKey: 0,
         };

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\GlobalActionController;
+use App\Http\Controllers\NewfeedsController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UsersController;
@@ -59,6 +60,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [WatchController::class, 'Watch'])->name('Watch');
         Route::get('/musics', [WatchController::class, 'Musics'])->name('Musics');
         Route::get('/videos', [WatchController::class, 'Videos'])->name('Videos');
-
+        Route::get('/video-detail',[WatchController::class,'VideoDetail'])->name('VideoDetail');
+    });
+    Route::prefix('/newfeeds')->group(function () {
+        Route::get('/', [NewfeedsController::class, 'index'])->name('index');
     });
 });

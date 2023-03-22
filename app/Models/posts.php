@@ -15,7 +15,8 @@ class posts extends Model
         'type_postId',
         'description'
     ];
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(users::class, 'user_id', 'id');
     }
     public function type_post()
@@ -30,5 +31,8 @@ class posts extends Model
     public function video()
     {
         return $this->hasOne(videos::class, 'post_id');
+    }
+    public function profile(){
+        return $this->hasOne(profiles::class, 'post_id');
     }
 }
