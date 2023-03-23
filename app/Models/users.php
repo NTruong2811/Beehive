@@ -21,4 +21,7 @@ class users extends Model
     {
         return $this->hasMany(posts::class);
     }
+    public function comment(){
+        return $this->hasMany(comments::class,'user_id');
+    }
 }

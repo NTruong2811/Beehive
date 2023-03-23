@@ -95,7 +95,6 @@ export default {
         comment,
     },
     mounted() {
-        console.log($(".comments #content"));
     },
     methods: {
         UpdateCmt(e) {
