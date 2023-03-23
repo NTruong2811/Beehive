@@ -32,7 +32,12 @@ class posts extends Model
     {
         return $this->hasOne(videos::class, 'post_id');
     }
-    public function profile(){
+    public function profile()
+    {
         return $this->hasOne(profiles::class, 'post_id');
+    }
+    public function comment()
+    {
+        return $this->hasMany(comments::class, 'post_id');
     }
 }
