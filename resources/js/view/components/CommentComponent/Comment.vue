@@ -19,6 +19,7 @@
                     </div>
                 </div>
                 <div class="options">
+                    <small>(1002)</small>
                     <i class="fa-regular fa-heart"></i>
                 </div>
             </div>
@@ -35,6 +36,13 @@
                             </div>
                         </span>
                     </div>
+                </div>
+                <div class="rep">
+                    <span id="view-more"
+                        >View more replies (3)
+                        <i class="fa-solid fa-chevron-down"></i
+                    ></span>
+                    <span id="rep-buton">Reply</span>
                 </div>
                 <ul class="re-comment main-comment">
                     <li>
@@ -60,7 +68,8 @@
                                         </div>
                                     </div>
                                     <div class="options">
-                                        <i class="fa-regular fa-heart"></i>
+                                        <small>(1002)</small
+                                        ><i class="fa-regular fa-heart"></i>
                                     </div>
                                 </div>
                                 <div class="item-content">
@@ -82,27 +91,35 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="rep">
+                                    <span id="view-more"></span>
+                                    <span id="rep-buton">Reply</span>
+                                </div>
                             </div>
                         </div>
                     </li>
                 </ul>
-                <div class="rep">
-                    <span id="view-more"
-                        >View more replies (3)
-                        <i class="fa-solid fa-chevron-down"></i
-                    ></span>
-                    <span id="rep-buton">Reply</span>
-                </div>
             </div>
         </div>
     </div>
 </template>
 <style scoped>
 .re-comment {
+    margin-top: 20px;
+}
+.re-comment .item {
     margin-top: 10px;
 }
 .item-content span {
     font-size: 14px;
+}
+small {
+    font-size: 12px;
+}
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .rep {
     display: flex;
@@ -166,7 +183,7 @@ li {
     color: rgba(0, 0, 0, 0.363);
 }
 .item .item-content {
-    margin: 15px 0px;
+    margin: 5px 0px;
 }
 .item .item-content .description {
     font-size: 15px;

@@ -8,7 +8,11 @@
             </ul>
         </div>
         <form class="post-comment" @submit.prevent="UpdateCmt">
-            <input type="text" placeholder="Write some thing..." name="comment" />
+            <input
+                type="text"
+                placeholder="Write some thing..."
+                name="comment"
+            />
             <button type="submit">
                 <i class="fa-solid fa-paper-plane"></i>
             </button>
@@ -93,10 +97,10 @@ export default {
     mounted() {
         console.log($(".comments #content"));
     },
-    methods:{
-      UpdateCmt(e){
-          this.$emit('UpdateCmt',e.target.comment.value)
-      }
-    }
+    methods: {
+        UpdateCmt(e) {
+            this.$emit("UpdateCmt", e.target.comment.value);
+        },
+    },
 };
 </script>
