@@ -2,8 +2,8 @@
     <div class="comments">
         <div class="content" id="content">
             <ul class="main-comment">
-                <li>
-                    <comment></comment>
+                <li v-for="item in Comments" :key="item">
+                    <comment :CommentDetail="item"></comment>
                 </li>
             </ul>
         </div>
@@ -89,16 +89,30 @@ li:last-child {
 <script>
 import $ from "jquery";
 import comment from "./comment";
+import { UpdateComment } from "../../../services/Comment";
 export default {
     setup() {},
     components: {
         comment,
     },
-    mounted() {
+    props: {
+        Comments: Object,
+        PostId: Number,
     },
+    mounted() {},
     methods: {
         UpdateCmt(e) {
-            this.$emit("UpdateCmt", e.target.comment.value);
+            let data = {
+                post_id: this.PostId,
+                user_id: this.userInfor.id,
+                like: 0,
+                content: e.target.comment.value,
+            };
+            console.log(data);
+            UpdateComment(data).then((res) => {
+              this.Comments.push(res.data);
+              console.log(this.Comments);
+            });
         },
     },
 };

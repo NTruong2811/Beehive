@@ -7,7 +7,7 @@
                         <i class="fa-solid fa-xmark"></i>
                     </div>
                 </div>
-                <video controls autoplay loop :src="Video.src"></video>
+                <!-- <video controls autoplay loop :src="Video.src"></video> -->
             </div>
             <div class="video-info col-sm-12 col-md-4">
                 <div class="post-info">
@@ -27,7 +27,10 @@
                     </div>
                     <p class="post-description">{{ Detail.description }}</p>
                 </div>
-                <comment-layout @UpdateCmt="UpdateCmt"></comment-layout>
+                <comment-layout
+                    :Comments="Comments"
+                    :PostId="Detail.id"
+                ></comment-layout>
             </div>
         </div>
     </div>
@@ -48,7 +51,7 @@ hr {
     left: -10%;
 }
 .support {
-    position: fixed;
+    position: absolute;
     top: 0px;
     left: 0px;
     width: inherit;
@@ -156,6 +159,7 @@ hr {
 
 <script>
 import CommentLayout from "../components/CommentComponent/CommentLayout.vue";
+import { UpdateComment } from "../../services/Comment";
 import { VideoDetail } from "../../services/Watch";
 export default {
     setup() {},
@@ -167,6 +171,7 @@ export default {
             Detail: {},
             Video: {},
             User: {},
+            Comments: [],
             VideoId: this.$route.query.id,
             // NextVideo: null,
             // PrevVideo: null,
@@ -181,14 +186,12 @@ export default {
             this.Detail = await VideoDetail(id).then((res) => {
                 return res.data;
             });
+            this.Comments = this.Detail.comments;
             this.Video = this.Detail.video;
             this.User = this.Detail.user;
         },
         back() {
             window.history.back();
-        },
-        UpdateCmt(e) {
-            console.log(e);
         },
     },
     mounted() {
