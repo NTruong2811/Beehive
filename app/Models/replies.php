@@ -19,4 +19,8 @@ class replies extends Model
     {
         return $this->belongsTo(comments::class, 'comment_id', 'id');
     }
+    public function user()
+    {
+        return $this->belongsTo(users::class, 'user_id', 'id');
+    }
 }

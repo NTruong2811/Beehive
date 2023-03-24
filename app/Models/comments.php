@@ -23,7 +23,7 @@ class comments extends Model
     {
         return $this->belongsTo(users::class, 'user_id', 'id');
     }
-    public function reply()
+    public function replies()
     {
         return $this->hasMany(replies::class, 'comment_id');
     }

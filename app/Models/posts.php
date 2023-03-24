@@ -36,7 +36,7 @@ class posts extends Model
     {
         return $this->hasOne(profiles::class, 'post_id');
     }
-    public function comment()
+    public function comments()
     {
         return $this->hasMany(comments::class, 'post_id');
     }
