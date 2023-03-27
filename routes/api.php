@@ -67,6 +67,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [NewfeedsController::class, 'index'])->name('index');
     });
     Route::prefix('/comment')->group(function () {
+        Route::get('/get-comment', [CommentController::class, 'GetComments'])->name('GetComments');
         Route::post('/add-comment', [CommentController::class, 'AddComment'])->name('AddComment');
+        Route::post('/add-reply', [CommentController::class, 'AddReply'])->name('AddReply');
     });
 });

@@ -19,7 +19,9 @@ return new class extends Migration
             $table->foreign('comment_id')->references('id')->on('comments');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('like');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreign('parent_id')->references('id')->on('replies');
+            $table->integer('like')->default(0);
             $table->string('content');
             $table->timestamps();
         });

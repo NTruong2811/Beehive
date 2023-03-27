@@ -50,11 +50,7 @@ class WatchController extends Controller
             $data = posts::with(
                 'type_post',
                 'video',
-                'user',
-                'comments',
-                'comments.user',
-                'comments.replies',
-                'comments.replies.user'
+                'user'
             )->find($request)->first();
             // $data = posts::with('type_post', 'video', 'user')->where('id', '<=', $request->id)
             //     ->orderBy('created_at', 'DESC')

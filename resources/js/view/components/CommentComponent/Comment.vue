@@ -31,13 +31,33 @@
                     </div>
                 </div>
                 <div class="rep">
-                    <span id="view-more"
-                        >View more replies ({{ CommentDetail.replies.length }})
-                        <i class="fa-solid fa-chevron-down"></i
-                    ></span>
-                    <span id="rep-buton">Reply</span>
+                    <span id="view-more">
+                        <div
+                            v-show="
+                                CommentDetail.replies.length > 0 &&
+                                show_replies == false
+                            "
+                            @click="show_replies = true"
+                        >
+                            View more replies ({{
+                                CommentDetail.replies.length
+                            }})
+                        </div>
+                        <div
+                            v-show="
+                                CommentDetail.replies.length > 0 &&
+                                show_replies == true
+                            "
+                            @click="show_replies = false"
+                        >
+                            Hide
+                        </div>
+                    </span>
+                    <span @click="Reply(CommentDetail)" id="rep-buton"
+                        >Reply</span
+                    >
                 </div>
-                <ul class="re-comment main-comment">
+                <ul v-show="show_replies" class="re-comment main-comment">
                     <li v-for="item in CommentDetail.replies" :key="item">
                         <div class="item">
                             <div class="avt">
@@ -59,9 +79,10 @@
                                             >
                                         </div>
                                     </div>
-                                    <div class="options">
-                                        <small>({{ item.like }})</small
-                                        ><i class="fa-regular fa-heart"></i>
+                                    <div class="options like">
+                                <i class="fa-regular fa-heart"></i>
+                                <small>(<div class="quantity">{{ item.like }}</div>)</small
+                                        >
                                     </div>
                                 </div>
                                 <div class="item-content">
@@ -69,6 +90,15 @@
                                         <div class="description">
                                             <span>
                                                 <div class="short-desc">
+                                                    <div
+                                                        class="parent"
+                                                        v-if="item.parent"
+                                                    >
+                                                        {{
+                                                            item.parent.user
+                                                                .name
+                                                        }}
+                                                    </div>
                                                     {{ item.content }}
                                                 </div>
                                             </span>
@@ -77,7 +107,9 @@
                                 </div>
                                 <div class="rep">
                                     <span id="view-more"></span>
-                                    <span id="rep-buton">Reply</span>
+                                    <span @click="Reply(item)" id="rep-buton"
+                                        >Reply</span
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -99,11 +131,13 @@
 }
 small {
     font-size: 12px;
+    display: flex;
 }
 .options {
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
 }
 .rep {
     display: flex;
@@ -116,6 +150,11 @@ small {
     cursor: pointer;
     text-decoration: underline;
 }
+.parent {
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+}
 #rep-buton {
     margin: 0px 0px;
     font-weight: 500;
@@ -123,6 +162,8 @@ small {
 }
 .short-desc {
     position: relative;
+    display: flex;
+    gap: 10px;
 }
 .more-desc,
 .hide-desc {
@@ -300,12 +341,28 @@ li {
 
 <script>
 import $ from "jquery";
+import emitter from "../../../services/changeData";
+
 export default {
     setup() {},
+    data() {
+        return {
+            show_replies: false,
+        };
+    },
     props: {
         CommentDetail: Object,
     },
+    methods: {
+        Reply(CommentDetail) {
+            this.$emit("reply", CommentDetail);
+        },
+    },
     mounted() {
+        emitter.on(`NewReply${this.CommentDetail.id}`, (data) => {
+            this.CommentDetail.replies.push(data);
+        });
+
         $(".more-desc").click(function () {
             $(this).next().show();
             $(this).hide();
