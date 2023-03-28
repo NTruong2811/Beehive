@@ -70,7 +70,7 @@
 </style>
 
 <script>
-import TabContents from "../components/TabContents.vue";
+import TabContents from "../Tabs/TabContents.vue";
 
 export default {
     components: { TabContents },

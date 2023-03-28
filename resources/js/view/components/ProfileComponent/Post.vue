@@ -1,10 +1,7 @@
 <template>
     <div class="item">
         <div class="avt">
-            <img
-                :src="PostDetail.user.avatar"
-                alt=""
-            />
+            <img :src="PostDetail.user.avatar" alt="" />
         </div>
         <div class="content">
             <div class="item-header">
@@ -15,7 +12,9 @@
                             posted an update</span
                         >
                         <br />
-                        <span class="time">{{  ConvertTime(PostDetail.created_at)  }}</span>
+                        <span class="time">{{
+                            ConvertTime(PostDetail.created_at)
+                        }}</span>
                     </div>
                 </div>
                 <div class="options">
@@ -27,41 +26,6 @@
                     <div class="description">
                         <span>
                             {{ PostDetail.description }}
-                            <!-- <div class="short-desc">
-                                At vero eos et accusamus et iusto odio
-                                dignissimos ducimus qui blanditiis praesentium
-                                voluptatum deleniti atque corrupti quos dolores
-                                et quas molestias excepturi sint occaecati
-                                cupiditate non provident, similique sunt in cul
-                                <span class="more-desc">...read more</span>
-                                <span class="all-desc" style="display: none"
-                                    >At vero eos et accusamus et iusto odio
-                                    dignissimos ducimus qui blanditiis
-                                    praesentium voluptatum deleniti atque
-                                    corrupti quos dolores et quas molestias
-                                    excepturi sint occaecati cupiditate non
-                                    provident, similique sunt in culpa qui
-                                    officia deserunt mollitia animi, id est
-                                    laborum et dolorum fuga. Et harum quidem
-                                    rerum facilis est et expedita distinctio.
-                                    Nam libero tempore, cum soluta nobis est
-                                    eligendi optio cumque nihil impedit quo
-                                    minus id quod maxime placeat facere
-                                    possimus, omnis voluptas assumenda est,
-                                    omnis dolor repellendus. Temporibus autem
-                                    quibusdam et aut officiis debitis aut rerum
-                                    necessitatibus saepe eveniet ut et
-                                    voluptates repudiandae sint et molestiae non
-                                    recusandae. Itaque earum rerum hic tenetur a
-                                    sapiente delectus, ut aut reiciendis
-                                    voluptatibus maiores alias consequatur aut
-                                    perferendis doloribus asperiores
-                                    repellat.<br />
-                                </span>
-                                <span class="hide-desc" style="display: none"
-                                    >hide</span
-                                >
-                            </div> -->
                         </span>
                     </div>
                     <div class="media">
@@ -70,69 +34,6 @@
                                 <img :src="PostDetail.profile.files" alt="" />
                             </li>
                         </ul>
-                    </div>
-                    <div class="action">
-                        <ul>
-                            <li>
-                                <i class="fa-solid fa-heart"></i
-                                ><span>Liked </span>
-                                <div class="quantity">12</div>
-                            </li>
-                            <li>
-                                <span>Comments</span>
-                                <div class="quantity">1</div>
-                            </li>
-                            <li>Share +</li>
-                        </ul>
-                    </div>
-
-                    <div class="comments-list">
-                        <ul>
-                            <li class="item-cmt">
-                                <div class="avt">
-                                    <img
-                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="item-cmt-content">
-                                    <div class="item-cmt-header">
-                                        <div class="rep-by">
-                                            <span>
-                                                <strong>Irina Petrova</strong>
-                                                replied</span
-                                            >
-
-                                            <span class="time"
-                                                >4 weeks ago</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="comment">
-                                        <div class="text">
-                                            <span>Hello</span>
-                                        </div>
-                                        <ul>
-                                            <li>Reply</li>
-                                            <!-- <li>
-                                                            <i
-                                                                class="fa-solid fa-heart"
-                                                            ></i
-                                                            ><span>Liked</span>
-                                                        </li> -->
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="post-comment">
-                            <img class="avt" src="" alt="" />
-                            <input
-                                type="text"
-                                placeholder="Write some thing..."
-                            />
-                            <i class="fa-solid fa-paper-plane"></i>
-                        </div>
                     </div>
                 </div>
             </div>

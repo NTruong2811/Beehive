@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('debug', function () {
-    echo 1;
-    echo Redis::get('debug');
+    echo Redis::get('abc');
 });
 Route::any('{all}', function () {
     return view('index');

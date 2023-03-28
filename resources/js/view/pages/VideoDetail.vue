@@ -7,7 +7,7 @@
                         <i class="fa-solid fa-xmark"></i>
                     </div>
                 </div>
-                <!-- <video controls autoplay loop :src="Video.src"></video> -->
+                <video controls autoplay loop :src="Video.src"></video>
             </div>
             <div class="video-info col-sm-12 col-md-4">
                 <div class="post-info">
@@ -27,10 +27,7 @@
                     </div>
                     <p class="post-description">{{ Detail.description }}</p>
                 </div>
-                <comment-layout
-                    :Comments="Comments"
-                    :PostId="Detail.id"
-                ></comment-layout>
+                <comment-layout :PostId="Detail.id"></comment-layout>
             </div>
         </div>
     </div>
@@ -158,7 +155,7 @@ hr {
 </style>
 
 <script>
-import CommentLayout from "../components/CommentComponent/CommentLayout.vue";
+import CommentLayout from "../layout/CommentLayout.vue";
 import { UpdateComment } from "../../services/Comment";
 import { VideoDetail } from "../../services/Watch";
 export default {
@@ -171,7 +168,6 @@ export default {
             Detail: {},
             Video: {},
             User: {},
-            Comments: [],
             VideoId: this.$route.query.id,
             // NextVideo: null,
             // PrevVideo: null,
@@ -186,7 +182,6 @@ export default {
             this.Detail = await VideoDetail(id).then((res) => {
                 return res.data;
             });
-            this.Comments = this.Detail.comments;
             this.Video = this.Detail.video;
             this.User = this.Detail.user;
         },

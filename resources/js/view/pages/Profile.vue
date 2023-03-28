@@ -71,22 +71,12 @@
                         </div>
                         <div class="col-9 h-100 profile_nav">
                             <ul>
-                                <router-link
-                                    :to="{
-                                        path: '/profile',
-                                        query: { id: UserProfile.id },
-                                    }"
-                                >
+                                <router-link to="/profile">
                                     <li class="">
-                                        <i class="fa-solid fa-signs-post"></i>
-                                        <br />
-                                        <span>Activity</span>
+                                        <i class="fa-solid fa-address-card"></i>
+                                        <br /><span>Profile</span>
                                     </li>
                                 </router-link>
-                                <li class="">
-                                    <i class="fa-solid fa-address-card"></i>
-                                    <br /><span>Profile</span>
-                                </li>
                                 <router-link
                                     :to="{
                                         path: '/profile/friendships',

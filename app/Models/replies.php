@@ -13,7 +13,8 @@ class replies extends Model
         'comment_id',
         'user_id',
         'like',
-        'content'
+        'content',
+        'parent_id'
     ];
     public function comment()
     {
@@ -22,5 +23,9 @@ class replies extends Model
     public function user()
     {
         return $this->belongsTo(users::class, 'user_id', 'id');
+    }
+    public function parent()
+    {
+        return $this->belongsTo(replies::class, 'parent_id')->with('user');
     }
 }
