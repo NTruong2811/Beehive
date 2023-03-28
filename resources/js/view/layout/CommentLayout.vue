@@ -13,9 +13,7 @@
                     <div class="rep">
                         <span id="view-more">
                             <div @click="ViewMoreComment">
-                                {{ Comments.length }}View more{{
-                                    total_comment
-                                }}
+                               View more
                             </div>
                         </span>
                     </div>
