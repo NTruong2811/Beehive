@@ -6,7 +6,7 @@ import Watch from "./view/pages/Watch";
 import Watchs from "./view/Tabs/WatchTab/Watchs";
 import Musics from "./view/Tabs/WatchTab/Musics";
 import Videos from "./view/Tabs/WatchTab/Videos";
-import VideoDetail from "./view/pages/VideoDetail";
+import Detail from "./view/pages/Detail";
 // auth
 import Login from "./view/pages/Login";
 import Register from "./view/pages/Register";
@@ -17,7 +17,9 @@ import FriendList from "./view/Tabs/FriendTab/FriendList";
 import NewFriend from "./view/Tabs/FriendTab/NewFriend";
 // profile
 import Call from "./view/pages/Call";
-import profile from "./view/components/ProfileComponent/profile"
+import profile from "./view/components/ProfileComponent/profile";
+// detail
+import VideoDetail from "./view/components/PostComponent/VideoDetailComponent";
 const routes = [
     {
         path: "/",
@@ -85,8 +87,8 @@ const routes = [
         // redirect: "/activity",
         children: [
             {
-             path:"",
-             component:profile
+                path: "",
+                component: profile,
             },
             {
                 path: "friendships",
@@ -107,8 +109,14 @@ const routes = [
         meta: { AppProduct: true },
     },
     {
-        path: "/video-detail",
-        component: VideoDetail,
+        path: "/detail",
+        component: Detail,
+        children: [
+            {
+                path: "video",
+                component: VideoDetail,
+            },
+        ],
         meta: { AppProduct: true },
     },
 ];
