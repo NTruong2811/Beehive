@@ -190,9 +190,9 @@ li {
 <script>
 import TabContents from "../Tabs/TabContents.vue";
 import { newfeeds } from "../../services/NewFeeds";
-import Post from "../components/PostComponent/profile.vue";
-import videocm from "../components/PostComponent/video.vue";
-import music from "../components/PostComponent/music.vue";
+import Post from "../components/ProfileComponent/Post.vue";
+import videocm from "../components/WatchComponent/video.vue";
+import music from "../components/WatchComponent/music.vue";
 import $ from "jquery";
 export default {
     data() {

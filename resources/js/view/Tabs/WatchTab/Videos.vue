@@ -79,7 +79,7 @@
 <script>
 import Loading from "vue-loading-overlay";
 
-import videocm from "../../components/PostComponent/video.vue";
+import videocm from "../../components/WatchComponent/video.vue";
 import { Videos } from "../../../services/Watch";
 import emitter from "../../../services/changeData";
 
