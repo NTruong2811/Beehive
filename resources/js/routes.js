@@ -3,9 +3,9 @@ import layout from "./view/layout/layout";
 import Newfeeds from "./view/pages/Newfeeds";
 // watch
 import Watch from "./view/pages/Watch";
-import Watchs from "./view/components/WatchTab/Watchs";
-import Musics from "./view/components/WatchTab/Musics";
-import Videos from "./view/components/WatchTab/Videos";
+import Watchs from "./view/Tabs/WatchTab/Watchs";
+import Musics from "./view/Tabs/WatchTab/Musics";
+import Videos from "./view/Tabs/WatchTab/Videos";
 import VideoDetail from "./view/pages/VideoDetail";
 // auth
 import Login from "./view/pages/Login";
@@ -13,11 +13,11 @@ import Register from "./view/pages/Register";
 import Profile from "./view/pages/Profile";
 // friends
 import FriendShip from "./view/pages/FriendsShip";
-import FriendList from "./view/components/FriendTab/FriendList";
-import NewFriend from "./view/components/FriendTab/NewFriend";
+import FriendList from "./view/Tabs/FriendTab/FriendList";
+import NewFriend from "./view/Tabs/FriendTab/NewFriend";
 // profile
-import Activity from "./view/components/Activity";
 import Call from "./view/pages/Call";
+import profile from "./view/components/ProfileComponent/profile"
 const routes = [
     {
         path: "/",
@@ -85,8 +85,8 @@ const routes = [
         // redirect: "/activity",
         children: [
             {
-                path: "",
-                component: Activity,
+             path:"",
+             component:profile
             },
             {
                 path: "friendships",

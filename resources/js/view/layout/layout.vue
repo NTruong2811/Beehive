@@ -60,7 +60,7 @@
 import Navbar from "../components/Navbar.vue";
 import Headmain from "../components/Head.vue";
 import Sidebar from "../components/Sidebar.vue";
-import FormLayout from "../components/FormLayout.vue";
+import FormLayout from "./FormLayout.vue";
 import Chat from "../components/Chat.vue";
 import $ from "jquery";
 

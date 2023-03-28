@@ -155,7 +155,7 @@ hr {
 </style>
 
 <script>
-import CommentLayout from "../components/CommentComponent/CommentLayout.vue";
+import CommentLayout from "../layout/CommentLayout.vue";
 import { UpdateComment } from "../../services/Comment";
 import { VideoDetail } from "../../services/Watch";
 export default {
@@ -180,7 +180,6 @@ export default {
     methods: {
         async GetVideoDetail(id) {
             this.Detail = await VideoDetail(id).then((res) => {
-                console.log(res);
                 return res.data;
             });
             this.Video = this.Detail.video;
