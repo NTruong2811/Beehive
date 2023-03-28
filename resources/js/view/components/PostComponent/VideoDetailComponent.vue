@@ -159,7 +159,6 @@ export default {
     },
     watch: {
         Detail: function (newVal, oldVal) {
-            console.log(newVal);
             this.Video = newVal.video;
             this.User = newVal.user;
         },

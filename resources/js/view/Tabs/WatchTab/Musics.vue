@@ -79,7 +79,7 @@
 <script>
 import Loading from "vue-loading-overlay";
 
-import Music from "../../components/WatchComponent/music.vue";
+import Music from "../../components/PostComponent/music.vue";
 import { Musics } from "../../../services/Watch";
 import emitter from "../../../services/changeData";
 import $ from "jquery";
