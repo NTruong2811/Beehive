@@ -20,6 +20,7 @@ import Call from "./view/pages/Call";
 import profile from "./view/components/ProfileComponent/profile";
 // detail
 import VideoDetail from "./view/components/PostComponent/VideoDetailComponent";
+import MusicDetail from "./view/components/PostComponent/MusicDetailComponent";
 const routes = [
     {
         path: "/",
@@ -115,6 +116,10 @@ const routes = [
             {
                 path: "video",
                 component: VideoDetail,
+            },
+            {
+                path: "music",
+                component: MusicDetail,
             },
         ],
         meta: { AppProduct: true },

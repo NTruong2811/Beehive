@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\helpers\RedisServer;
 use App\Models\musics;
 use App\Models\posts;
 use App\Models\profiles;
@@ -13,6 +14,11 @@ use Cloudinary;
 
 class PostController extends Controller
 {
+    public $RedisServer;
+    public function __construct()
+    {
+        $this->RedisServer = new RedisServer;
+    }
     public function GetTypePost()
     {
         try {
@@ -74,6 +80,30 @@ class PostController extends Controller
             return $NewPost;
         } catch (\Throwable $th) {
             //throw $th;
+            return $th;
+        }
+    }
+    public function GetPostDetail(Request $request)
+    {
+
+        try {
+            $data = $this->RedisServer->DataExist('Post:' . $request->id);
+            if (!$data) {
+                $data = posts::with(
+                    'type_post',
+                    'video',
+                    'music',
+                    'profile',
+                    'user'
+                )->find($request)->first();
+            }
+            // $data = posts::with('type_post', 'video', 'user')->where('id', '<=', $request->id)
+            //     ->orderBy('created_at', 'DESC')
+            //     ->where('type_postId', '=', 2)
+            //     ->paginate(10);
+
+            return $data;
+        } catch (\Throwable $th) {
             return $th;
         }
     }

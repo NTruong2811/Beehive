@@ -14,28 +14,28 @@
     width: 100vw;
     height: 100vh;
 }
-
 </style>
 
 <script>
-import { VideoDetail } from "../../services/Watch";
+import { GetPostDetail } from "../../services/Post";
 export default {
     setup() {},
     data() {
         return {
             Detail: {},
-            VideoId: this.$route.query.id,
+            PostId: this.$route.query.id,
             // NextVideo: null,
             // PrevVideo: null,
             // CountVideo: 1,
         };
     },
     created() {
-        this.GetVideoDetail(this.VideoId);
+        this.PostDetail(this.PostId);
     },
     methods: {
-        async GetVideoDetail(id) {
-            this.Detail = await VideoDetail(id).then((res) => {
+        async PostDetail(id) {
+            this.Detail = await GetPostDetail(id).then((res) => {
+                console.log(res);
                 return res.data;
             });
         },
