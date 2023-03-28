@@ -81,8 +81,8 @@
 <script>
 import Loading from "vue-loading-overlay";
 
-import videocm from "../../components/PostComponent/video.vue";
-import Music from "../../components/PostComponent/music.vue";
+import videocm from "../../components/WatchComponent/video.vue";
+import Music from "../../components/WatchComponent/music.vue";
 import { Watch } from "../../../services/Watch";
 import emitter from "../../../services/changeData";
 
