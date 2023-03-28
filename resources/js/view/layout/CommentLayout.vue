@@ -12,11 +12,7 @@
                 <li v-if="Comments.length != total_comment">
                     <div class="rep">
                         <span id="view-more">
-                            <div @click="ViewMoreComment">
-                                {{ Comments.length }}View more{{
-                                    total_comment
-                                }}
-                            </div>
+                            <div @click="ViewMoreComment">View more</div>
                         </span>
                     </div>
                 </li>
@@ -196,7 +192,7 @@ export default {
                 data.post_id = this.PostId;
                 this.UpdateCmt(data);
             }
-            this.total_comment += 1;
+
             e.target.comment.value = "";
         },
         UpdateCmt(data) {
