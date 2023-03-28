@@ -176,12 +176,7 @@
                 transform: rotate(360deg);
             }
         }
-
-        .typewriter {
-            color: #8224e3;
-            font-weight: 600;
-            font-size: 22px;
-        }
+        
     </style>
 </head>
 

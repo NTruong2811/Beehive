@@ -188,7 +188,7 @@ li {
 </style>
 
 <script>
-import TabContents from "../components/TabContents.vue";
+import TabContents from "../Tabs/TabContents.vue";
 import { newfeeds } from "../../services/NewFeeds";
 import Post from "../components/ProfileComponent/Post.vue";
 import videocm from "../components/WatchComponent/video.vue";

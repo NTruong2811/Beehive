@@ -27,7 +27,7 @@
                     </div>
                     <p class="post-description">{{ Detail.description }}</p>
                 </div>
-                <comment-layout @UpdateCmt="UpdateCmt"></comment-layout>
+                <comment-layout :PostId="Detail.id"></comment-layout>
             </div>
         </div>
     </div>
@@ -48,7 +48,7 @@ hr {
     left: -10%;
 }
 .support {
-    position: fixed;
+    position: absolute;
     top: 0px;
     left: 0px;
     width: inherit;
@@ -155,7 +155,8 @@ hr {
 </style>
 
 <script>
-import CommentLayout from "../components/CommentComponent/CommentLayout.vue";
+import CommentLayout from "../layout/CommentLayout.vue";
+import { UpdateComment } from "../../services/Comment";
 import { VideoDetail } from "../../services/Watch";
 export default {
     setup() {},
@@ -186,9 +187,6 @@ export default {
         },
         back() {
             window.history.back();
-        },
-        UpdateCmt(e) {
-            console.log(e);
         },
     },
     mounted() {

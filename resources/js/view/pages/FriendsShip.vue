@@ -55,7 +55,7 @@
 </style>
 <script>
 import { ListFriend } from "../../services/Users";
-import TabContents from "../components/TabContents.vue";
+import TabContents from "../Tabs/TabContents.vue";
 export default {
     setup() {},
     components: {

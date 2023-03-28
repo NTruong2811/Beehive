@@ -158,7 +158,7 @@
 import $ from "jquery";
 import axios from "axios";
 
-import TabContents from "../components/TabContents.vue";
+import TabContents from "../Tabs/TabContents.vue";
 import SearchResult from "../components/SearchResult.vue";
 import { search } from "../../services/GlobalAction";
 export default {

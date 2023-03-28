@@ -28,6 +28,8 @@ app.config.globalProperties.userInfor = JSON.parse(
 );
 // Global function
 app.config.globalProperties.LoadFile = (file, type) => {
+    return file;
+
     // image 1, sound 2, video 3
     const SizeLimit = 6242880;
     const ImageTypeLimit = [

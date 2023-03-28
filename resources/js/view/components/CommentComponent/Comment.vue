@@ -1,17 +1,14 @@
 <template>
     <div class="item">
         <div class="avt">
-            <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
-                alt=""
-            />
+            <img :src="CommentDetail.user.avatar" alt="" />
         </div>
         <div class="content">
             <div class="item-header">
                 <div class="meta">
                     <div class="post-by">
                         <span>
-                            <strong>Irina Petrova</strong>
+                            <strong>{{ CommentDetail.user.name }}</strong>
                             posted an update</span
                         >
                         <br />
@@ -19,7 +16,7 @@
                     </div>
                 </div>
                 <div class="options">
-                    <small>(1002)</small>
+                    <small>({{ CommentDetail.like }})</small>
                     <i class="fa-regular fa-heart"></i>
                 </div>
             </div>
@@ -28,37 +25,52 @@
                     <div class="description">
                         <span>
                             <div class="short-desc">
-                                At vero eos et accusamus et iusto odio
-                                dignissimos ducimus qui blanditiis praesentium
-                                voluptatum deleniti atque corrupti quos dolores
-                                et quas molestias excepturi sint occaecati
-                                cupiditate non provident, similique sunt in cul
+                                {{ CommentDetail.content }}
                             </div>
                         </span>
                     </div>
                 </div>
                 <div class="rep">
-                    <span id="view-more"
-                        >View more replies (3)
-                        <i class="fa-solid fa-chevron-down"></i
-                    ></span>
-                    <span id="rep-buton">Reply</span>
+                    <span id="view-more">
+                        <div
+                            v-show="
+                                CommentDetail.replies.length > 0 &&
+                                show_replies == false
+                            "
+                            @click="show_replies = true"
+                        >
+                            View more replies ({{
+                                CommentDetail.replies.length
+                            }})
+                        </div>
+                        <div
+                            v-show="
+                                CommentDetail.replies.length > 0 &&
+                                show_replies == true
+                            "
+                            @click="show_replies = false"
+                        >
+                            Hide
+                        </div>
+                    </span>
+                    <span @click="Reply(CommentDetail)" id="rep-buton"
+                        >Reply</span
+                    >
                 </div>
-                <ul class="re-comment main-comment">
-                    <li>
+                <ul v-show="show_replies" class="re-comment main-comment">
+                    <li v-for="item in CommentDetail.replies" :key="item">
                         <div class="item">
                             <div class="avt">
-                                <img
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-L-UQBMvNKteW4niUJySPtT56ZREEObnrBXHmDAP86xTZX24eNiqFKwJg9tfSGVgpOSw&usqp=CAU"
-                                    alt=""
-                                />
+                                <img :src="item.user.avatar" alt="" />
                             </div>
                             <div class="content">
                                 <div class="item-header">
                                     <div class="meta">
                                         <div class="post-by">
                                             <span>
-                                                <strong>Irina Petrova</strong>
+                                                <strong>{{
+                                                    item.user.name
+                                                }}</strong>
                                                 posted an update</span
                                             >
                                             <br />
@@ -67,9 +79,10 @@
                                             >
                                         </div>
                                     </div>
-                                    <div class="options">
-                                        <small>(1002)</small
-                                        ><i class="fa-regular fa-heart"></i>
+                                    <div class="options like">
+                                <i class="fa-regular fa-heart"></i>
+                                <small>(<div class="quantity">{{ item.like }}</div>)</small
+                                        >
                                     </div>
                                 </div>
                                 <div class="item-content">
@@ -77,15 +90,16 @@
                                         <div class="description">
                                             <span>
                                                 <div class="short-desc">
-                                                    At vero eos et accusamus et
-                                                    iusto odio dignissimos
-                                                    ducimus qui blanditiis
-                                                    praesentium voluptatum
-                                                    deleniti atque corrupti quos
-                                                    dolores et quas molestias
-                                                    excepturi sint occaecati
-                                                    cupiditate non provident,
-                                                    similique sunt in cul
+                                                    <div
+                                                        class="parent"
+                                                        v-if="item.parent"
+                                                    >
+                                                        {{
+                                                            item.parent.user
+                                                                .name
+                                                        }}
+                                                    </div>
+                                                    {{ item.content }}
                                                 </div>
                                             </span>
                                         </div>
@@ -93,7 +107,9 @@
                                 </div>
                                 <div class="rep">
                                     <span id="view-more"></span>
-                                    <span id="rep-buton">Reply</span>
+                                    <span @click="Reply(item)" id="rep-buton"
+                                        >Reply</span
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -115,11 +131,13 @@
 }
 small {
     font-size: 12px;
+    display: flex;
 }
 .options {
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
 }
 .rep {
     display: flex;
@@ -132,6 +150,11 @@ small {
     cursor: pointer;
     text-decoration: underline;
 }
+.parent {
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+}
 #rep-buton {
     margin: 0px 0px;
     font-weight: 500;
@@ -139,6 +162,8 @@ small {
 }
 .short-desc {
     position: relative;
+    display: flex;
+    gap: 10px;
 }
 .more-desc,
 .hide-desc {
@@ -155,7 +180,20 @@ li {
     position: relative;
     overflow: hidden;
 }
-
+.item::before {
+    content: "";
+    width: 2px;
+    height: 100%;
+    background: rgb(120, 120, 120);
+    background: linear-gradient(
+        180deg,
+        rgba(120, 120, 120, 1) 0%,
+        rgba(248, 248, 248, 1) 100%
+    );
+    position: absolute;
+    top: 0px;
+    left: 22px;
+}
 .item .avt {
     z-index: 100;
 }
@@ -166,6 +204,7 @@ li {
 }
 .item .content {
     padding: 0px 20px;
+    width: 100%;
 }
 .item .item-header .meta {
     display: flex;
@@ -302,9 +341,28 @@ li {
 
 <script>
 import $ from "jquery";
+import emitter from "../../../services/changeData";
+
 export default {
     setup() {},
+    data() {
+        return {
+            show_replies: false,
+        };
+    },
+    props: {
+        CommentDetail: Object,
+    },
+    methods: {
+        Reply(CommentDetail) {
+            this.$emit("reply", CommentDetail);
+        },
+    },
     mounted() {
+        emitter.on(`NewReply${this.CommentDetail.id}`, (data) => {
+            this.CommentDetail.replies.push(data);
+        });
+
         $(".more-desc").click(function () {
             $(this).next().show();
             $(this).hide();

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('type_postId');
             $table->foreign('type_postId')->references('id')->on('type_post');
+            $table->string('description');
             $table->timestamps();
         });
     }

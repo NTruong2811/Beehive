@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\helpers\RedisServer;
 use App\Models\posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
 class WatchController extends Controller
 {
+    public $RedisServer;
+    public function __construct()
+    {
+        $this->RedisServer = new RedisServer;
+    }
     public function Watch()
     {
         try {
@@ -47,11 +53,21 @@ class WatchController extends Controller
     {
 
         try {
-            $data = posts::with('type_post', 'video', 'user', 'comment', 'comment.reply')->find($request)->first();
+
+
+            $data = $this->RedisServer->DataExist('Post:' . $request->id);
+            if (!$data) {
+                $data = posts::with(
+                    'type_post',
+                    'video',
+                    'user'
+                )->find($request)->first();
+            }
             // $data = posts::with('type_post', 'video', 'user')->where('id', '<=', $request->id)
             //     ->orderBy('created_at', 'DESC')
             //     ->where('type_postId', '=', 2)
             //     ->paginate(10);
+
             return $data;
         } catch (\Throwable $th) {
             return $th;
