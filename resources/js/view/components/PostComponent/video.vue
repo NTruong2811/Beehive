@@ -12,7 +12,9 @@
                             posted an update</span
                         >
                         <br />
-                        <span class="time">{{ ConvertTime(VideoDetail.created_at)   }}</span>
+                        <span class="time">{{
+                            ConvertTime(VideoDetail.created_at)
+                        }}</span>
                     </div>
                 </div>
                 <div class="options">
@@ -71,7 +73,7 @@
                     </button>
                     <router-link
                         :to="{
-                            path: '/video-detail',
+                            path: '/detail/video',
                             query: {
                                 id: VideoDetail.id,
                             },
