@@ -35,7 +35,6 @@ export default {
     methods: {
         async PostDetail(id) {
             this.Detail = await GetPostDetail(id).then((res) => {
-                console.log(res);
                 return res.data;
             });
         },

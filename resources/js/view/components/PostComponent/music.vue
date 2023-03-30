@@ -99,10 +99,19 @@
                         <i class="fas fa-heart"></i><br />
                         <span>1</span>
                     </button>
-                    <button class="action-btn">
-                        <i class="fa-solid fa-comment-dots"></i> <br />
-                        <span>1</span>
-                    </button>
+                    <router-link
+                        :to="{
+                            path: '/detail/music',
+                            query: {
+                                id: MusicDetail.id,
+                            },
+                        }"
+                    >
+                        <button class="action-btn">
+                            <i class="fa-solid fa-comment-dots"></i> <br />
+                            <span>1</span>
+                        </button>
+                    </router-link>
                     <button class="action-btn">
                         <i class="fas fa-share"></i><br />
                         <span>1</span>

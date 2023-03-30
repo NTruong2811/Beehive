@@ -87,7 +87,8 @@ class PostController extends Controller
     {
 
         try {
-            $data = $this->RedisServer->DataExist('Post:' . $request->id);
+            $data = $this->RedisServer->DataExist('post:' . $request->id);
+
             if (!$data) {
                 $data = posts::with(
                     'type_post',
@@ -97,6 +98,14 @@ class PostController extends Controller
                     'user'
                 )->find($request)->first();
             }
+            $data->next_post = posts::select('id')->where([
+                ['id', '>', $request->id],
+                ['type_postId', '=', $data->type_postId]
+            ])->first();
+            $data->prev_post = posts::select('id')->where([
+                ['id', '<', $request->id],
+                ['type_postId', '=', $data->type_postId]
+            ])->orderBy('created_at', 'desc')->first();
             // $data = posts::with('type_post', 'video', 'user')->where('id', '<=', $request->id)
             //     ->orderBy('created_at', 'DESC')
             //     ->where('type_postId', '=', 2)
