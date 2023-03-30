@@ -84,9 +84,9 @@
                     Add Friend
                 </button>
             </div>
-            <p class="post-description">{{ Detail.description }}</p>
+            <p class="post-description">{{ PostDetail.description }}</p>
         </div>
-        <comment-layout :PostId="Detail.id"></comment-layout>
+        <comment-layout :PostId="PostDetail.id"></comment-layout>
     </div>
 </template>
 <style scoped>
