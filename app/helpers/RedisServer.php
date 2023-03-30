@@ -17,10 +17,23 @@ class RedisServer
     {
         $List = [];
         foreach ($data->items() as $item) {
-            $List[$NameData . ':' . $item->id] = json_encode($item);
+            if ($item->type_postId) {
+                $List[$NameData . ':' . $item->id . '-' . 'type_post:' . $item->type_postId] = json_encode($item);
+            } else {
+                $List[$NameData . ':' . $item->id] = json_encode($item);
+            }
         }
         $redis = Redis::connection();
         $redis->mset($List);
+    }
+
+    public function GetPostNear($PostId)
+    {
+        // $redis = Redis::connection();
+        // $GetPost = $this->DataExist('post:' . $PostId);
+
+        // $FindByType = $redis->keys('*type_post:' . $GetPost->type_postId);
+        return 1;
     }
 
     public function SetNew($NameData, $data)
