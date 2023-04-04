@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\helpers\RedisServer;
+use App\Jobs\UpdatePost;
 use App\Models\musics;
 use App\Models\posts;
 use App\Models\profiles;
@@ -11,6 +12,7 @@ use App\Models\videos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Cloudinary;
+use Illuminate\Support\Facades\Queue;
 
 class PostController extends Controller
 {
@@ -38,6 +40,7 @@ class PostController extends Controller
     }
     public function UpdatePost(Request $request)
     {
+<<<<<<< HEAD
         try {
             // return $request->all();
             $post = posts::create([
@@ -83,10 +86,60 @@ class PostController extends Controller
             //throw $th;
             return $th;
         }
+=======
+        UpdatePost::dispatch('abc')->delay(now()->addMinute(1));
+
+        Queue::pushOn('hello', new UpdatePost('hello'));
+
+        // UpdatePost::dispatch();
+        // try {
+        //     $post = posts::create([
+        //         'user_id' => auth()->id(),
+        //         'type_postId' => $request->type_postId,
+        //         'description' => $request->description
+        //     ]);
+
+        //     if ($request->type_postId == 3) {
+        //         $image = Cloudinary::uploadFile($request->file('image_file')->getRealPath(), [
+        //             'folder' => 'images'
+        //         ])->GetSecurePath();
+        //         $src = Cloudinary::uploadFile($request->file('song_file')->getRealPath(), [
+        //             'folder' => 'sounds'
+        //         ])->GetSecurePath();
+        //         $music = musics::create([
+        //             'post_id' => $post->id,
+        //             'image' => $image,
+        //             'song_name' => $request->song_name,
+        //             'song_artist' => $request->song_artist,
+        //             'src' => $src
+        //         ]);
+        //     } elseif ($request->type_postId == 2) {
+        //         $src = Cloudinary::uploadFile($request->file('video_file')->getRealPath(), [
+        //             'folder' => 'videos'
+        //         ])->GetSecurePath();
+        //         $video = videos::create([
+        //             'post_id' => $post->id,
+        //             'src' => $src
+        //         ]);
+        //     } elseif ($request->type_postId == 1) {
+        //         $src = Cloudinary::uploadFile($request->file('files')->getRealPath(), [
+        //             'folder' => 'files'
+        //         ])->GetSecurePath();
+        //         $profile = profiles::create([
+        //             'post_id' => $post->id,
+        //             'files' => $src
+        //         ]);
+        //     }
+        //     $NewPost = posts::with('type_post', 'music', 'user', 'video', 'profile')->find($post->id);
+        //     return $NewPost;
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        //     return $th;
+        // }
+>>>>>>> Feature/Post
     }
     public function GetPostDetail(Request $request)
     {
-
         try {
             $data = $this->RedisServer->DataExist('post:' . $request->id);
 

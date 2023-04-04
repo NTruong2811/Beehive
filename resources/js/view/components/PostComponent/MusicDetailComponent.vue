@@ -84,7 +84,12 @@
                     Add Friend
                 </button>
             </div>
+<<<<<<< HEAD
             <p class="post-description">{{ PostDetail.description }}</p>
+=======
+            <p class="post-description">{{ Detail.description }}</p>
+            <traffic-detail-component></traffic-detail-component>
+>>>>>>> Feature/Post
         </div>
         <comment-layout :PostId="PostDetail.id"></comment-layout>
     </div>
@@ -372,6 +377,7 @@ video::-webkit-media-controls-panel {
 </style>
 <script>
 import CommentLayout from "../../layout/CommentLayout.vue";
+import TrafficDetailComponent from "../TrafficComponent/TrafficDetailComponent.vue";
 import $ from "jquery";
 import { GetPostDetail } from "../../../services/Post";
 export default {
@@ -382,6 +388,7 @@ export default {
     },
     components: {
         CommentLayout,
+        TrafficDetailComponent
     },
     data() {
         return {

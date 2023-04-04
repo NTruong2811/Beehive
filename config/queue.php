@@ -29,6 +29,7 @@ return [
     */
 
     'connections' => [
+        // 'default' => 'redis-queue',
 
         'sync' => [
             'driver' => 'sync',
@@ -65,12 +66,21 @@ return [
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
-            'queue' => env('REDIS_QUEUE', 'default'),
+            'queue' => 'default',
             'retry_after' => 90,
             'block_for' => null,
             'after_commit' => false,
         ],
 
+    ],
+    'redis' => [
+        'client' => 'predis',
+        'default' => [
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => 0,
+        ],
     ],
 
     /*
