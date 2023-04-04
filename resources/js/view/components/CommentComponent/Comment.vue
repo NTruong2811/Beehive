@@ -122,6 +122,7 @@
 <style scoped>
 .re-comment {
     margin-top: 20px;
+    
 }
 .re-comment .item {
     margin-top: 10px;

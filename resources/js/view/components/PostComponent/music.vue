@@ -1,5 +1,5 @@
 <template>
-    <div class="item" :data-music="MusicDetail.music.src">
+    <div class="item" :data-music="MusicDetail.music.song_file">
         <div class="avt">
             <img :src="MusicDetail.user.avatar" alt="" />
         </div>
@@ -70,7 +70,7 @@
                     <div class="music-info">
                         <div class="album-art">
                             <img
-                                :src="MusicDetail.music.image"
+                                :src="MusicDetail.music.image_file"
                                 alt="Album Art"
                             />
                         </div>
@@ -87,7 +87,7 @@
                         <audio controls loop>
                             <!-- <source src="horse.ogg" type="audio/ogg" /> -->
                             <source
-                                :src="MusicDetail.music.src"
+                                :src="MusicDetail.music.song_file"
                                 type="audio/mpeg"
                             />
                             Your browser does not support the audio element.
@@ -382,7 +382,7 @@ export default {
             { threshold: 0, rootMargin: "-350px 0px" }
         );
         observer.observe(
-            $("[data-music='" + this.MusicDetail.music.src + "']")[0]
+            $("[data-music='" + this.MusicDetail.music.song_file + "']")[0]
         );
     },
 };

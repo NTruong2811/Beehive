@@ -1,5 +1,5 @@
 <template>
-    <div class="item" :data-video="VideoDetail.video.src">
+    <div class="item" :data-video="VideoDetail.video.file">
         <div class="avt">
             <img :src="VideoDetail.user.avatar" alt="" />
         </div>
@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="item-video">
-                <video :src="VideoDetail.video.src" controls loop></video>
+                <video :src="VideoDetail.video.file" controls loop></video>
                 <div class="traffic">
                     <button class="action-btn">
                         <i class="fas fa-heart"></i><br />
@@ -341,11 +341,11 @@ export default {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
                         $(
-                            "[src='" + VueThis.VideoDetail.video.src + "']"
+                            "[src='" + VueThis.VideoDetail.video.file + "']"
                         )[0].play();
                     } else {
                         $(
-                            "[src='" + VueThis.VideoDetail.video.src + "']"
+                            "[src='" + VueThis.VideoDetail.video.file + "']"
                         )[0].pause();
                     }
                 });
@@ -353,7 +353,7 @@ export default {
             { threshold: 0, rootMargin: "-350px 0px" }
         );
         observer.observe(
-            $("[data-video='" + this.VideoDetail.video.src + "']")[0]
+            $("[data-video='" + this.VideoDetail.video.file + "']")[0]
         );
     },
     methods: {

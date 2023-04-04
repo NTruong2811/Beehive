@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('post_id');
             $table->foreign('post_id')->references('id')->on('posts');
-            $table->string('image');
+            $table->string('image_file');
+            $table->string('song_file');
             $table->string('song_name');
             $table->string('song_artist');
-            $table->string('src');
             $table->timestamps();
         });
     }

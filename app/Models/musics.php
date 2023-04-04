@@ -11,10 +11,10 @@ class musics extends Model
     protected $table = 'musics';
     protected $fillable = [
         'post_id',
-        'image',
+        'image_file',
+        'song_file',
         'song_name',
         'song_artist',
-        'src'
     ];
     public function posts()
     {

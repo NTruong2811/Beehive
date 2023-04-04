@@ -40,55 +40,51 @@ class PostController extends Controller
     }
     public function UpdatePost(Request $request)
     {
-        UpdatePost::dispatch('abc')->delay(now()->addMinute(1));
+        try {
+            // return $request->all();
+            $post = posts::create([
+                'user_id' => auth()->id(),
+                'type_postId' => $request->type_postId,
+                'description' => $request->description,
+            ]);
 
-        Queue::pushOn('hello', new UpdatePost('hello'));
-
-        // UpdatePost::dispatch();
-        // try {
-        //     $post = posts::create([
-        //         'user_id' => auth()->id(),
-        //         'type_postId' => $request->type_postId,
-        //         'description' => $request->description
-        //     ]);
-
-        //     if ($request->type_postId == 3) {
-        //         $image = Cloudinary::uploadFile($request->file('image_file')->getRealPath(), [
-        //             'folder' => 'images'
-        //         ])->GetSecurePath();
-        //         $src = Cloudinary::uploadFile($request->file('song_file')->getRealPath(), [
-        //             'folder' => 'sounds'
-        //         ])->GetSecurePath();
-        //         $music = musics::create([
-        //             'post_id' => $post->id,
-        //             'image' => $image,
-        //             'song_name' => $request->song_name,
-        //             'song_artist' => $request->song_artist,
-        //             'src' => $src
-        //         ]);
-        //     } elseif ($request->type_postId == 2) {
-        //         $src = Cloudinary::uploadFile($request->file('video_file')->getRealPath(), [
-        //             'folder' => 'videos'
-        //         ])->GetSecurePath();
-        //         $video = videos::create([
-        //             'post_id' => $post->id,
-        //             'src' => $src
-        //         ]);
-        //     } elseif ($request->type_postId == 1) {
-        //         $src = Cloudinary::uploadFile($request->file('files')->getRealPath(), [
-        //             'folder' => 'files'
-        //         ])->GetSecurePath();
-        //         $profile = profiles::create([
-        //             'post_id' => $post->id,
-        //             'files' => $src
-        //         ]);
-        //     }
-        //     $NewPost = posts::with('type_post', 'music', 'user', 'video', 'profile')->find($post->id);
-        //     return $NewPost;
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        //     return $th;
-        // }
+            if ($request->type_postId == 3) {
+                $image_file = Cloudinary::uploadFile($request->file('image_file')->getRealPath(), [
+                    'folder' => 'images'
+                ])->GetSecurePath();
+                $song_file = Cloudinary::uploadFile($request->file('song_file')->getRealPath(), [
+                    'folder' => 'sounds'
+                ])->GetSecurePath();
+                $music = musics::create([
+                    'post_id' => $post->id,
+                    'image_file' => $image_file,
+                    'song_file' => $song_file,
+                    'song_name' => $request->song_name,
+                    'song_artist' => $request->song_artist,
+                ]);
+            } elseif ($request->type_postId == 2) {
+                $file = Cloudinary::uploadFile($request->file('video_file')->getRealPath(), [
+                    'folder' => 'videos'
+                ])->GetSecurePath();
+                $video = videos::create([
+                    'post_id' => $post->id,
+                    'file' => $file
+                ]);
+            } elseif ($request->type_postId == 1) {
+                $src = Cloudinary::uploadFile($request->file('files')->getRealPath(), [
+                    'folder' => 'files'
+                ])->GetSecurePath();
+                $profile = profiles::create([
+                    'post_id' => $post->id,
+                    'files' => $src
+                ]);
+            }
+            $NewPost = posts::with('type_post', 'music', 'user', 'video', 'profile')->find($post->id);
+            return $NewPost;
+        } catch (\Throwable $th) {
+            //throw $th;
+            return $th;
+        }
     }
     public function GetPostDetail(Request $request)
     {

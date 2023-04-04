@@ -2,7 +2,7 @@
     <div
         class="music-container col-sm-12 col-md-8"
         v-bind:style="{
-            backgroundImage: 'url(' + Music.image + ')',
+            backgroundImage: 'url(' + Music.image_file + ')',
         }"
     >
         <div class="support">
@@ -15,7 +15,7 @@
             <div
                 id="cover"
                 v-bind:style="{
-                    backgroundImage: 'url(' + Music.image + ')',
+                    backgroundImage: 'url(' + Music.image_file + ')',
                 }"
             >
                 <div id="print"></div>
@@ -87,7 +87,7 @@
             <p class="post-description">{{ Detail.description }}</p>
             <traffic-detail-component></traffic-detail-component>
         </div>
-        <comment-layout :PostId="Detail.id"></comment-layout>
+        <comment-layout :PostId="PostDetail.id"></comment-layout>
     </div>
 </template>
 <style scoped>
@@ -405,7 +405,7 @@ export default {
             $(".audio").append(`
             <audio controls autoplay class="my-audio w-100"
             >
-                <source src="${this.Music.src}" type="audio/mpeg" />
+                <source src="${this.Music.song_file}" type="audio/mpeg" />
                 Your browser does not support the audio element.
             </audio>`);
         },
@@ -420,7 +420,7 @@ export default {
                     $(".audio").append(`
             <audio controls autoplay class="my-audio w-100"
             >
-                <source src="${this.Music.src}" type="audio/mpeg" />
+                <source src="${this.Music.song_file}" type="audio/mpeg" />
                 Your browser does not support the audio element.
             </audio>`);
                 });
