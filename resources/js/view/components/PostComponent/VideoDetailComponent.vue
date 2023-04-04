@@ -5,7 +5,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </div>
         </div>
-        <video controls autoplay loop :src="Video.src"></video>
+        <video controls autoplay loop :src="Video.file"></video>
     </div>
     <div class="video-info col-sm-12 col-md-4">
         <div class="post-info">

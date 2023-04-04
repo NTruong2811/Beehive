@@ -11,7 +11,7 @@ class videos extends Model
     protected $table = 'videos';
     protected $fillable = [
         'post_id',
-        'src'
+        'file'
     ];
     public function posts()
     {

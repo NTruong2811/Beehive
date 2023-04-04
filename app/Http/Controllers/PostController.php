@@ -39,33 +39,34 @@ class PostController extends Controller
     public function UpdatePost(Request $request)
     {
         try {
+            // return $request->all();
             $post = posts::create([
                 'user_id' => auth()->id(),
                 'type_postId' => $request->type_postId,
-                'description' => $request->description
+                'description' => $request->description,
             ]);
 
             if ($request->type_postId == 3) {
-                $image = Cloudinary::uploadFile($request->file('image_file')->getRealPath(), [
+                $image_file = Cloudinary::uploadFile($request->file('image_file')->getRealPath(), [
                     'folder' => 'images'
                 ])->GetSecurePath();
-                $src = Cloudinary::uploadFile($request->file('song_file')->getRealPath(), [
+                $song_file = Cloudinary::uploadFile($request->file('song_file')->getRealPath(), [
                     'folder' => 'sounds'
                 ])->GetSecurePath();
                 $music = musics::create([
                     'post_id' => $post->id,
-                    'image' => $image,
+                    'image_file' => $image_file,
+                    'song_file' => $song_file,
                     'song_name' => $request->song_name,
                     'song_artist' => $request->song_artist,
-                    'src' => $src
                 ]);
             } elseif ($request->type_postId == 2) {
-                $src = Cloudinary::uploadFile($request->file('video_file')->getRealPath(), [
+                $file = Cloudinary::uploadFile($request->file('video_file')->getRealPath(), [
                     'folder' => 'videos'
                 ])->GetSecurePath();
                 $video = videos::create([
                     'post_id' => $post->id,
-                    'src' => $src
+                    'file' => $file
                 ]);
             } elseif ($request->type_postId == 1) {
                 $src = Cloudinary::uploadFile($request->file('files')->getRealPath(), [

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\posts;
-use App\Helpers\RedisServer;
+use App\helpers\RedisServer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
