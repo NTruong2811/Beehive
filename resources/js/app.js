@@ -6,8 +6,10 @@ import routes from "./routes";
 import App from "./App.vue";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import toastr from "toastr";
-import "toastr/build/toastr.css";
+
+import VueToast from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-sugar.css'
+
 import "./services/ActionServices/BeehiveCall";
 import "./services/ActionServices/Chat";
 import { GetTypeNotifi } from "./services/Notification";
@@ -19,8 +21,12 @@ const router = createRouter({
 });
 
 const app = createApp(App);
-
 const bus = reactive({ data: null });
+app.use(VueToast)
+
+
+
+
 
 // Global variable
 app.config.globalProperties.userInfor = JSON.parse(
@@ -28,10 +34,10 @@ app.config.globalProperties.userInfor = JSON.parse(
 );
 // Global function
 app.config.globalProperties.LoadFile = (file, type) => {
-    return file;
+    // return file;
 
     // image 1, sound 2, video 3
-    const SizeLimit = 6242880;
+    const SizeLimit = 5242880;
     const ImageTypeLimit = [
         "image/jpeg",
         "image/jpg",
@@ -61,69 +67,56 @@ app.config.globalProperties.LoadFile = (file, type) => {
             if (ImageTypeLimit.includes(file.type)) {
                 return file;
             } else {
-                alert("ee");
+                app.config.globalProperties.$toast.warning
+                ("Oh no, you image format is not supported. Please try again !", {duration: 2000})
+                // app.config.globalProperties.$toast.warning
+                // ("Oh no, only image files are supported for files uploads.Please try again ! <br> (We are very sorry and issue will be resolved soon)", {duration: 2000})
             }
         } else if (type == 2) {
             if (SoundTypeLimit.includes(file.type)) {
                 return file;
             } else {
-                alert("ee");
+                app.config.globalProperties.$toast.warning
+                ("Oh no, you sound format is not supported. Please try again !", {duration: 2000})
             }
         } else {
             if (VideoTypeLimit.includes(file.type)) {
                 return file;
             } else {
-                alert("ee");
+                app.config.globalProperties.$toast.warning
+                ("Oh no, you video format is not supported. Please try again !", {duration: 2000})
             }
         }
     } else {
-        alert("err size");
+        app.config.globalProperties.$toast.warning("Oh no, Maximum file size is 5mb. Please try again !", {duration: 2000})
     }
 };
+
+
 app.config.globalProperties.FileName = (FileElement) => {
     $("input[name=" + FileElement + "]").change(function () {
         $("#" + FileElement)[0].innerText = $(this)[0].files[0].name;
     });
 };
-app.config.globalProperties.ValidateForm = (formId) => {
-    let form = $(formId);
-    console.log(form);
-    let isValid = true;
-
-    // Kiểm tra tất cả các trường input của form
-    form.find("input").each(function () {
-        if ($(this).val() === "") {
-            isValid = false;
-            $(this).after(
-                '<i class="fas fa-exclamation-triangle error-icon"></i>'
-            );
-        } else {
-            $(this).removeClass("error-icon");
+app.config.globalProperties.ValidateForm = (form) => {
+    let isValid = 0;
+    $(form).find("input").each(function () {
+        if ($(this).val().length == 0) {
+            isValid += 1;
         }
     });
-
-    // Kiểm tra tất cả các trường textarea của form
-    form.find("textarea").each(function () {
-        if ($(this).val() === "") {
-            isValid = false;
-            $(this).addClass("is-invalid");
-        } else {
-            $(this).removeClass("is-invalid");
+    $(form).find("textarea").each(function () {
+        if ($(this).val().length == 0) {
+            isValid += 1;
         }
     });
-
-    // Nếu form không hợp lệ, cuộn trang tới trường đầu tiên lỗi
-    if (!isValid) {
-        $("html, body").animate(
-            {
-                scrollTop: $(".is-invalid:first").offset().top,
-            },
-            500
-        );
+    if (isValid > 0) {
+        app.config.globalProperties.$toast.warning("We missing something ?", {duration: 2000})
     }
-
     return isValid;
 };
+
+
 app.config.globalProperties.ConvertTime = (postTime) => {
     const now = new Date();
 
@@ -147,7 +140,19 @@ app.config.globalProperties.ConvertTime = (postTime) => {
     return diff;
 };
 
-app.config.globalProperties.$toastr = toastr;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.use(router);
 app.mount("#app");

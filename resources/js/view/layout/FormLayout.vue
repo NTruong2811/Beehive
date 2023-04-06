@@ -1,38 +1,20 @@
 <template>
     <div class="forms">
         <div class="post-new">
-            <form
-                action=""
-                method="post"
-                @submit.prevent="PostNew"
-                id="PostNew"
-            >
+            <form action="" method="post" @submit.prevent="PostNew" id="PostNew">
                 <div class="show">
                     <img class="avt" :src="user.avatar" alt="" />
                     <input type="text" placeholder="What's new, NTruong?" />
                 </div>
                 <div class="content">
                     <div class="post_type">
-                        <ProfileFrom
-                            v-if="CurrentType == 1"
-                            :user="user"
-                        ></ProfileFrom>
-                        <MucsicForm
-                            v-if="CurrentType == 3"
-                            :user="user"
-                        ></MucsicForm>
-                        <VideoForm
-                            v-if="CurrentType == 2"
-                            :user="user"
-                        ></VideoForm>
+                        <ProfileFrom v-if="CurrentType == 1" :user="user"></ProfileFrom>
+                        <MucsicForm v-if="CurrentType == 3" :user="user"></MucsicForm>
+                        <VideoForm v-if="CurrentType == 2" :user="user"></VideoForm>
                     </div>
                     <div class="choise">
                         <select name="type_post" id="" @change="ChangeType">
-                            <option
-                                v-for="item in ListTypePost"
-                                :key="item"
-                                :value="item.id"
-                            >
+                            <option v-for="item in ListTypePost" :key="item" :value="item.id">
                                 Post in: {{ item.name }}
                             </option>
                         </select>
@@ -51,23 +33,28 @@
     width: 50px;
     height: 50px;
 }
+
 .avt {
     border-radius: 100%;
 }
+
 .forms .post-new form {
     width: 100%;
     background-color: white;
     padding: 5%;
     border-radius: 20px;
 }
-.forms .post-new form::placeholder {
-}
+
+.forms .post-new form::placeholder {}
+
 .forms .post-new form .show {
     display: flex;
 }
+
 .forms .post-new form .content {
     display: none;
 }
+
 .forms .post-new form .show input {
     margin-left: 10px;
     width: 100%;
@@ -81,12 +68,14 @@
     height: 40px;
     margin-top: 5px;
 }
+
 .forms .post-new form .choise {
     margin-top: 2%;
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
 }
+
 .forms .post-new form .choise select {
     border: 1px solid #e7edf2;
     padding: 1% 5% 1% 2%;
@@ -101,26 +90,28 @@
     background-repeat: no-repeat;
     background-position: right 0.5rem center;
 }
+
 select::-ms-expand {
     display: none;
 }
+
 .forms .post-new form .choise .button {
     width: 50%;
     text-align: right;
 }
+
 .forms .post-new form .choise span {
     color: #8224e3;
     font-size: 13px;
     cursor: pointer;
     margin: 0px 4%;
 }
+
 .forms .post-new form .choise button {
-    background-image: linear-gradient(
-        90deg,
-        #8224e3 0,
-        #a968ec 50%,
-        #8224e3 100%
-    );
+    background-image: linear-gradient(90deg,
+            #8224e3 0,
+            #a968ec 50%,
+            #8224e3 100%);
     border: 0px;
     box-shadow: 0 1px 2px 0 rgb(130 36 227 / 50%);
     color: white;
@@ -144,7 +135,7 @@ export default {
         MucsicForm,
         VideoForm,
     },
-    setup() {},
+    setup() { },
     data() {
         return {
             user: this.userInfor,
@@ -167,52 +158,68 @@ export default {
         },
         PostNew(e) {
             const formData = new FormData();
-            formData.append("user_id", this.userInfor.id);
-            formData.append("type_postId", this.CurrentType);
-            formData.append("description", e.target.description.value);
+            let Submited = false;
+            if (this.ValidateForm('#PostNew .content') == 0) {
 
-            if (this.CurrentType == 3) {
-                const song_file = this.LoadFile(e.target.song_file.files[0], 2);
-                const image_file = this.LoadFile(
-                    e.target.song_image.files[0],
-                    1
-                );
-                formData.append("song_name", e.target.song_name.value);
-                formData.append("song_artist", e.target.song_artist.value);
-                formData.append("song_file", song_file);
-                formData.append("image_file", image_file);
-            } else if (this.CurrentType == 2) {
-                const video_file = this.LoadFile(
-                    e.target.video_file.files[0],
-                    3
-                );
-                formData.append("video_file", video_file);
-            } else if (this.CurrentType == 1) {
-                const files = this.LoadFile(
-                    e.target.files.files[0],
-                    1
-                );
-                formData.append("files", files);
-            }
+                formData.append("user_id", this.userInfor.id);
+                formData.append("type_postId", this.CurrentType);
+                formData.append("description", e.target.description.value);
 
-            UpdatePost(formData)
-                .then(function (res) {
-                    console.log(res.request.response);
-                    // emitter.emit("update", res.data);
-                })
-                .catch((err) => {
-                    console.log(err.request.response);
-                });
-            $("#PostNew")[0].reset();
-        },
-        ValidateForm() {
-            let isValid = 0;
-            $(".post_type input").each(function () {
-                if ($(this).val().length == 0) {
-                    isValid += 1;
+                if (this.CurrentType == 3) {
+                    const song_file = this.LoadFile(e.target.song_file.files[0], 2);
+                    const image_file = this.LoadFile(
+                        e.target.song_image.files[0],
+                        1
+                    );
+                    if (song_file && image_file) {
+                        formData.append("song_name", e.target.song_name.value);
+                        formData.append("song_artist", e.target.song_artist.value);
+                        formData.append("song_file", song_file);
+                        formData.append("image_file", image_file);
+                        Submited = true
+                    }
+
+                } else if (this.CurrentType == 2) {
+                    const video_file = this.LoadFile(
+                        e.target.video_file.files[0],
+                        3
+                    );
+                    if (video_file) {
+                        formData.append("video_file", video_file);
+                        Submited = true
+
+                    }
+                } else if (this.CurrentType == 1) {
+                    const ImageTypeLimit = [
+                        "image/jpeg",
+                        "image/jpg",
+                        "image/png",
+                        "image/gif",
+                        "image/bmp",
+                        "image/svg",
+                    ];
+
+                    if (ImageTypeLimit.includes(e.target.files.files[0].type)) {
+                        formData.append("files", e.target.files.files[0]);
+                        Submited = true
+                    } else {
+                        this.$toast.warning
+                            ("Oh no, only image type are supported for files uploads. Please try again ! <br> (We are very sorry and issue will be resolved soon)", { duration: 2000 })
+                    }
+
                 }
-            });
-            return isValid;
+            }
+            if (Submited) {
+                UpdatePost(formData)
+                    .then(function (res) {
+                        console.log(res.request.response);
+                        // emitter.emit("update", res.data);
+                    })
+                    .catch((err) => {
+                        console.log(err.request.response);
+                    });
+                $("#PostNew")[0].reset();
+            }
         },
     },
     mounted() {

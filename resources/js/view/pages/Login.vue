@@ -236,7 +236,7 @@ export default {
                     }
                 });
             } else {
-                alestatus_validatert("We are missing something ?",2);
+                alestatus_validatert("We missing something ?",2);
 
             }
         });

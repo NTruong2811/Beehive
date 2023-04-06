@@ -371,7 +371,7 @@ export default {
                                         navigate.push("/login");
                                     } else {
                                         status_validate(
-                                            "We are missing something ?",
+                                            "We missing something ?",
                                             2
                                         );
                                     }
@@ -380,7 +380,7 @@ export default {
                             status_validate("Password does not match", 2);
                         }
                     } else {
-                        status_validate("We are missing something ?", 2);
+                        status_validate("We missing something ?", 2);
                     }
                 }
                 if (tab == 2) {
@@ -396,7 +396,7 @@ export default {
                         $(".swiper-button-next").trigger("click");
                         tab += 1;
                     } else {
-                        status_validate("We are missing something ?", 2);
+                        status_validate("We missing something ?", 2);
                     }
                 }
             }
