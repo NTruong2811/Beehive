@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class posts extends Model
 {
+    
     use HasFactory;
     protected $table = 'posts';
     protected $fillable = [
@@ -15,6 +16,8 @@ class posts extends Model
         'type_postId',
         'description'
     ];
+
+
     public function user()
     {
         return $this->belongsTo(users::class, 'user_id', 'id');
@@ -40,4 +43,16 @@ class posts extends Model
     {
         return $this->hasMany(comments::class, 'post_id');
     }
+    
+    public function Add($request){
+        $post = posts::create([
+            'user_id' => $request->user_id,
+            'type_postId' => $request->type_postId,
+            'description' => $request->description,
+        ]);
+        return $post;
+    }
+
+
+
 }

@@ -218,7 +218,6 @@ export default {
     methods: {
         async GetNewFeeds() {
             this.posts = await newfeeds().then((res) => {
-                console.log(res);
                 return res.data.data;
             }).catch((e)=>{
                 console.log(e.request.response);

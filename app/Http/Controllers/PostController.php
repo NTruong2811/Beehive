@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\helpers\ExtractFile;
 use App\helpers\RedisServer;
 use App\Jobs\UpdatePost;
 use App\Models\musics;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Cloudinary;
 use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Carbon;
 
 class PostController extends Controller
 {
@@ -41,46 +43,14 @@ class PostController extends Controller
     public function UpdatePost(Request $request)
     {
         try {
-            // return $request->all();
-            $post = posts::create([
-                'user_id' => auth()->id(),
-                'type_postId' => $request->type_postId,
-                'description' => $request->description,
-            ]);
+            // $a = new ExtractFile($request->all());
+            // return var_dump($a->ExtractToJOb());
 
-            if ($request->type_postId == 3) {
-                $image_file = Cloudinary::uploadFile($request->file('image_file')->getRealPath(), [
-                    'folder' => 'images'
-                ])->GetSecurePath();
-                $song_file = Cloudinary::uploadFile($request->file('song_file')->getRealPath(), [
-                    'folder' => 'sounds'
-                ])->GetSecurePath();
-                $music = musics::create([
-                    'post_id' => $post->id,
-                    'image_file' => $image_file,
-                    'song_file' => $song_file,
-                    'song_name' => $request->song_name,
-                    'song_artist' => $request->song_artist,
-                ]);
-            } elseif ($request->type_postId == 2) {
-                $file = Cloudinary::uploadFile($request->file('video_file')->getRealPath(), [
-                    'folder' => 'videos'
-                ])->GetSecurePath();
-                $video = videos::create([
-                    'post_id' => $post->id,
-                    'file' => $file
-                ]);
-            } elseif ($request->type_postId == 1) {
-                $src = Cloudinary::uploadFile($request->file('files')->getRealPath(), [
-                    'folder' => 'files'
-                ])->GetSecurePath();
-                $profile = profiles::create([
-                    'post_id' => $post->id,
-                    'files' => $src
-                ]);
-            }
-            $NewPost = posts::with('type_post', 'music', 'user', 'video', 'profile')->find($post->id);
-            return $NewPost;
+
+            $request = new ExtractFile($request);
+            // return $request->ExtractToJOb();
+            UpdatePost::dispatch($request->ExtractToJOb())->onQueue('UpdatePostQueue');
+            // return $data;
         } catch (\Throwable $th) {
             //throw $th;
             return $th;
