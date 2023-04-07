@@ -12,16 +12,28 @@ class users extends Model
     protected $fillable = [
         'email',
         'name',
-        'birthday',
+        'birthday', 
         'avatar',
         'gender',
         'password'
     ];
+
     public function post()
     {
         return $this->hasMany(posts::class);
     }
     public function comment(){
         return $this->hasMany(comments::class,'user_id');
+    }
+    // kiểm tra xem người dùng này có gửi lời mời kết bạn với user hay không
+    public function CheckFriendRequester(){
+        return $this->hasMany(Friendship::class,'RequesterId')
+        ->where('AddresseeId', auth()->id());
+    }
+
+       // kiểm tra user đã gửi lời mời tới người này chưa 
+       public function CheckFriendAddressee(){
+        return $this->hasMany(Friendship::class,'AddresseeId')
+        ->where('RequesterId', auth()->id());
     }
 }

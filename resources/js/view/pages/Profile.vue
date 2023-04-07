@@ -11,56 +11,37 @@
                         <div class="user col-3">
                             <div class="avatar">
                                 <!-- hiện kết bạn khi chưa là bạn bè  -->
-                                <div
-                                    class="avt add_friend"
-                                    v-show="
-                                        checkNewFriend == null &&
-                                        checkFriendList == null &&
-                                        checkAcceptFriend == null
-                                    "
-                                >
+                                <div class="avt add_friend" v-show="
+                                    checkNewFriend == null &&
+                                    checkFriendList == null &&
+                                    checkAcceptFriend == null
+                                ">
                                     <img :src="UserProfile.avatar" alt="" />
-                                    <div
-                                        class="overlay"
-                                        v-on:click="AddFriend(UserProfile.id)"
-                                        v-show="
-                                            UserProfile.id != this.userInfor.id
-                                        "
-                                    >
+                                    <div class="overlay" v-on:click="AddFriend(UserProfile.id)" v-show="
+                                        UserProfile.id != this.userInfor.id
+                                    ">
                                         <i class="fa-solid fa-user-plus"></i>
                                     </div>
                                 </div>
 
                                 <!-- hiện chất nhận kết bạn khi nhận lời mời từ người này -->
-                                <div
-                                    class="avt checkNewFriend"
-                                    v-show="checkNewFriend != null"
-                                >
+                                <div class="avt checkNewFriend" v-show="checkNewFriend != null">
                                     <img :src="UserProfile.avatar" alt="" />
-                                    <div
-                                        class="overlay"
-                                        v-on:click="
-                                            AcceptFriend(checkNewFriend)
-                                        "
-                                    >
+                                    <div class="overlay" v-on:click="
+                                        AcceptFriend(checkNewFriend)
+                                    ">
                                         <i class="fa-solid fa-user-check"></i>
                                     </div>
                                 </div>
                                 <!-- hiện đã gửi lời kết bạn tới người này -->
-                                <div
-                                    class="avt checkNewFriend"
-                                    v-show="checkAcceptFriend != null"
-                                >
+                                <div class="avt checkNewFriend" v-show="checkAcceptFriend != null">
                                     <img :src="UserProfile.avatar" alt="" />
                                     <div class="overlay">
                                         <i class="fa-solid fa-user-check"></i>
                                     </div>
                                 </div>
                                 <!-- hiện đã là bạn bè với người này -->
-                                <div
-                                    class="avt checkListFriend"
-                                    v-show="checkFriendList != null"
-                                >
+                                <div class="avt checkListFriend" v-show="checkFriendList != null">
                                     <img :src="UserProfile.avatar" alt="" />
                                     <div class="overlay">
                                         <i class="fa-solid fa-users"></i>
@@ -77,21 +58,17 @@
                                         <br /><span>Profile</span>
                                     </li>
                                 </router-link>
-                                <router-link
-                                    :to="{
-                                        path: '/profile/friendships',
-                                        query: { id: UserProfile.id },
-                                    }"
-                                >
+                                <router-link :to="{
+                                    path: '/profile/friendships',
+                                    query: { id: UserProfile.id },
+                                }">
                                     <li class="AddFriend">
                                         <i class="fa-solid fa-users"></i>
                                         <br /><span>Friends</span>
                                     </li>
                                 </router-link>
                                 <li>
-                                    <i class="fa-solid fa-shop"></i> <br /><span
-                                        >Shop</span
-                                    >
+                                    <i class="fa-solid fa-shop"></i> <br /><span>Shop</span>
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-newspaper"></i>
@@ -102,6 +79,31 @@
                                     <br /><span>Media</span>
                                 </li>
                             </ul>
+                            <!-- HTML !-->
+                            <div class="right">
+                                <div v-if="friend_status == 1">
+                                    <button class="friend" role="button">Friends <i class="fa-solid fa-users"></i>
+                                    </button><br>
+                                </div>
+                                <div v-else>
+                                    <div
+                                        v-if="UserProfile.id != userInfor.id && check_friend_addressee == 0 && check_friend_requester == 0">
+                                        <button class="friend" role="button">Add Friend <i
+                                                class="fa-solid fa-user-plus"></i></button><br>
+                                    </div>
+                                    <div v-else>
+                                        <div v-if="check_friend_addressee > 0">
+                                        <button class="friend" role="button">Cancel Request <i
+                                                class="fa-solid fa-user-xmark"></i></button><br>
+                                    </div>
+                                    <div v-if="check_friend_requester > 0">
+                                        <button class="friend" role="button">Confirm <i
+                                                class="fa-solid fa-user-check"></i></button><br>
+                                    </div>
+                                    </div>
+                                </div>
+                                <button class="Beechat" role="button">Beechat <img src="/images/logo.png" alt=""></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,40 +124,22 @@
                         <div class="nav">
                             <ul>
                                 <li>
-                                    <img
-                                        src="/images/profile_avatar.jpg"
-                                        alt=""
-                                    />
+                                    <img src="/images/profile_avatar.jpg" alt="" />
                                 </li>
                                 <li>
-                                    <img
-                                        src="/images/profile_avatar.jpg"
-                                        alt=""
-                                    />
+                                    <img src="/images/profile_avatar.jpg" alt="" />
                                 </li>
                                 <li>
-                                    <img
-                                        src="/images/profile_avatar.jpg"
-                                        alt=""
-                                    />
+                                    <img src="/images/profile_avatar.jpg" alt="" />
                                 </li>
                                 <li>
-                                    <img
-                                        src="/images/profile_avatar.jpg"
-                                        alt=""
-                                    />
+                                    <img src="/images/profile_avatar.jpg" alt="" />
                                 </li>
                                 <li>
-                                    <img
-                                        src="/images/profile_avatar.jpg"
-                                        alt=""
-                                    />
+                                    <img src="/images/profile_avatar.jpg" alt="" />
                                 </li>
                                 <li>
-                                    <img
-                                        src="/images/profile_avatar.jpg"
-                                        alt=""
-                                    />
+                                    <img src="/images/profile_avatar.jpg" alt="" />
                                 </li>
                             </ul>
                         </div>
@@ -173,20 +157,24 @@
     max-height: 100vh;
     overflow-y: scroll;
 }
+
 .profile .head .banner {
     width: 100%;
     height: 285px;
     overflow: hidden;
 }
+
 .profile .head .banner img {
     width: 100%;
     height: 100%;
 }
+
 .user_nav {
     width: 100%;
     height: 140px;
     gap: 65px;
 }
+
 .user_nav .user {
     position: relative;
     top: -150px;
@@ -196,18 +184,22 @@
     opacity: 0;
     transition: 0.4s;
 }
+
 .user_nav .user .avatar {
     text-align: center;
 }
+
 .user_nav .user .avatar .avt {
     width: 220px;
     height: 220px;
     /* position: absolute; */
     margin: auto;
 }
+
 .user_nav .user .avatar .avt:hover .overlay {
     opacity: 1;
 }
+
 .user_nav .user .avatar .avt .overlay {
     width: 220px;
     height: 220px;
@@ -217,6 +209,7 @@
     background-color: #4f52618e;
     cursor: pointer;
 }
+
 .user_nav .user .avatar .avt i {
     color: #ffffff;
     font-size: 24px;
@@ -225,12 +218,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 .user_nav .user .avatar img {
     width: 220px;
     height: 220px;
     border: 2px solid white;
     border-radius: 10px;
 }
+
 .user_nav ul {
     display: flex;
     gap: 20px;
@@ -238,10 +233,12 @@
     align-items: center;
     margin-top: 10px;
 }
+
 .user_nav ul li {
     list-style: none;
     position: relative;
 }
+
 .user_nav ul li {
     text-align: center;
     font-size: 16px;
@@ -250,6 +247,7 @@
     cursor: pointer;
     color: #4f5261bb;
 }
+
 .user_nav ul .active {
     background: linear-gradient(135deg, #c395f1 0%, #8224e3 75%);
     color: #fff;
@@ -259,20 +257,23 @@
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
+
 .user_nav ul .active i {
     margin: auto;
     font-size: 22px;
 }
+
 .user_nav ul .active span {
     display: none;
 }
-.main {
-}
+
+
 .main .sidebar {
     text-align: center;
     border-right: 1px solid #4f52611c;
     padding: 40px !important;
 }
+
 .main .totals {
     /* width: 100%; */
     display: grid;
@@ -281,23 +282,28 @@
     padding: 0px 50px 20px 50px;
     border-bottom: 1px solid #4f52611c;
 }
+
 .main .totals li {
     list-style: none;
     font-size: 1.2rem;
     color: #4f5261bb;
 }
+
 .main .totals li span {
     color: #8224e3;
     font-weight: 600;
 }
+
 .main .sidebar .photos {
     margin-top: 40px;
 }
+
 .main .sidebar .photos h4 {
     border-bottom: 4px solid #8224e3;
     padding: 10px 0px;
     margin: 0px 20%;
 }
+
 .main .sidebar .photos ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -306,37 +312,45 @@
     gap: 10px;
     margin-top: 20px;
 }
+
 .main .sidebar .photos ul li {
     list-style: none;
     border-radius: 8px;
     overflow: hidden;
 }
+
 .main .sidebar .photos ul li img {
     width: 100%;
     height: 80px;
 }
+
 /* content */
 .main .content {
     /* background-color: red; */
     padding: 0px 5% !important;
 }
+
 .more-desc,
 .hide-desc {
     color: #8224e3;
     font-size: 15px;
     cursor: pointer;
 }
+
 ul {
     padding: 0px;
 }
+
 li {
     list-style: none;
 }
+
 .item {
     display: flex;
     padding: 20px 0px;
     position: relative;
 }
+
 .item::before {
     content: "";
     width: 2px;
@@ -346,36 +360,45 @@ li {
     top: 65px;
     left: 22px;
 }
+
 .item .avt img {
     width: 45px;
     height: 45px;
     border-radius: 100%;
     z-index: 100;
 }
+
 .item .content {
     padding: 0px 20px;
 }
+
 .item .item-header .meta {
     display: flex;
     font-size: 15px;
 }
+
 .item .item-header .meta strong {
     font-weight: 600;
 }
+
 .item .item-header {
     display: flex;
     justify-content: space-between;
 }
+
 .item .item-header .meta .time {
     font-size: 13px;
     color: rgba(0, 0, 0, 0.363);
 }
+
 .item .item-content {
     margin: 15px 0px;
 }
+
 .item .item-content .description {
     font-size: 15px;
 }
+
 .item .item-content .media ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -383,108 +406,117 @@ li {
     margin-top: 15px;
     width: 90%;
 }
+
 .item .item-content .media ul li {
     width: 100%;
     cursor: pointer;
 }
+
 .item .item-content .media ul li:first-child {
     grid-column-start: 1;
     grid-column-end: 4;
 }
+
 .item .item-content .media ul li img {
     width: 100%;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
         rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
-.item .item-content .action ul {
-    margin: 15px 0px;
+
+.profile_nav {
     display: flex;
-    gap: 20px;
-    border: 1px solid #4f52611c;
-    border-left: 0px;
-    border-right: 0px;
-    padding: 15px 0px;
-}
-.item .item-content .action ul li {
-    display: flex;
-    gap: 8px;
-    color: #4f5261d7;
-}
-.item .item-content .action ul li .quantity {
-    background-color: #4f52611c;
-    padding: 0px 5px;
-    border-radius: 100%;
-}
-.item .item-content .action ul li i {
-    margin-top: 2px;
-}
-.item-cmt {
-    display: flex;
-    font-size: 15px;
-    width: 100%;
-}
-.item-cmt strong {
-    font-weight: 600;
-}
-.item-cmt-content {
-    margin: 0px 10px;
-    width: 100%;
-}
-.item-cmt-header {
-    margin-top: 10px;
-}
-.item-cmt-header .time {
-    margin-left: 5px;
-    font-size: 13px;
-    color: rgba(0, 0, 0, 0.363);
-}
-.item-cmt .comment .text {
-    width: 100%;
-    background-color: #9e9e9e23;
-    padding: 15px;
-    border-radius: 20px;
-    margin-top: 10px;
-}
-.item-cmt .comment ul {
-    display: flex;
-    gap: 10px;
-    margin-left: 20px;
-    font-weight: 600;
-    cursor: pointer;
-}
-.item-cmt .comment ul i {
-    margin-right: 5px;
-}
-.post-comment {
-    display: flex;
-    margin-top: 20px;
-    position: relative;
+    justify-content: space-between;
 }
 
-.post-comment input {
-    margin-left: 10px;
-    width: 100%;
-    border: 0px;
+.profile_nav .right {
+    display: flex;
+    align-items: center;
+    margin: 10px 0px;
+    gap: 10px;
+}
+
+/* CSS */
+.friend {
+    background-color: transparent;
+    border: 1px solid #222222;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #222222;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    margin: 0;
     outline: none;
-    border: 1px solid;
-    border-color: #e7edf277;
-    border-radius: 20px;
-    padding: 0px 45px 0px 2%;
-    font-size: 13px;
-    height: 40px;
-    margin-top: 5px;
+    padding: 12px 22px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    touch-action: manipulation;
+    transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
+    user-select: none;
+    -webkit-user-select: none;
+    width: auto;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
-.post-comment .avt {
-    border-radius: 100%;
-    width: 45px;
-    height: 45px;
+
+.friend:focus-visible {
+    box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+    transition: box-shadow .2s;
 }
-.post-comment i {
-    position: absolute;
-    right: 20px;
-    top: 20%;
-    transform: translate(-50%, 50%);
+
+.friend:active {
+    background-color: #F7F7F7;
+    border-color: #000000;
+    transform: scale(.96);
+}
+
+.friend:disabled {
+    border-color: #DDDDDD;
+    color: #DDDDDD;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+/* CSS */
+.Beechat {
+    appearance: button;
+    background: linear-gradient(135deg, #c395f1 0%, #8224e3 75%);
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: Graphik, -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    line-height: 1.15;
+    overflow: visible;
+    padding: 13px 23px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: all 80ms ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border: none;
+}
+
+.Beechat:disabled {
+    opacity: .5;
+}
+
+.Beechat:focus {
+    outline: 0;
+}
+
+.Beechat img {
+    width: 20px !important;
+    height: 20px !important;
+    margin-left: 10px;
 }
 </style>
 <script>
@@ -497,8 +529,9 @@ import {
     NewFriend,
     AcceptFriend,
 } from "../../services/Users";
+import { throwStatement } from "@babel/types";
 export default {
-    setup() {},
+    setup() { },
     components: {
         Navbar,
     },
@@ -508,6 +541,9 @@ export default {
             checkNewFriend: null,
             checkFriendList: null,
             checkAcceptFriend: null,
+            check_friend_addressee: 0,
+            check_friend_requester: 0,
+            friend_status: null
         };
     },
     mounted() {
@@ -555,8 +591,20 @@ export default {
             const id = this.$route.query.id;
             this.UserProfile = await GetUserProfile(id).then(function (res) {
                 const { data } = res;
+                console.log(data);
                 return data;
+            }).catch((e) => {
+                console.log(e.request.response);
             });
+            if (this.UserProfile.check_friend_addressee.length > 0) {
+                this.check_friend_addressee = this.UserProfile.check_friend_addressee[0];
+                this.friend_status = this.check_friend_addressee.status
+            } 
+            if (this.UserProfile.check_friend_requester.length > 0)  {
+                this.check_friend_requester = this.UserProfile.check_friend_requester[0];
+                this.friend_status = this.check_friend_requester.status
+
+            }
         },
         AddFriend(id) {
             const data = {
