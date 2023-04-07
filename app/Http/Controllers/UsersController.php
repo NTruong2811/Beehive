@@ -18,7 +18,7 @@ class UsersController extends Controller
 
         if ($id != auth()->id()) {
 
-            $user = users::with('CheckFriendAddressee','CheckFriendRequester')
+            $user = users::with('CheckFriendAddressee', 'CheckFriendRequester')
                 ->where('users.id', '=', $id)
                 ->first();
 
@@ -95,6 +95,7 @@ class UsersController extends Controller
             AddFriendEvent::dispatch($request);
             return response()->json([
                 'message' => 'Sent the invitation success',
+                'check_friend_addressee' => $new_friend,
                 'status' => 0
             ], 200);
         } else {
@@ -110,6 +111,23 @@ class UsersController extends Controller
             $FindRequest = Friendship::find($request->id);
             $FindRequest->status = 1;
             $FindRequest->update();
+
+            return response()->json([
+                'message' => 'Success',
+                'status' => 0
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Failed',
+                'status' => 1
+            ], 200);
+        }
+    }
+    public function CancelAddFriend(Request $request)
+    {
+        try {
+            $FindRequest = Friendship::find($request->id);
+            $FindRequest->delete();
 
             return response()->json([
                 'message' => 'Success',

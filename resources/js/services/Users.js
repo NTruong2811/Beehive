@@ -15,6 +15,11 @@ export function NewFriend(id) {
 export function AcceptFriend(id) {
     return instance.post("users/accept-friend", { id: id });
 }
+export function CancelAddFriend(id) {
+    return instance.post("users/cancel-add-friend", { id: id });
+}
+
+
 
 export function CallOffer(data) {
     return instance.post("users/call-offer", data);

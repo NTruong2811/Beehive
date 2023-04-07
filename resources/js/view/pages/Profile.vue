@@ -10,42 +10,8 @@
                     <div class="row h-100">
                         <div class="user col-3">
                             <div class="avatar">
-                                <!-- hiện kết bạn khi chưa là bạn bè  -->
-                                <div class="avt add_friend" v-show="
-                                    checkNewFriend == null &&
-                                    checkFriendList == null &&
-                                    checkAcceptFriend == null
-                                ">
+                                <div class="avt">
                                     <img :src="UserProfile.avatar" alt="" />
-                                    <div class="overlay" v-on:click="AddFriend(UserProfile.id)" v-show="
-                                        UserProfile.id != this.userInfor.id
-                                    ">
-                                        <i class="fa-solid fa-user-plus"></i>
-                                    </div>
-                                </div>
-
-                                <!-- hiện chất nhận kết bạn khi nhận lời mời từ người này -->
-                                <div class="avt checkNewFriend" v-show="checkNewFriend != null">
-                                    <img :src="UserProfile.avatar" alt="" />
-                                    <div class="overlay" v-on:click="
-                                        AcceptFriend(checkNewFriend)
-                                    ">
-                                        <i class="fa-solid fa-user-check"></i>
-                                    </div>
-                                </div>
-                                <!-- hiện đã gửi lời kết bạn tới người này -->
-                                <div class="avt checkNewFriend" v-show="checkAcceptFriend != null">
-                                    <img :src="UserProfile.avatar" alt="" />
-                                    <div class="overlay">
-                                        <i class="fa-solid fa-user-check"></i>
-                                    </div>
-                                </div>
-                                <!-- hiện đã là bạn bè với người này -->
-                                <div class="avt checkListFriend" v-show="checkFriendList != null">
-                                    <img :src="UserProfile.avatar" alt="" />
-                                    <div class="overlay">
-                                        <i class="fa-solid fa-users"></i>
-                                    </div>
                                 </div>
                                 <h3 class="name">{{ UserProfile.name }}</h3>
                             </div>
@@ -81,25 +47,25 @@
                             </ul>
                             <!-- HTML !-->
                             <div class="right">
-                                <div v-if="friend_status == 1">
-                                    <button class="friend" role="button">Friends <i class="fa-solid fa-users"></i>
-                                    </button><br>
-                                </div>
-                                <div v-else>
-                                    <div
-                                        v-if="UserProfile.id != userInfor.id && check_friend_addressee == 0 && check_friend_requester == 0">
-                                        <button class="friend" role="button">Add Friend <i
-                                                class="fa-solid fa-user-plus"></i></button><br>
+                                <div v-if="UserProfile.id != userInfor.id">
+                                    <div v-if="friend_status == 0">
+                                        <button class="friend" role="button" v-on:click="
+                                            AddFriend(UserProfile.id)">Add
+                                            Friend <i class="fa-solid fa-user-plus"></i></button><br>
                                     </div>
-                                    <div v-else>
-                                        <div v-if="check_friend_addressee > 0">
-                                        <button class="friend" role="button">Cancel Request <i
-                                                class="fa-solid fa-user-xmark"></i></button><br>
+                                    <div v-else-if="friend_status == 1">
+                                        <button class="friend" role="button">Friends <i class="fa-solid fa-users"></i>
+                                        </button><br>
                                     </div>
-                                    <div v-if="check_friend_requester > 0">
-                                        <button class="friend" role="button">Confirm <i
-                                                class="fa-solid fa-user-check"></i></button><br>
+                                    <div v-else-if="friend_status == 2">
+                                        <button class="friend" role="button" v-on:click="
+                                            CancelRequest(check_friend_addressee.id)
+                                        ">Cancel Request <i class="fa-solid fa-user-xmark"></i></button><br>
                                     </div>
+                                    <div v-else-if="friend_status == 3">
+                                        <button class="friend" role="button" v-on:click="
+                                            AcceptFriend(check_friend_requester.id)
+                                        ">Confirm <i class="fa-solid fa-user-check"></i></button><br>
                                     </div>
                                 </div>
                                 <button class="Beechat" role="button">Beechat <img src="/images/logo.png" alt=""></button>
@@ -525,11 +491,9 @@ import Navbar from "../components/Navbar.vue";
 import {
     GetUserProfile,
     AddFriend,
-    ListFriend,
-    NewFriend,
     AcceptFriend,
+    CancelAddFriend
 } from "../../services/Users";
-import { throwStatement } from "@babel/types";
 export default {
     setup() { },
     components: {
@@ -538,12 +502,9 @@ export default {
     data() {
         return {
             UserProfile: "",
-            checkNewFriend: null,
-            checkFriendList: null,
-            checkAcceptFriend: null,
-            check_friend_addressee: 0,
-            check_friend_requester: 0,
-            friend_status: null
+            check_friend_addressee: null,
+            check_friend_requester: null,
+            friend_status: 0 // 0: addfriend, 1:friends: 2: cancel request, 3: accept friend
         };
     },
     mounted() {
@@ -582,9 +543,6 @@ export default {
     },
     created() {
         this.GetUserProfile();
-        this.CheckNewFriend();
-        this.CheckFriendList();
-        this.CheckAcceptFriend();
     },
     methods: {
         async GetUserProfile() {
@@ -596,14 +554,21 @@ export default {
             }).catch((e) => {
                 console.log(e.request.response);
             });
-            if (this.UserProfile.check_friend_addressee.length > 0) {
-                this.check_friend_addressee = this.UserProfile.check_friend_addressee[0];
-                this.friend_status = this.check_friend_addressee.status
-            } 
-            if (this.UserProfile.check_friend_requester.length > 0)  {
-                this.check_friend_requester = this.UserProfile.check_friend_requester[0];
-                this.friend_status = this.check_friend_requester.status
-
+            if (id != this.userInfor.id) {
+                if (this.UserProfile.check_friend_addressee.length > 0) {
+                    this.check_friend_addressee = this.UserProfile.check_friend_addressee[0];
+                    this.friend_status = this.check_friend_addressee.status
+                    if (this.friend_status != 1) {
+                        this.friend_status = 2                        
+                    }
+                }
+                if (this.UserProfile.check_friend_requester.length > 0) {
+                    this.check_friend_requester = this.UserProfile.check_friend_requester[0];
+                    this.friend_status = this.check_friend_requester.status
+                    if (this.friend_status != 1) {
+                        this.friend_status = 3
+                    }
+                }
             }
         },
         AddFriend(id) {
@@ -611,83 +576,24 @@ export default {
                 sendTo: id,
                 sendFrom: this.userInfor.id,
             };
-            AddFriend(data).then(function (res) {
+            AddFriend(data).then((res)=> {
                 console.log(res);
+                this.check_friend_addressee = res.data.check_friend_addressee
             });
-        },
-        // kiểm tra actor này có trong danh sách kêt bạn không
-        async CheckNewFriend() {
-            const id = this.userInfor.id;
-            const IdUserInPage = parseInt(this.$route.query.id);
-            if (id != IdUserInPage) {
-                this.checkNewFriend = await NewFriend(id)
-                    .then(function (res) {
-                        const { data } = res;
-                        let check = null;
-                        data.map(function (item) {
-                            if (IdUserInPage == item.FriendInfor.id) {
-                                check = item;
-                            }
-                        });
-                        return check;
-                    })
-                    .catch(function (err) {
-                        console.log(err);
-                    });
-            }
-        },
-        // kiểm tra actor này có trong list friend hay ko
-        async CheckFriendList() {
-            const id = this.userInfor.id;
-            const IdUserInPage = parseInt(this.$route.query.id);
-            if (id != IdUserInPage) {
-                this.checkFriendList = await ListFriend(id)
-                    .then(function (res) {
-                        const { data } = res;
-                        let check = null;
-                        data.map(function (item) {
-                            if (IdUserInPage == item.FriendInfor.id) {
-                                check = item.id;
-                            }
-                        });
-                        return check;
-                    })
-                    .catch(function (err) {
-                        console.log(err);
-                    });
-            }
-        },
-        // kiểm tra đã gửi kết bạn với actor này chưa
-        async CheckAcceptFriend() {
-            const id = this.userInfor.id;
-            const IdUserInPage = parseInt(this.$route.query.id);
-            if (id != IdUserInPage) {
-                this.checkAcceptFriend = await NewFriend(IdUserInPage)
-                    .then(function (res) {
-                        const { data } = res;
-                        let check = null;
-                        data.map(function (item) {
-                            if (item.RequesterId == id) {
-                                check = item.RequesterId;
-                            }
-                        });
-                        return check;
-                    })
-                    .catch(function (err) {
-                        console.log(err);
-                    });
-            }
+            this.friend_status = 2
         },
         AcceptFriend(id) {
             AcceptFriend(id).then(function (res) {
-                $(".fa-user-check")
-                    .closest(".overlay")
-                    .html(
-                        '<i class="fa-solid fa-users" data-v-3a9acd52=""></i>'
-                    );
-                $(".fa-user-check").remove();
+                console.log(res);
             });
+            this.friend_status = 1
         },
+        CancelRequest(id) {
+            CancelAddFriend(id).then((res) => {
+                console.log(res);
+            })
+            this.friend_status = 0
+        }
     },
 };
 </script>

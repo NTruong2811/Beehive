@@ -41,6 +41,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/new-friend', [UsersController::class, 'NewFriend'])->name('NewFriend');
         Route::post('/add-friend', [UsersController::class, 'AddFriend'])->name('AddFriend');
         Route::post('/accept-friend', [UsersController::class, 'AcceptFriend'])->name('AcceptFriend');
+        Route::post('/cancel-add-friend', [UsersController::class, 'CancelAddFriend'])->name('CancelAddFriend');
+
         Route::post('/call-offer', [UsersController::class, 'CallOffer'])->name('CallOffer');
         Route::post('/call-answer', [UsersController::class, 'CallAnswer'])->name('CallAnswer');
     });
