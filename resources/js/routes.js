@@ -21,6 +21,8 @@ import profile from "./view/components/ProfileComponent/profile";
 // detail
 import VideoDetail from "./view/components/PostComponent/VideoDetailComponent";
 import MusicDetail from "./view/components/PostComponent/MusicDetailComponent";
+// beechat
+import Beechat from "./view/pages/Beechat"
 const routes = [
     {
         path: "/",
@@ -122,6 +124,11 @@ const routes = [
                 component: MusicDetail,
             },
         ],
+        meta: { AppProduct: true },
+    },
+    {
+        path: "/beechat",
+        component: Beechat,
         meta: { AppProduct: true },
     },
 ];

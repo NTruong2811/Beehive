@@ -28,3 +28,9 @@ export function CallAnswer(data) {
     return instance.post("users/call-answer", data);
 }
 
+
+
+export function CC(id) {
+    return id;
+}
+

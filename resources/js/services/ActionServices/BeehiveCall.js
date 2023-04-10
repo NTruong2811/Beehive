@@ -1,6 +1,12 @@
 import $ from "jquery";
 import { CallAnswer, CallOffer } from "../Users";
-
+let config = {
+    iceServers: [
+      {
+        urls: 'stun:stun1.l.google.com:19302'
+      }
+    ]
+  };
 // config
 const user = JSON.parse(localStorage.getItem("user"));
 const TimeListen = 15000;
@@ -15,7 +21,7 @@ export function Calling(from, to) {
     createOffer(data);
 }
 // setup var cho RTC
-let peerConnection = new RTCPeerConnection();
+let peerConnection = new RTCPeerConnection(config);
 let localStream;
 let remoteStream;
 
@@ -52,16 +58,18 @@ let createOffer = async (data) => {
     };
     
     const offer = await peerConnection.createOffer();
-
-    await peerConnection.setLocalDescription(offer);
-    data.OfferSDP = JSON.stringify(offer);
+    
     console.log(offer);
-    CallOffer(data).then(function (res) {
-        window.open(
-            "/call?call_from=" + data.CallFrom + "&call_to=" + data.CallTo,
-            "_blank"
-        );
-    });
+
+    // await peerConnection.setLocalDescription(offer);
+    // data.OfferSDP = JSON.stringify(offer);
+    // console.log(offer);
+    // CallOffer(data).then(function (res) {
+    //     window.open(
+    //         "/call?call_from=" + data.CallFrom + "&call_to=" + data.CallTo,
+    //         "_blank"
+    //     );
+    // });
 };
 // tạo và gửi câu trả lời
 let createAnswer = async (CallOffer) => {

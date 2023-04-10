@@ -236,16 +236,17 @@ export default {
             var data = {
                 UserId: this.userInfor.id,
                 ToUser: this.FriendId,
-                RoomId: this.RoomId,
+                RoomId: 1,
                 message: message,
                 type: 0,
             };
-            this.ChatDetail.push(data);
+            // this.ChatDetail.push(data);
             SendMessage(data)
                 .then(function (res) {
-                    $(".chat_content").scrollTop(
-                        $(".chat_content").height() + 500
-                    );
+                    console.log(res);
+                    // $(".chat_content").scrollTop(
+                    //     $(".chat_content").height() + 500
+                    // );
                 })
                 .catch(function (res) {
                     console.log(res.request.response);

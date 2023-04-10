@@ -21,20 +21,6 @@ class UsersController extends Controller
             $user = users::with('CheckFriendAddressee', 'CheckFriendRequester')
                 ->where('users.id', '=', $id)
                 ->first();
-
-            // $user = users::join('friendship', function($join) use ($id) {
-            //     $join->on('users.id', '=', 'friendship.RequesterId')
-            //          ->orOn('users.id', '=', 'friendship.AddresseeId');
-            //         //  ->where(function($query) use ($id) {
-            //         //      $query->where('friendship.RequesterId', '=', $id)
-            //         //            ->orWhere('friendship.AddresseeId', '=', $id);
-            //         //  });
-            // })
-            // // ->whereIn('friendship.RequesterId', [$id])
-            // //            ->orWhereIn('friendship.AddresseeId', [$id])
-            // ->where('users.id','=',$id)
-            // ->first();
-
         } else {
             $user = users::find($id);
         }

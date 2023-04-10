@@ -10,6 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class ChatEvent implements ShouldBroadcast
 {
@@ -24,12 +25,15 @@ class ChatEvent implements ShouldBroadcast
     public $ToUser;
     public $message;
     public $Time;
+    public $data;
     public function __construct(Request $request)
     {
-        $this->FromUser = $request->FromUser;
-        $this->ToUser = $request->ToUser;
-        $this->message = $request->message;
-        $this->Time = $request->Time;
+        $this->data = $request->data;
+
+        $this->FromUser = $this->data->UserId;
+        $this->ToUser = $this->data->ToUser;
+        $this->message = $this->data->message;
+        $this->Time = $this->data->updated_at;
     }
 
     /**

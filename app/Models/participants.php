@@ -14,4 +14,10 @@ class participants extends Model
         'UserId',
         'RoomId',
     ];
-}
+    public function user()
+    {
+        return $this->belongsTo('users','UserId','id');
+    }
+    public function room(){
+        return $this->belongsTo('rooms','RoomId','id');
+    }}

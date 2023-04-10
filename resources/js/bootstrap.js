@@ -27,11 +27,12 @@ import { AddFriend, CheckNotifiUnread } from "./services/Notification";
 window.Pusher = Pusher;
 
 window.Echo = new Echo({
-    broadcaster: "pusher",
-    key: "c90e7ea1b65b0437af7e",
-    cluster: "ap1",
-    forceTLS: true,
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    forceTLS: true
 });
+
 
 const user = JSON.parse(localStorage.getItem("user"));
 let url = new URL(location.href);
@@ -95,8 +96,36 @@ function NotifiClient(NameClass, NotiNumber) {
         color: white;
        ">
 ` +
-            NotiNumber +
-            `
+        NotiNumber +
+        `
 </div>`
     );
 }
+
+
+// // Echo.channel("channelchat" + user.id).listen(
+// //     "ChatEvent",
+// //     function (res) {
+// //         console.log(res);
+// //     }
+// // );
+
+
+// // Pusher.logToConsole = true;
+
+// var pusher = new Pusher('b9fcf5dac3eb2863c349', {
+//     cluster: 'ap1'
+//   });
+  
+//   let channel2 = pusher.subscribe('channelchat' + user.id);
+//   channel2.bind('App\\Events\\ChatEvent', function(data) {
+//       console.log(data);
+//   });
+  
+//   pusher.connection.bind('connected', function() {
+//     console.log('Connected to Pusher!');
+//   });
+//   pusher.connection.bind('error', function(error) {
+//       console.log('Pusher connection error:', error);
+//     });
+  

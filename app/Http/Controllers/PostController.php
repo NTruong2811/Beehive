@@ -46,7 +46,6 @@ class PostController extends Controller
             // $a = new ExtractFile($request->all());
             // return var_dump($a->ExtractToJOb());
 
-
             $request = new ExtractFile($request);
             // return $request->ExtractToJOb();
             UpdatePost::dispatch($request->ExtractToJOb())->onQueue('UpdatePostQueue');

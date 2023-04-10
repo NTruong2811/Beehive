@@ -68,7 +68,12 @@
                                         ">Confirm <i class="fa-solid fa-user-check"></i></button><br>
                                     </div>
                                 </div>
-                                <button class="Beechat" role="button">Beechat <img src="/images/logo.png" alt=""></button>
+                                <router-link :to="{
+                                    path:'/beechat',
+                                    query:{id:UserProfile.id}
+                                }">
+                                    <button class="Beechat" role="button">Beechat <img src="/images/logo.png" alt=""></button>
+                                </router-link>
                             </div>
                         </div>
                     </div>
