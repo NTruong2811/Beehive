@@ -285,7 +285,6 @@ export default {
     },
     watch: {
         ChatUser: function (newVal, oldVal) {
-            console.log(newVal);
         },
         ChatContent: function (newVal, oldVal) {
             setTimeout(function () {

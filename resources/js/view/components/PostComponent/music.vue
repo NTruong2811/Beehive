@@ -145,7 +145,12 @@ li {
     content: "";
     width: 2px;
     height: 100%;
-    background-color: #4f52611c;
+    background: rgb(120, 120, 120);
+    background: linear-gradient(
+        180deg,
+        rgba(120, 120, 120, 1) 0%,
+        rgba(248, 248, 248, 1) 100%
+    );
     position: absolute;
     top: 65px;
     left: 22px;

@@ -554,7 +554,6 @@ export default {
             const id = this.$route.query.id;
             this.UserProfile = await GetUserProfile(id).then(function (res) {
                 const { data } = res;
-                console.log(data);
                 return data;
             }).catch((e) => {
                 console.log(e.request.response);

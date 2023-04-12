@@ -193,7 +193,6 @@ export default {
                 const { data } = res;
                 return data;
             });
-            console.log(this.SearchResult);
             this.re_renderKey += 1;
         },
     },

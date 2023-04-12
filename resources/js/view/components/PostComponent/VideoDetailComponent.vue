@@ -233,9 +233,7 @@ export default {
         "$route.query.id": {
             immediate: true,
             handler(newValue, oldValue) {
-                console.log(newValue);
                 GetPostDetail(newValue).then((res) => {
-                    console.log(res);
                     this.Video = res.data.video;
                     this.User = res.data.user;
                     this.PostDetail = res.data;

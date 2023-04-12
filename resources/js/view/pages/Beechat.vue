@@ -761,9 +761,7 @@ export default {
     created(){
     },
     methods:{
-        SendMessage(e){
-           console.log(e);
-        }
+   
     },
     mounted() {
         $(".messages").animate({ scrollTop: $(document).height() }, "fast");
@@ -802,7 +800,6 @@ export default {
         
         GetUserProfile(this.$route.query.id).then((res)=>{
             this.ChatUser = res.data
-            console.log(this.ChatUser.avatar);
         })
     
 

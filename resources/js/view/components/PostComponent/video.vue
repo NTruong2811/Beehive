@@ -119,8 +119,12 @@ li {
     content: "";
     width: 2px;
     height: 100%;
-    background-color: #4f52611c;
-    position: absolute;
+    background: rgb(120, 120, 120);
+    background: linear-gradient(
+        180deg,
+        rgba(120, 120, 120, 1) 0%,
+        rgba(248, 248, 248, 1) 100%
+    );    position: absolute;
     top: 65px;
     left: 22px;
 }
@@ -344,14 +348,19 @@ export default {
                             "[src='" + VueThis.VideoDetail.video.file + "']"
                         )[0].play();
                     } else {
-                        $(
+                        if ($(
+                            "[src='" + VueThis.VideoDetail.video.file + "']"
+                        )[0] != undefined) {
+                            $(
                             "[src='" + VueThis.VideoDetail.video.file + "']"
                         )[0].pause();
+                        }
                     }
                 });
             },
             { threshold: 0, rootMargin: "-350px 0px" }
         );
+        
         observer.observe(
             $("[data-video='" + this.VideoDetail.video.file + "']")[0]
         );
