@@ -18,7 +18,10 @@
                         </div>
                         <div class="col-9 h-100 profile_nav">
                             <ul>
-                                <router-link to="/profile">
+                                <router-link :to="{
+                                    path: '/profile',
+                                    query: { id: UserProfile.id },
+                                }">
                                     <li class="">
                                         <i class="fa-solid fa-address-card"></i>
                                         <br /><span>Profile</span>
@@ -36,14 +39,15 @@
                                 <li>
                                     <i class="fa-solid fa-shop"></i> <br /><span>Shop</span>
                                 </li>
-                                <li>
-                                    <i class="fa-solid fa-newspaper"></i>
-                                    <br /><span>Posts</span>
-                                </li>
+                                <router-link :to="{
+                                    path: '/profile/watchs',
+                                    query: { id: UserProfile.id },
+                                }">
                                 <li>
                                     <i class="fa-solid fa-forward-step"></i>
                                     <br /><span>Media</span>
                                 </li>
+                                </router-link>
                             </ul>
                             <!-- HTML !-->
                             <div class="right">
@@ -116,8 +120,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="content col-9">
-                    <router-view></router-view>
+                <div class="content col-9  ">
+                    <router-view class="pt-5"></router-view>
                 </div>
             </div>
         </div>
@@ -299,6 +303,8 @@
 .main .content {
     /* background-color: red; */
     padding: 0px 5% !important;
+    max-height: 100vh;
+    overflow-y: scroll;
 }
 
 .more-desc,
@@ -515,11 +521,11 @@ export default {
     mounted() {
         var nav = $(".user_nav ul li");
         var url = location.pathname;
-
+        console.log(url);
         for (let index = 0; index < nav.length; index++) {
             if (nav[index].closest("a") != null) {
                 let el = nav[index].closest("a").getAttribute("href");
-                if (url.search(el) != -1) {
+                if (url == el) {
                     nav[index].classList.add("active");
                 }
             }

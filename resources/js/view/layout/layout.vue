@@ -10,7 +10,7 @@
             <Headmain></Headmain>
             <div class="container">
                 <div class="row beehive-content">
-                    <div class="col-md-9 col-sm-12">
+                    <div class="col-md-9 col-sm-12 ">
                         <div class="beehive-main">
                             <FormLayout></FormLayout>
                             <router-view></router-view>
@@ -40,8 +40,9 @@
         display: unset;
     }
     .beehive-main {
-        width: 100%;
+        width: 100vw;
         padding: 5% !important;
+        margin-top: 100px;
     }
 }
 

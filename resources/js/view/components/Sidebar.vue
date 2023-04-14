@@ -7,7 +7,6 @@
                     <li
                         v-for="item in Friends"
                         :key="item"
-                        v-on:click="OpenChat(item.FriendInfor.id)"
                     >
                         <img
                             class="avt"
@@ -35,26 +34,21 @@
             <h5>Hashtags</h5>
             <div class="list">
                 <span
-                    >#stay strong
+                    >#ya hallo
                     <h6>100</h6></span
                 >
                 <span
-                    >#kip moving
+                    >#siuuuu
                     <h6>50</h6></span
                 >
                 <span>
-                    #i am monster
+                    #hột vịt lộn
                     <h6>7</h6></span
                 >
             </div>
         </div>
     </div>
     <div class="chat_list">
-        <Chat
-            :FriendId="FriendId"
-            @ChatAction="ChatAction"
-            :key="FriendId"
-        ></Chat>
         <div class="list">
             <div class="infor" v-for="item in ListChat" :key="item">
                 <div class="avt">
@@ -158,11 +152,7 @@
 
 <script>
 import { ListFriend, GetUserProfile } from "../../services/Users";
-import Chat from "./Chat.vue";
 export default {
-    components: {
-        Chat,
-    },
     setup() {},
     data() {
         return {
@@ -182,12 +172,6 @@ export default {
                 const { data } = res;
                 return data;
             });
-        },
-        OpenChat(id) {
-            this.FriendId = id;
-        },
-        ChatAction(DataEvent) {
-           this.ListChat.fi
         },
     },
     mounted() {},

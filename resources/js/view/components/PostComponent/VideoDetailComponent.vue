@@ -243,7 +243,8 @@ export default {
     },
     methods: {
         back() {
-            window.history.back();
+            this.$router.push(this.backurl)
+            // window.history.back();
         },
         ResetComponent() {
             this.Reset += 1;

@@ -9,7 +9,6 @@
                     <videocm :VideoDetail="item"></videocm>
                 </div>
             </div>
-            <loading v-model:active="isLoading" :is-full-page="true" />
         </div>
         <!-- More videos -->
     </div>
@@ -22,11 +21,13 @@
     /* padding: 0px  15%; */
     height: 100%;
 }
+
 .watch-container {
     position: relative;
     width: 100%;
     height: auto;
 }
+
 .video-container {
     position: relative;
     width: 100%;
@@ -39,6 +40,7 @@
     height: 100%;
     object-fit: cover;
 }
+
 .video-info {
     position: absolute;
     bottom: 0;
@@ -79,16 +81,15 @@
 </style>
 
 <script>
-import Loading from "vue-loading-overlay";
 
-import videocm from "../../components/PostComponent/video.vue";
-import Music from "../../components/PostComponent/music.vue";
-import { Watch } from "../../../services/Watch";
-import emitter from "../../../services/changeData";
+import videocm from "../PostComponent/video.vue";
+import Music from "../PostComponent/music.vue";
+
+import { GetWatchsProfile } from "../../../services/Users";
 
 import $ from "jquery";
 export default {
-    components: { videocm, Music, Loading },
+    components: { videocm, Music },
     props: {},
     data() {
         return {
@@ -98,44 +99,18 @@ export default {
         };
     },
     created() {
-        this.GetWatch();
+
     },
-    methods: {
-       async GetWatch() {
-            this.isLoading = true;
-           var data = await Watch().then((res) => {
-                return res;
-            });
-            this.NextPage = data.data.current_page + 1;
-            this.WatchList = data.data.data;
-            this.isLoading = false;
+    watch: {
+        "$route.query.id": {
+            immediate: true,
+            handler(newValue, oldValue) {
+                GetWatchsProfile(newValue).then((res) => {
+                    this.NextPage = res.data.current_page + 1;
+                    this.WatchList = res.data.data;
+                });
+            },
         },
-    },
-    mounted() {
-        emitter.on("update", (data) => {
-            this.WatchList.unshift(data);
-        });
-
-        var VueThis = this;
-        function load_new() {
-            $(".beehive-main").scroll(function () {
-                if (
-                    $(this).scrollTop() + $(this)[0].clientHeight >=
-                    $(".watch-container").height()
-                ) {
-                    $(this).off("scroll");
-                    this.isLoading = true;
-
-                    Watch(VueThis.NextPage).then((res) => {
-                        VueThis.NextPage = res.data.current_page + 1;
-                        VueThis.WatchList.push(...res.data.data);
-                        VueThis.isLoading = false;
-                        load_new();
-                    });
-                }
-            });
-        }
-        load_new();
-    },
+    }
 };
 </script>

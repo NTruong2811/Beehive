@@ -34,6 +34,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // users
     Route::prefix('/users')->group(function () {
         Route::get('/get-user-profile', [UsersController::class, 'GetUserProfile'])->name('GetUserProfile');
+        Route::get('/get-post-profile', [UsersController::class, 'GetPostProfile'])->name('GetPostProfile');
+        Route::get('/get-watchs-profile', [UsersController::class, 'GetWatchsProfile'])->name('GetWatchsProfile');
+
         // Route::get('/get-user-profile', function(){
         //     return 1;
         // })->name('GetUserProfile');

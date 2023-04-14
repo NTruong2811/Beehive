@@ -1,11 +1,12 @@
 <template>
-    <div class="item">
-        <div class="avt">
+    <div class="item" :id="'post_'+PostDetail.id">
+        <div class="avt d-none d-lg-block">
             <img :src="PostDetail.user.avatar" alt="" />
         </div>
         <div class="content">
             <div class="item-header">
                 <div class="meta">
+                    <img class="d-block d-lg-none" :src="PostDetail.user.avatar" alt="" />
                     <div class="post-by">
                         <span>
                             <strong>{{ PostDetail.user.name }}</strong>
@@ -72,14 +73,27 @@ li {
     top: 65px;
     left: 22px;
 }
+@media (max-width: 576px) {
+    .item::before {
+   display: none;
+}
+}
 .item .avt img {
     width: 45px;
     height: 45px;
     border-radius: 100%;
     z-index: 100;
 }
+.item .meta img{
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    z-index: 100;
+    margin-right: 10px;
+}
 .item .content {
     padding: 0px 20px;
+    width: 100%;
 }
 .item .item-header .meta {
     display: flex;
@@ -222,16 +236,21 @@ export default {
         PostDetail: Object,
     },
     mounted() {
-        $(".more-desc").click(function () {
+
+        var VueThis = this;
+        $("#post_"+VueThis.PostDetail.id+" .more-desc").click(function () {
             $(this).next().show();
             $(this).hide();
-            $(".hide-desc").show();
+            $("#post_"+VueThis.PostDetail.id+" .hide-desc").show();
         });
-        $(".hide-desc").click(function () {
+
+        $("#post_"+VueThis.PostDetail.id+" .hide-desc").click(function () {
             $(this).prev().hide();
             $(this).hide();
-            $(this).parent().find(".more-desc").show();
+            $(this).parent().find("#post_"+VueThis.PostDetail.id+" .more-desc").show();
+            $("#post_"+VueThis.PostDetail.id+" .more-desc").show()
         });
+
     },
 };
 </script>

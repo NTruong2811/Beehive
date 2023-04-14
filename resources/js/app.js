@@ -145,8 +145,7 @@ app.config.globalProperties.ConvertTime = (postTime) => {
 
 
 
-
-
+app.config.globalProperties.back = '/';
 
 
 
@@ -159,6 +158,7 @@ app.mount("#app");
 
 router.beforeEach((to, from, next) => {
     var token = localStorage.getItem("token");
+    var form = from
     if (to.matched.some((record) => record.meta.AppProduct)) {
         if (token != null) {
             next();
@@ -173,6 +173,11 @@ router.beforeEach((to, from, next) => {
             next("/");
         }
     }
+
+    if (form.fullPath.search('detail')== -1) {
+        app.config.globalProperties.backurl = form.fullPath
+    }
+
     // GetTypeNotifi().then(function (res) {
     //     var { data } = res;
     //     data.map(function (item) {

@@ -1,16 +1,16 @@
 <template>
-    <div class="item" :data-music="MusicDetail.music.song_file">
-        <div class="avt">
+    <div class="item" :id="'post_' + MusicDetail.id" :data-music="MusicDetail.music.song_file">
+        <div class="avt d-none d-lg-block">
             <img :src="MusicDetail.user.avatar" alt="" />
         </div>
         <div class="content">
             <div class="item-header">
                 <div class="meta">
+                    <img class="d-block d-lg-none" :src="MusicDetail.user.avatar" alt="" />
                     <div class="post-by">
                         <span>
                             <strong>{{ MusicDetail.user.name }}</strong>
-                            posted an update</span
-                        >
+                            posted an update</span>
                         <br />
                         <span class="time">{{
                             ConvertTime(MusicDetail.created_at)
@@ -33,8 +33,7 @@
                                 et quas molestias excepturi sint occaecati
                                 cupiditate non provident, similique sunt in cul
                                 <span class="more-desc">...read more</span>
-                                <span class="all-desc" style="display: none"
-                                    >At vero eos et accusamus et iusto odio
+                                <span class="all-desc" style="display: none">At vero eos et accusamus et iusto odio
                                     dignissimos ducimus qui blanditiis
                                     praesentium voluptatum deleniti atque
                                     corrupti quos dolores et quas molestias
@@ -57,9 +56,7 @@
                                     perferendis doloribus asperiores
                                     repellat.<br />
                                 </span>
-                                <span class="hide-desc" style="display: none"
-                                    >hide</span
-                                >
+                                <span class="hide-desc" style="display: none">hide</span>
                             </div>
                         </span>
                     </div>
@@ -69,10 +66,7 @@
                 <div class="music-player">
                     <div class="music-info">
                         <div class="album-art">
-                            <img
-                                :src="MusicDetail.music.image_file"
-                                alt="Album Art"
-                            />
+                            <img :src="MusicDetail.music.image_file" alt="Album Art" />
                         </div>
                         <div class="song-details">
                             <h2 class="song-title">
@@ -86,27 +80,22 @@
                     <div class="player-controls">
                         <audio controls loop>
                             <!-- <source src="horse.ogg" type="audio/ogg" /> -->
-                            <source
-                                :src="MusicDetail.music.song_file"
-                                type="audio/mpeg"
-                            />
+                            <source :src="MusicDetail.music.song_file" type="audio/mpeg" />
                             Your browser does not support the audio element.
                         </audio>
                     </div>
                 </div>
-                <div class="traffic">
+                <div class="traffic d-none d-lg-block">
                     <button class="action-btn">
                         <i class="fas fa-heart"></i><br />
                         <span>1</span>
                     </button>
-                    <router-link
-                        :to="{
-                            path: '/detail/music',
-                            query: {
-                                id: MusicDetail.id,
-                            },
-                        }"
-                    >
+                    <router-link :to="{
+                        path: '/detail/music',
+                        query: {
+                            id: MusicDetail.id,
+                        },
+                    }">
                         <button class="action-btn">
                             <i class="fa-solid fa-comment-dots"></i> <br />
                             <span>1</span>
@@ -118,22 +107,59 @@
                     </button>
                 </div>
             </div>
+            <div class="traffic traffic_mb">
+                <button class="action-btn">
+                    <i class="fas fa-heart"></i><br />
+                    <span>1</span>
+                </button>
+                <router-link :to="{
+                    path: '/detail/music',
+                    query: {
+                        id: MusicDetail.id,
+                    },
+                }">
+                    <button class="action-btn">
+                        <i class="fa-solid fa-comment-dots"></i> <br />
+                        <span>1</span>
+                    </button>
+                </router-link>
+                <button class="action-btn">
+                    <i class="fas fa-share"></i><br />
+                    <span>1</span>
+                </button>
+            </div>
         </div>
     </div>
 </template>
 <style scoped>
+.traffic_mb {
+    width: 100%;
+    flex-direction: row !important;
+    justify-content: center !important;
+}
+
+.traffic_mb button {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
 .more-desc,
 .hide-desc {
     color: #8224e3;
     font-size: 15px;
     cursor: pointer;
 }
+
 ul {
     padding: 0px;
 }
+
 li {
     list-style: none;
 }
+
 .item {
     width: 100%;
     display: flex;
@@ -141,51 +167,73 @@ li {
     position: relative;
     margin: 10px 0px;
 }
+
 .item::before {
     content: "";
     width: 2px;
     height: 100%;
     background: rgb(120, 120, 120);
-    background: linear-gradient(
-        180deg,
-        rgba(120, 120, 120, 1) 0%,
-        rgba(248, 248, 248, 1) 100%
-    );
+    background: linear-gradient(180deg,
+            rgba(120, 120, 120, 1) 0%,
+            rgba(248, 248, 248, 1) 100%);
     position: absolute;
     top: 65px;
     left: 22px;
 }
+
+@media (max-width: 576px) {
+    .item::before {
+        display: none;
+    }
+}
+
+.item .meta img {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    z-index: 100;
+    margin-right: 10px;
+}
+
 .item .avt img {
     width: 45px;
     height: 45px;
     border-radius: 100%;
     z-index: 100;
 }
+
 .item .content {
     width: 100%;
     padding: 0px 20px;
 }
+
 .item .item-header .meta {
     display: flex;
     font-size: 15px;
 }
+
 .item .item-header .meta strong {
     font-weight: 600;
 }
+
 .item .item-header {
     display: flex;
     justify-content: space-between;
 }
+
 .item .item-header .meta .time {
     font-size: 13px;
     color: rgba(0, 0, 0, 0.363);
 }
+
 .item .item-content {
     margin: 15px 0px;
 }
+
 .item .item-content .description {
     font-size: 15px;
 }
+
 .item .item-content .media ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -193,20 +241,24 @@ li {
     margin-top: 15px;
     width: 100%;
 }
+
 .item .item-content .media ul li {
     width: 100%;
     cursor: pointer;
 }
+
 .item .item-content .media ul li:first-child {
     grid-column-start: 1;
     grid-column-end: 4;
 }
+
 .item .item-content .media ul li img {
     width: 100%;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
         rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
+
 .item .item-content .action ul {
     margin: 15px 0px;
     display: flex;
@@ -216,16 +268,19 @@ li {
     border-right: 0px;
     padding: 15px 0px;
 }
+
 .item .item-content .action ul li {
     display: flex;
     gap: 8px;
     color: #4f5261d7;
 }
+
 .item .item-content .action ul li .quantity {
     background-color: #4f52611c;
     padding: 0px 5px;
     border-radius: 100%;
 }
+
 .item .item-content .action ul li i {
     margin-top: 2px;
 }
@@ -284,10 +339,12 @@ li {
     width: 100%;
     background-color: transparent;
 }
+
 audio::-webkit-media-controls-panel,
 video::-webkit-media-controls-panel {
     background-color: white;
 }
+
 .play-button,
 .pause-button,
 .volume-button {
@@ -322,9 +379,11 @@ video::-webkit-media-controls-panel {
     color: #999;
     margin: 0;
 }
+
 .item-music {
     display: flex;
 }
+
 /* traffic */
 .traffic {
     display: flex;
@@ -333,9 +392,11 @@ video::-webkit-media-controls-panel {
     justify-content: flex-end;
     margin-top: 20px;
 }
+
 .action-btn[data-v-5a2d311e] {
     display: flex;
 }
+
 .action-btn {
     background-color: transparent;
     border: none;
@@ -366,13 +427,27 @@ video::-webkit-media-controls-panel {
 import $ from "jquery";
 
 export default {
-    setup() {},
+    setup() { },
     props: {
         MusicDetail: Object,
     },
     components: {},
     mounted() {
+
+
         var VueThis = this;
+        $("#post_" + VueThis.MusicDetail.id + " .more-desc").click(function () {
+            $(this).next().show();
+            $(this).hide();
+            $("#post_" + VueThis.MusicDetail.id + " .hide-desc").show();
+        });
+
+        $("#post_" + VueThis.MusicDetail.id + " .hide-desc").click(function () {
+            $(this).prev().hide();
+            $(this).hide();
+            $(this).parent().find("#post_" + VueThis.MusicDetail.id + " .more-desc").show();
+            $("#post_" + VueThis.MusicDetail.id + " .more-desc").show()
+        });
 
         var observer = new IntersectionObserver(
             function (entries, observer) {

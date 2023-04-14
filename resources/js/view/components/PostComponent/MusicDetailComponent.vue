@@ -84,7 +84,7 @@
                     Add Friend
                 </button>
             </div>
-            <p class="post-description">{{ Detail.description }}</p>
+            <p class="post-description">{{ PostDetail.description }}</p>
             <traffic-detail-component></traffic-detail-component>
         </div>
         <comment-layout :PostId="PostDetail.id"></comment-layout>
@@ -429,7 +429,7 @@ export default {
     },
     methods: {
         back() {
-            window.history.back();
+            this.$router.push(this.backurl)
         },
         loop() {
             if (this.loop == false) {

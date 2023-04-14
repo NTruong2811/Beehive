@@ -14,12 +14,10 @@
             <li>
                 <i class="fa-solid fa-newspaper"></i>
             </li>
-            <router-link
-                :to="{
-                    path: '/friendships',
-                    query: { id: this.UserInfor.id },
-                }"
-            >
+            <router-link :to="{
+                path: '/friendships',
+                query: { id: this.UserInfor.id },
+            }">
                 <li>
                     <i class="fa-solid fa-users"></i>
                 </li>
@@ -35,11 +33,14 @@
             <div class="logout">
                 <i class="fa-solid fa-right-from-bracket"></i>
             </div>
-            <a :href="'/profile?id=' + this.userInfor.id">
+            <router-link :to="{
+                path: '/profile',
+                query: { id: this.userInfor.id }
+            }">
                 <div class="avt">
                     <img :src="this.UserInfor.avatar" alt="" />
                 </div>
-            </a>
+            </router-link>
         </div>
     </div>
 </template>
@@ -47,6 +48,7 @@
 a {
     color: #4f5261bb;
 }
+
 .beehive-navbar {
     position: relative;
     width: inherit;
@@ -59,6 +61,7 @@ a {
     padding: 0px !important;
     gap: 50px;
 }
+
 .beehive-navbar .logo {
     width: 100%;
     height: 80px;
@@ -66,9 +69,11 @@ a {
     background-color: #383a45;
     background-image: linear-gradient(135deg, #4f5261 0%, #383a45 50%);
 }
+
 .beehive-navbar .logo img {
     width: 100%;
 }
+
 .beehive-navbar ul {
     display: flex;
     flex-direction: column;
@@ -78,6 +83,7 @@ a {
 
     align-items: center;
 }
+
 .beehive-navbar ul li {
     list-style: none;
     color: #4f5261bb;
@@ -91,9 +97,11 @@ a {
     border-radius: 10px;
     position: relative;
 }
+
 .beehive-navbar ul li i {
     margin: auto;
 }
+
 .logout {
     text-align: center;
     /* height: 50px;
@@ -106,11 +114,13 @@ a {
     /* background-color: ; */
     cursor: pointer;
 }
+
 .user {
     padding: 15%;
     position: absolute;
     bottom: 0px;
 }
+
 .user .avt {
     width: 100%;
     /* margin: 15%; */
@@ -118,10 +128,12 @@ a {
     border-radius: 100%;
     padding: 5%;
 }
+
 .user .avt img {
     width: 100%;
     border-radius: 100%;
 }
+
 ul .active {
     background: linear-gradient(135deg, #c395f1 0%, #8224e3 75%);
     color: #fff !important;
@@ -129,9 +141,11 @@ ul .active {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
+
 ul .active a {
     color: white;
 }
+
 ul .active i {
     margin: auto;
     font-size: 22px;
@@ -140,7 +154,7 @@ ul .active i {
 <script>
 import $ from "jquery";
 export default {
-    setup() {},
+    setup() { },
     data() {
         return {
             UserInfor: JSON.parse(localStorage.getItem("user")),

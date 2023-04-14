@@ -5,13 +5,22 @@ namespace App\Http\Controllers;
 use App\Events\AddFriendEvent;
 use App\Events\BeehiveCallAnswer;
 use App\Events\BeehiveCallOffer;
+use App\helpers\RedisServer;
 use App\Models\Friendship;
+use App\Models\posts;
 use App\Models\users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
+
+    public $RedisServer;
+    public function __construct()
+    {
+        $this->RedisServer = new RedisServer;
+    }
+
     public function GetUserProfile(Request $request)
     {
         $id = $request->id;
@@ -126,6 +135,32 @@ class UsersController extends Controller
             ], 200);
         }
     }
+
+    public function GetPostProfile(Request $request)
+    {
+        $data = posts::with('video', 'music', 'profile', 'user')
+            ->orderBy('created_at', 'DESC')
+            ->where('user_id', '=', $request->id)->paginate(5);
+        if ($data->total() > 1) {
+            $this->RedisServer->SetListData('post', $data);
+        };
+        return $data;
+    }
+    public function GetWatchsProfile(Request $request)
+    {
+        try {
+            $data = posts::with('type_post', 'music', 'user', 'video')
+                ->orderBy('created_at', 'DESC')
+                ->whereIn('type_postId',[2,3])
+                ->where('user_id','=',$request->id)
+                ->paginate(5);
+
+            return $data;
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
 
     public function CallOffer(Request $request)
     {

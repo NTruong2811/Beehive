@@ -1,11 +1,12 @@
 <template>
-    <div class="item" :data-video="VideoDetail.video.file">
-        <div class="avt">
+    <div class="item" :id="'post_'+VideoDetail.id" :data-video="VideoDetail.video.file">
+        <div class="avt d-none d-lg-block">
             <img :src="VideoDetail.user.avatar" alt="" />
         </div>
         <div class="content">
             <div class="item-header">
                 <div class="meta">
+                    <img class="d-block d-lg-none" :src="VideoDetail.user.avatar" alt="" />
                     <div class="post-by">
                         <span>
                             <strong>{{ VideoDetail.user.name }}</strong>
@@ -64,9 +65,9 @@
                     </div>
                 </div>
             </div>
-            <div class="item-video">
+            <div class="item-video ">
                 <video :src="VideoDetail.video.file" controls loop></video>
-                <div class="traffic">
+                <div class="traffic d-none d-lg-block">
                     <button class="action-btn">
                         <i class="fas fa-heart"></i><br />
                         <span>1</span>
@@ -90,10 +91,44 @@
                     </button>
                 </div>
             </div>
+            <div class="traffic traffic_mb">
+                <button class="action-btn">
+                    <i class="fas fa-heart"></i><br />
+                    <span>1</span>
+                </button>
+                <router-link :to="{
+                    path: '/detail/video',
+                    query: {
+                        id: VideoDetail.id,
+                    },
+                }">
+                    <button class="action-btn">
+                        <i class="fa-solid fa-comment-dots"></i> <br />
+                        <span>1</span>
+                    </button>
+                </router-link>
+                <button class="action-btn">
+                    <i class="fas fa-share"></i><br />
+                    <span>1</span>
+                </button>
+            </div>
         </div>
     </div>
 </template>
 <style scoped>
+.traffic_mb {
+    width: 100%;
+    flex-direction: row !important;
+    justify-content: center !important;
+}
+
+.traffic_mb button {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
 video::-webkit-media-controls-fullscreen-button {
     display: none;
 }
@@ -127,6 +162,18 @@ li {
     );    position: absolute;
     top: 65px;
     left: 22px;
+}
+@media (max-width: 576px) {
+    .item::before {
+   display: none;
+}
+}
+.item .meta img{
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    z-index: 100;
+    margin-right: 10px;
 }
 .item .avt img {
     width: 45px;
@@ -329,17 +376,20 @@ export default {
         VideoDetail: Object,
     },
     mounted() {
-        $(".more-desc").click(function () {
+        var VueThis = this;
+        $("#post_"+VueThis.VideoDetail.id+" .more-desc").click(function () {
             $(this).next().show();
             $(this).hide();
-            $(".hide-desc").show();
+            $("#post_"+VueThis.VideoDetail.id+" .hide-desc").show();
         });
-        $(".hide-desc").click(function () {
+
+        $("#post_"+VueThis.VideoDetail.id+" .hide-desc").click(function () {
             $(this).prev().hide();
             $(this).hide();
-            $(this).parent().find(".more-desc").show();
+            $(this).parent().find("#post_"+VueThis.VideoDetail.id+" .more-desc").show();
+            $("#post_"+VueThis.VideoDetail.id+" .more-desc").show()
         });
-        var VueThis = this;
+
         var observer = new IntersectionObserver(
             function (entries, observer) {
                 entries.forEach(function (entry) {

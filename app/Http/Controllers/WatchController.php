@@ -19,6 +19,7 @@ class WatchController extends Controller
         try {
             $data = posts::with('type_post', 'music', 'user', 'video')
                 ->orderBy('created_at', 'DESC')
+                ->whereIn('type_postId',[2,3])
                 ->paginate(3);
             Redis::set('debug',  json_encode($data));
 

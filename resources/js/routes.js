@@ -18,6 +18,7 @@ import NewFriend from "./view/Tabs/FriendTab/NewFriend";
 // profile
 import Call from "./view/pages/Call";
 import profile from "./view/components/ProfileComponent/profile";
+import watchs from "./view/components/ProfileComponent/watchs";
 // detail
 import VideoDetail from "./view/components/PostComponent/VideoDetailComponent";
 import MusicDetail from "./view/components/PostComponent/MusicDetailComponent";
@@ -108,6 +109,10 @@ const routes = [
                     },
                 ],
             },
+            {
+                path:'watchs',
+                component:watchs
+            }
         ],
         meta: { AppProduct: true },
     },
@@ -124,7 +129,7 @@ const routes = [
                 component: MusicDetail,
             },
         ],
-        meta: { AppProduct: true },
+        meta: { AppProduct: true,back:true },
     },
     {
         path: "/beechat",

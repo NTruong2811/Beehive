@@ -3,6 +3,16 @@ import instance from "./config";
 export function GetUserProfile(id) {
     return instance.get("users/get-user-profile?id=" + id);
 }
+export function GetPostProfile(id) {
+    return instance.get("users/get-post-profile?id=" + id);
+}
+export function GetWatchsProfile(id) {
+    return instance.get("users/get-watchs-profile?id=" + id);
+}
+// 
+
+
+
 export function AddFriend(data) {
     return instance.post("users/add-friend", data);
 }
@@ -18,6 +28,8 @@ export function AcceptFriend(id) {
 export function CancelAddFriend(id) {
     return instance.post("users/cancel-add-friend", { id: id });
 }
+
+
 
 
 
