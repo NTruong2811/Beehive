@@ -1,6 +1,6 @@
 <template>
     <div class="beehive">
-        <div class="d-none d-lg-block" style="width: 80px; z-index: 9999">
+        <div class="d-none d-md-block" style="width: 80px; z-index: 9999">
             <Navbar></Navbar>
         </div>
         <div
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div
-                        class="col-3 beehive-sidebar d-none d-lg-block"
+                        class="col-3 beehive-sidebar d-none d-md-block"
                         style="height: 100vh"
                     >
                         <Sidebar></Sidebar>
