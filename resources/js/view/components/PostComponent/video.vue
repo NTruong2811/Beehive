@@ -67,7 +67,7 @@
             </div>
             <div class="item-video ">
                 <video :src="VideoDetail.video.file" controls loop></video>
-                <div class="traffic d-hidden d-md-visible">
+                <div class="traffic d-none d-md-flex">
                     <button class="action-btn">
                         <i class="fas fa-heart"></i><br />
                         <span>1</span>
@@ -91,7 +91,7 @@
                     </button>
                 </div>
             </div>
-            <div class="traffic traffic_mb d-block d-md-none">
+            <div class="traffic traffic_mb d-flex d-md-none">
                 <button class="action-btn">
                     <i class="fas fa-heart"></i><br />
                     <span>1</span>

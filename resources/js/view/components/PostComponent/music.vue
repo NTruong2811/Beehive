@@ -85,7 +85,7 @@
                         </audio>
                     </div>
                 </div>
-                <div class="traffic d-hidden d-md-visible">
+                <div class="traffic d-none d-md-flex">
                     <button class="action-btn">
                         <i class="fas fa-heart"></i><br />
                         <span>1</span>
@@ -107,7 +107,7 @@
                     </button>
                 </div>
             </div>
-            <div class="traffic traffic_mb d-block d-md-none">
+            <div class="traffic traffic_mb d-flex d-md-none">
                 <button class="action-btn">
                     <i class="fas fa-heart"></i><br />
                     <span>1</span>
@@ -132,8 +132,10 @@
     </div>
 </template>
 <style scoped>
+
 .traffic_mb {
     width: 100%;
+
     flex-direction: row !important;
     justify-content: center !important;
 }
@@ -180,12 +182,6 @@ li {
     position: absolute;
     top: 65px;
     left: 22px;
-}
-
-@media (max-width: 576px) {
-    .item::before {
-        display: none;
-    }
 }
 
 .item .meta img {

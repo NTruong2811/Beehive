@@ -35,7 +35,7 @@
                 </ul>
             </div>
         </div>
-        <div class="beehive-navbar-mobile d--sm-block d-md-none">
+        <div class="beehive-navbar-mobile d-sm-block d-md-none">
             <ul>
                 <router-link to="/">
                     <li class="">

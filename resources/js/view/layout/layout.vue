@@ -22,9 +22,6 @@
                     >
                         <Sidebar></Sidebar>
                     </div>
-                    <div class="chatList">
-                        <!-- <Chat></Chat> -->
-                    </div>
                 </div>
             </div>
         </div>
