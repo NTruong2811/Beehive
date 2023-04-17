@@ -85,7 +85,6 @@
                 </button>
             </div>
             <p class="post-description">{{ PostDetail.description }}</p>
-            <traffic-detail-component></traffic-detail-component>
         </div>
         <comment-layout :PostId="PostDetail.id"></comment-layout>
     </div>

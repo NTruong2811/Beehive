@@ -18,7 +18,7 @@ class NewfeedsController extends Controller
     public function index()
     {
         try {
-            $data = posts::with('video', 'music', 'profile', 'user')
+            $data = posts::with('video', 'music', 'profile', 'user','first_comment.user','first_comment.replies.user')
                 ->orderBy('created_at', 'DESC')->paginate(5);
             $this->RedisServer->SetListData('post', $data);
             return $data;

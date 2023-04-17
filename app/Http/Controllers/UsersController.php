@@ -138,7 +138,7 @@ class UsersController extends Controller
 
     public function GetPostProfile(Request $request)
     {
-        $data = posts::with('video', 'music', 'profile', 'user')
+        $data = posts::with('video', 'music', 'profile', 'user','first_comment.user','first_comment.replies.user')
             ->orderBy('created_at', 'DESC')
             ->where('user_id', '=', $request->id)->paginate(5);
         if ($data->total() > 1) {
@@ -149,7 +149,7 @@ class UsersController extends Controller
     public function GetWatchsProfile(Request $request)
     {
         try {
-            $data = posts::with('type_post', 'music', 'user', 'video')
+            $data = posts::with('type_post', 'music', 'user', 'video','first_comment.user','first_comment.replies.user')
                 ->orderBy('created_at', 'DESC')
                 ->whereIn('type_postId',[2,3])
                 ->where('user_id','=',$request->id)

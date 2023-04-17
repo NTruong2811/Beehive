@@ -85,68 +85,16 @@
                         </audio>
                     </div>
                 </div>
-                <div class="traffic d-none d-md-flex">
-                    <button class="action-btn">
-                        <i class="fas fa-heart"></i><br />
-                        <span>1</span>
-                    </button>
-                    <router-link :to="{
-                        path: '/detail/music',
-                        query: {
-                            id: MusicDetail.id,
-                        },
-                    }">
-                        <button class="action-btn">
-                            <i class="fa-solid fa-comment-dots"></i> <br />
-                            <span>1</span>
-                        </button>
-                    </router-link>
-                    <button class="action-btn">
-                        <i class="fas fa-share"></i><br />
-                        <span>1</span>
-                    </button>
-                </div>
             </div>
-            <div class="traffic traffic_mb d-flex d-md-none">
-                <button class="action-btn">
-                    <i class="fas fa-heart"></i><br />
-                    <span>1</span>
-                </button>
-                <router-link :to="{
-                    path: '/detail/music',
-                    query: {
-                        id: MusicDetail.id,
-                    },
-                }">
-                    <button class="action-btn">
-                        <i class="fa-solid fa-comment-dots"></i> <br />
-                        <span>1</span>
-                    </button>
-                </router-link>
-                <button class="action-btn">
-                    <i class="fas fa-share"></i><br />
-                    <span>1</span>
-                </button>
-            </div>
+            <Activity :PostDetail="MusicDetail"></Activity>
         </div>
     </div>
 </template>
 <style scoped>
 
-.traffic_mb {
-    width: 100%;
 
-    flex-direction: row !important;
-    justify-content: center !important;
-}
 
-.traffic_mb button {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    
-}
+
 
 .more-desc,
 .hide-desc {
@@ -183,11 +131,13 @@ li {
     top: 65px;
     left: 22px;
 }
+
 @media (max-width: 576px) {
     .item::before {
-   display: none;
+        display: none;
+    }
 }
-}
+
 .item .meta img {
     width: 45px;
     height: 45px;
@@ -293,7 +243,7 @@ li {
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     padding: 20px;
-    width: 400px;
+    width: 450px;
 }
 
 .music-info {
@@ -385,56 +335,26 @@ video::-webkit-media-controls-panel {
     display: flex;
 }
 
-/* traffic */
-.traffic {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-.action-btn[data-v-5a2d311e] {
-    display: flex;
-}
-
-.action-btn {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    margin: 0 10px;
-    outline: none;
-    transition: color 0.3s;
-}
-
-.action-btn i {
-    font-size: 20px;
-    background-color: #4f526123;
-    border-radius: 100%;
-    padding: 12px;
-}
-
-.fa-heart {
-    color: #ff0000;
-}
-
-.fa-comment,
-.fa-share {
-    color: #000000;
-}
 </style>
 
 <script>
 import $ from "jquery";
+import Activity from "../CommentComponent/Activity.vue";
 
 export default {
     setup() { },
     props: {
         MusicDetail: Object,
     },
-    components: {},
+    watch: {
+        MusicDetail: function (newVal, oldVal) {
+            console.log(newVal);
+        }
+    },
+    components: {
+        Activity
+    },
     mounted() {
-
 
         var VueThis = this;
         $("#post_" + VueThis.MusicDetail.id + " .more-desc").click(function () {

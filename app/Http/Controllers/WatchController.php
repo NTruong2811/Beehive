@@ -17,7 +17,7 @@ class WatchController extends Controller
     public function Watch()
     {
         try {
-            $data = posts::with('type_post', 'music', 'user', 'video')
+            $data = posts::with('type_post', 'music', 'user', 'video','first_comment.user','first_comment.replies.user')
                 ->orderBy('created_at', 'DESC')
                 ->whereIn('type_postId',[2,3])
                 ->paginate(3);
@@ -31,7 +31,7 @@ class WatchController extends Controller
     public function Musics()
     {
         try {
-            $data = posts::with('type_post', 'music', 'user')
+            $data = posts::with('type_post', 'music', 'user','first_comment.user','first_comment.replies.user')
                 ->where('type_postId', '=', 3)
                 ->orderBy('created_at', 'DESC')->paginate(3);;
             return $data;
@@ -42,7 +42,7 @@ class WatchController extends Controller
     public function Videos()
     {
         try {
-            $data = posts::with('type_post', 'video', 'user')
+            $data = posts::with('type_post', 'video', 'user','first_comment.user','first_comment.replies.user')
                 ->where('type_postId', '=', 2)
                 ->orderBy('created_at', 'DESC')->paginate(3);
             return $data;

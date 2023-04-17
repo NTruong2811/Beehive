@@ -12,7 +12,7 @@
                     <SearchResult :SearchResult="SearchResult" :key="re_renderKey"></SearchResult>
                 </div>
             </div>
-            <div class="nav">
+            <div class="nav d-none d-md-block">
                 <ul>
                     <li>
                         <i class="fa-solid fa-user-plus"></i>

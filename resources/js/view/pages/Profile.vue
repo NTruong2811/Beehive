@@ -184,7 +184,7 @@
                     </div>
                 </div>
                 <div class="content col-md-9 col-sm-12">
-                    <router-view class="pt-5"></router-view>
+                    <router-view></router-view>
                 </div>
             </div>
         </div>

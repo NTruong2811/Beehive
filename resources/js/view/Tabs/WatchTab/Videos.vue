@@ -102,6 +102,7 @@ export default {
             this.isLoading = true;
 
             Videos().then((res) => {
+                console.log(res);
                 this.NextPage = res.data.current_page + 1;
                 this.VideosList = res.data.data;
                 this.isLoading = false;

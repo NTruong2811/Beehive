@@ -154,6 +154,8 @@ export default {
                 this.Comments = res.data.data;
                 this.more_comments = res.data.current_page + 1;
                 this.total_comment = res.data.total;
+                console.log(this.Comments);
+
             });
         },
     },

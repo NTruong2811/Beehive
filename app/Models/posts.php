@@ -44,6 +44,11 @@ class posts extends Model
         return $this->hasMany(comments::class, 'post_id');
     }
     
+    public function first_comment(){
+        return $this->hasOne(comments::class, 'post_id')->latest();
+    }
+
+
     public function Add($request){
         $post = posts::create([
             'user_id' => $request->user_id,
@@ -52,6 +57,8 @@ class posts extends Model
         ]);
         return $post;
     }
+
+
 
 
 

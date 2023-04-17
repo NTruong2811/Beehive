@@ -24,6 +24,8 @@ import VideoDetail from "./view/components/PostComponent/VideoDetailComponent";
 import MusicDetail from "./view/components/PostComponent/MusicDetailComponent";
 // beechat
 import Beechat from "./view/pages/Beechat"
+// shop
+import Shop from "./view/pages/Shop"
 const routes = [
     {
         path: "/",
@@ -65,6 +67,10 @@ const routes = [
                         component: NewFriend,
                     },
                 ],
+            },
+            {
+                path: "/shop",
+                component: Shop,
             },
         ],
         meta: { AppProduct: true },

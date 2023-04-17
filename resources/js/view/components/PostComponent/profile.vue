@@ -1,5 +1,5 @@
 <template>
-    <div class="item" :id="'post_'+PostDetail.id">
+    <div class="item" :id="'post_' + PostDetail.id">
         <div class="avt d-none d-lg-block">
             <img :src="PostDetail.user.avatar" alt="" />
         </div>
@@ -10,8 +10,7 @@
                     <div class="post-by">
                         <span>
                             <strong>{{ PostDetail.user.name }}</strong>
-                            posted an update</span
-                        >
+                            posted an update</span>
                         <br />
                         <span class="time">{{
                             ConvertTime(PostDetail.created_at)
@@ -38,6 +37,8 @@
                     </div>
                 </div>
             </div>
+            <Activity :PostDetail="PostDetail"></Activity>
+
         </div>
     </div>
 </template>
@@ -48,74 +49,87 @@
     font-size: 15px;
     cursor: pointer;
 }
+
 ul {
     padding: 0px;
 }
+
 li {
     list-style: none;
 }
+
 .item {
     display: flex;
     padding: 20px 0px;
     position: relative;
 }
+
 .item::before {
     content: "";
     width: 2px;
     height: 100%;
     background: rgb(120, 120, 120);
-    background: linear-gradient(
-        180deg,
-        rgba(120, 120, 120, 1) 0%,
-        rgba(248, 248, 248, 1) 100%
-    );
+    background: linear-gradient(180deg,
+            rgba(120, 120, 120, 1) 0%,
+            rgba(248, 248, 248, 1) 100%);
     position: absolute;
     top: 65px;
     left: 22px;
 }
+
 @media (max-width: 576px) {
     .item::before {
-   display: none;
+        display: none;
+    }
 }
-}
+
 .item .avt img {
     width: 45px;
     height: 45px;
     border-radius: 100%;
     z-index: 100;
 }
-.item .meta img{
+
+.item .meta img {
     width: 45px;
     height: 45px;
     border-radius: 100%;
     z-index: 100;
     margin-right: 10px;
 }
+
 .item .content {
     padding: 0px 20px;
     width: 100%;
 }
+
 .item .item-header .meta {
     display: flex;
     font-size: 15px;
 }
+
 .item .item-header .meta strong {
     font-weight: 600;
 }
+
 .item .item-header {
     display: flex;
     justify-content: space-between;
 }
+
 .item .item-header .meta .time {
     font-size: 13px;
     color: rgba(0, 0, 0, 0.363);
 }
+
 .item .item-content {
     margin: 15px 0px;
 }
+
 .item .item-content .description {
     font-size: 15px;
 }
+
 .item .item-content .media ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -123,20 +137,24 @@ li {
     margin-top: 15px;
     width: 100%;
 }
+
 .item .item-content .media ul li {
     width: 100%;
     cursor: pointer;
 }
+
 .item .item-content .media ul li:first-child {
     grid-column-start: 1;
     grid-column-end: 4;
 }
+
 .item .item-content .media ul li img {
     width: 100%;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
         rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
+
 .item .item-content .action ul {
     margin: 15px 0px;
     display: flex;
@@ -146,39 +164,48 @@ li {
     border-right: 0px;
     padding: 15px 0px;
 }
+
 .item .item-content .action ul li {
     display: flex;
     gap: 8px;
     color: #4f5261d7;
 }
+
 .item .item-content .action ul li .quantity {
     background-color: #4f52611c;
     padding: 0px 5px;
     border-radius: 100%;
 }
+
 .item .item-content .action ul li i {
     margin-top: 2px;
 }
+
 .item-cmt {
     display: flex;
     font-size: 15px;
     width: 100%;
 }
+
 .item-cmt strong {
     font-weight: 600;
 }
+
 .item-cmt-content {
     margin: 0px 10px;
     width: 100%;
 }
+
 .item-cmt-header {
     margin-top: 10px;
 }
+
 .item-cmt-header .time {
     margin-left: 5px;
     font-size: 13px;
     color: rgba(0, 0, 0, 0.363);
 }
+
 .item-cmt .comment .text {
     width: 100%;
     background-color: #9e9e9e23;
@@ -186,6 +213,7 @@ li {
     border-radius: 20px;
     margin-top: 10px;
 }
+
 .item-cmt .comment ul {
     display: flex;
     gap: 10px;
@@ -193,9 +221,11 @@ li {
     font-weight: 600;
     cursor: pointer;
 }
+
 .item-cmt .comment ul i {
     margin-right: 5px;
 }
+
 .post-comment {
     display: flex;
     margin-top: 20px;
@@ -215,11 +245,13 @@ li {
     height: 40px;
     margin-top: 5px;
 }
+
 .post-comment .avt {
     border-radius: 100%;
     width: 45px;
     height: 45px;
 }
+
 .post-comment i {
     position: absolute;
     right: 20px;
@@ -230,25 +262,29 @@ li {
 
 <script>
 import $ from "jquery";
+import Activity from "../CommentComponent/Activity.vue";
+
 export default {
-    setup() {},
+    setup() { },
     props: {
         PostDetail: Object,
+    }, components: {
+        Activity
     },
     mounted() {
 
         var VueThis = this;
-        $("#post_"+VueThis.PostDetail.id+" .more-desc").click(function () {
+        $("#post_" + VueThis.PostDetail.id + " .more-desc").click(function () {
             $(this).next().show();
             $(this).hide();
-            $("#post_"+VueThis.PostDetail.id+" .hide-desc").show();
+            $("#post_" + VueThis.PostDetail.id + " .hide-desc").show();
         });
 
-        $("#post_"+VueThis.PostDetail.id+" .hide-desc").click(function () {
+        $("#post_" + VueThis.PostDetail.id + " .hide-desc").click(function () {
             $(this).prev().hide();
             $(this).hide();
-            $(this).parent().find("#post_"+VueThis.PostDetail.id+" .more-desc").show();
-            $("#post_"+VueThis.PostDetail.id+" .more-desc").show()
+            $(this).parent().find("#post_" + VueThis.PostDetail.id + " .more-desc").show();
+            $("#post_" + VueThis.PostDetail.id + " .more-desc").show()
         });
 
     },
