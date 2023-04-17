@@ -183,7 +183,11 @@ li {
     top: 65px;
     left: 22px;
 }
-
+@media (max-width: 576px) {
+    .item::before {
+   display: none;
+}
+}
 .item .meta img {
     width: 45px;
     height: 45px;

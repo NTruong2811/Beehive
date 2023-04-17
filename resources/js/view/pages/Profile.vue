@@ -1,22 +1,84 @@
 <template>
-    <Navbar></Navbar>
+    <Head class="d-block d-md-none"></Head>
+    <Navbar class="d-none d-md-flex"></Navbar>
     <div class="profile">
-        <div class="head">
+        <div class="head" style="border-bottom: 1px solid #4f52611c">
             <div class="banner">
                 <img src="/images/profile-banner.jpg" alt="" />
             </div>
-            <div class="" style="border-bottom: 1px solid #4f52611c">
+            <div class="">
                 <div class="user_nav container">
                     <div class="row h-100">
-                        <div class="user col-3">
+                        <div class="user col-sm-12 col-md-3">
                             <div class="avatar">
                                 <div class="avt">
                                     <img :src="UserProfile.avatar" alt="" />
                                 </div>
                                 <h3 class="name">{{ UserProfile.name }}</h3>
                             </div>
+                            <div class="action_mobile d-flex d-md-none">
+                                <div v-if="UserProfile.id != userInfor.id">
+                                    <div v-if="friend_status == 0">
+                                        <button class="friend" role="button" v-on:click="
+                                            AddFriend(UserProfile.id)">Add
+                                            Friend <i class="fa-solid fa-user-plus"></i></button><br>
+                                    </div>
+                                    <div v-else-if="friend_status == 1">
+                                        <button class="friend" role="button">Friends <i class="fa-solid fa-users"></i>
+                                        </button><br>
+                                    </div>
+                                    <div v-else-if="friend_status == 2">
+                                        <button class="friend" role="button" v-on:click="
+                                            CancelRequest(check_friend_addressee.id)
+                                        ">Cancel Request <i class="fa-solid fa-user-xmark"></i></button><br>
+                                    </div>
+                                    <div v-else-if="friend_status == 3">
+                                        <button class="friend" role="button" v-on:click="
+                                            AcceptFriend(check_friend_requester.id)
+                                        ">Confirm <i class="fa-solid fa-user-check"></i></button><br>
+                                    </div>
+                                </div>
+                                <router-link :to="{
+                                    path: '/beechat',
+                                    query: { id: UserProfile.id }
+                                }">
+                                    <button class="Beechat" role="button">Beechat <img src="/images/logo.png"
+                                            alt=""></button>
+                                </router-link>
+                            </div>
+                            <div class="d-flex d-md-none profile_nav_mobile">
+                                <ul>
+                                    <router-link :to="{
+                                        path: '/profile',
+                                        query: { id: UserProfile.id },
+                                    }">
+                                        <li class="">
+                                            <i class="fa-solid fa-address-card"></i>
+                                        </li>
+                                    </router-link>
+                                    <router-link :to="{
+                                        path: '/profile/friendships',
+                                        query: { id: UserProfile.id },
+                                    }">
+                                        <li class="AddFriend">
+                                            <i class="fa-solid fa-users"></i>
+                                        </li>
+                                    </router-link>
+                                    <li>
+                                        <i class="fa-solid fa-shop"></i>
+                                    </li>
+                                    <router-link :to="{
+                                        path: '/profile/watchs',
+                                        query: { id: UserProfile.id },
+                                    }">
+                                        <li>
+                                            <i class="fa-solid fa-forward-step"></i>
+                                        </li>
+                                    </router-link>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="col-9 h-100 profile_nav">
+                        <div class="col-md-9 col-sm-12 h-100 d-none d-md-flex profile_nav">
                             <ul>
                                 <router-link :to="{
                                     path: '/profile',
@@ -43,10 +105,10 @@
                                     path: '/profile/watchs',
                                     query: { id: UserProfile.id },
                                 }">
-                                <li>
-                                    <i class="fa-solid fa-forward-step"></i>
-                                    <br /><span>Media</span>
-                                </li>
+                                    <li>
+                                        <i class="fa-solid fa-forward-step"></i>
+                                        <br /><span>Media</span>
+                                    </li>
                                 </router-link>
                             </ul>
                             <!-- HTML !-->
@@ -73,10 +135,11 @@
                                     </div>
                                 </div>
                                 <router-link :to="{
-                                    path:'/beechat',
-                                    query:{id:UserProfile.id}
+                                    path: '/beechat',
+                                    query: { id: UserProfile.id }
                                 }">
-                                    <button class="Beechat" role="button">Beechat <img src="/images/logo.png" alt=""></button>
+                                    <button class="Beechat" role="button">Beechat <img src="/images/logo.png"
+                                            alt=""></button>
                                 </router-link>
                             </div>
                         </div>
@@ -86,7 +149,7 @@
         </div>
         <div class="main container">
             <div class="row">
-                <div class="sidebar col-3">
+                <div class="sidebar col-3 d-none d-md-block">
                     <ul class="totals">
                         <li><span class="quantity">100</span> <br />Friends</li>
                         <li>
@@ -120,7 +183,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="content col-9  ">
+                <div class="content col-md-9 col-sm-12">
                     <router-view class="pt-5"></router-view>
                 </div>
             </div>
@@ -128,6 +191,30 @@
     </div>
 </template>
 <style scoped>
+.profile_nav_mobile ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 10px 0px 10px;
+}
+
+.profile_nav_mobile ul a {
+    color: #4f5261bb;
+}
+.profile_nav_mobile ul .active {
+    color: #8224e3;
+}
+ .action_mobile{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+ .action_mobile button{
+    font-size: 15px;
+    padding: 8px 15px;
+}
+
+
 .stream {
     max-height: 100vh;
     overflow-y: scroll;
@@ -140,8 +227,8 @@
 }
 
 .profile .head .banner img {
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
 }
 
 .user_nav {
@@ -170,7 +257,14 @@
     /* position: absolute; */
     margin: auto;
 }
-
+@media (max-width: 576px) {
+    .user_nav .user .avatar .avt {
+    width: 165px;
+    height: 165px;
+    /* position: absolute; */
+    margin: auto;
+}
+}
 .user_nav .user .avatar .avt:hover .overlay {
     opacity: 1;
 }
@@ -195,13 +289,13 @@
 }
 
 .user_nav .user .avatar img {
-    width: 220px;
-    height: 220px;
+    width: 100%;
+    height: 100%;
     border: 2px solid white;
     border-radius: 10px;
 }
 
-.user_nav ul {
+.user_nav .profile_nav ul {
     display: flex;
     gap: 20px;
     height: 100%;
@@ -209,12 +303,12 @@
     margin-top: 10px;
 }
 
-.user_nav ul li {
+.user_nav .profile_nav ul li {
     list-style: none;
     position: relative;
 }
 
-.user_nav ul li {
+.user_nav .profile_nav ul li {
     text-align: center;
     font-size: 16px;
     width: 75px;
@@ -223,9 +317,9 @@
     color: #4f5261bb;
 }
 
-.user_nav ul .active {
+ .profile_nav .active {
     background: linear-gradient(135deg, #c395f1 0%, #8224e3 75%);
-    color: #fff;
+    color: #fff !important;
     border-radius: 10px;
     display: flex;
     margin-top: -25px;
@@ -233,12 +327,12 @@
         rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
-.user_nav ul .active i {
+.user_nav .profile_nav ul .active i {
     margin: auto;
     font-size: 22px;
 }
 
-.user_nav ul .active span {
+.user_nav .profile_nav ul .active span {
     display: none;
 }
 
@@ -499,6 +593,7 @@ li {
 <script>
 import $ from "jquery";
 import Navbar from "../components/Navbar.vue";
+import Head from "../components/Head.vue";
 import {
     GetUserProfile,
     AddFriend,
@@ -509,6 +604,7 @@ export default {
     setup() { },
     components: {
         Navbar,
+        Head
     },
     data() {
         return {
@@ -569,7 +665,7 @@ export default {
                     this.check_friend_addressee = this.UserProfile.check_friend_addressee[0];
                     this.friend_status = this.check_friend_addressee.status
                     if (this.friend_status != 1) {
-                        this.friend_status = 2                        
+                        this.friend_status = 2
                     }
                 }
                 if (this.UserProfile.check_friend_requester.length > 0) {
@@ -586,7 +682,7 @@ export default {
                 sendTo: id,
                 sendFrom: this.userInfor.id,
             };
-            AddFriend(data).then((res)=> {
+            AddFriend(data).then((res) => {
                 console.log(res);
                 this.check_friend_addressee = res.data.check_friend_addressee
             });

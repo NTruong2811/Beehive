@@ -78,6 +78,7 @@
 @media (max-width: 576px) {
     .head {
         height: 50px !important;
+        width: 100% !important;
     }
 
 }
