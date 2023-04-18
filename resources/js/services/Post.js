@@ -13,3 +13,15 @@ export function UpdatePost(data) {
 export function GetPostDetail(id) {
     return instance.get("/post/get-post-detail?id=" + id);
 }
+
+
+export function UpdateLike(data) {
+    return instance.post("/post/update-like", data);
+}
+
+
+
+export function CC(id) {
+    return id;
+}
+

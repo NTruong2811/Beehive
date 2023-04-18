@@ -47,6 +47,19 @@ class posts extends Model
     public function first_comment(){
         return $this->hasOne(comments::class, 'post_id')->latest();
     }
+    
+    public function likes(){
+        return $this->hasMany(likes::class,'post_id');
+    }
+
+    public function check_like(){
+        return $this->hasMany(likes::class,'post_id')->where('user_id', auth()->id());;
+    }
+    
+    
+
+
+
 
 
     public function Add($request){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\helpers\ExtractFile;
 use App\helpers\RedisServer;
 use App\Jobs\UpdatePost;
+use App\Models\likes;
 use App\Models\musics;
 use App\Models\posts;
 use App\Models\profiles;
@@ -87,4 +88,18 @@ class PostController extends Controller
             return $th;
         }
     }
+
+
+//    activity
+     
+   public function UpdateLike(Request $request){
+      if ($request->status) {
+        unset($request->status);
+        return likes::where($request->all())->delete();
+      }
+      else{
+        return likes::create($request->all());
+      }
+   }
+
 }

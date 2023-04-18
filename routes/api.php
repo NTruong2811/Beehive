@@ -62,6 +62,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/get-type-post', [PostController::class, 'GetTypePost'])->name('GetTypePost');
         Route::post('/update-post', [PostController::class, 'UpdatePost'])->name('UpdatePost');
         Route::get('/get-post-detail', [PostController::class, 'GetPostDetail'])->name('GetPostDetail');
+        Route::post('/update-like', [PostController::class, 'UpdateLike'])->name('UpdateLike');
 
     });
     Route::prefix('/watch')->group(function () {

@@ -9,7 +9,8 @@
         </div>
         <div class="activity_action">
             <ul>
-                <li><i class="fa-regular fa-thumbs-up"></i> Like</li>
+                <li v-if="!PostDetail.check_like" @click="LikeAction(false)"><i class="fa-regular fa-thumbs-up"></i> Like</li>
+                <li v-else class="like_active" @click="LikeAction(true)"><i class="fa-regular fa-thumbs-up"></i> Like</li>
                 <router-link :to="{
                     path: '/detail/'+ type_post,
                     query: {
@@ -74,6 +75,7 @@
 
 .activity .activity_action ul li {
     list-style: none;
+    cursor: pointer;
 }
 
 .activity .activity_action .like_active {
@@ -113,11 +115,12 @@
 <script>
 import $ from "jquery";
 import Comment from "../CommentComponent/Comment.vue";
+import { UpdateLike } from "../../../services/Post";
 export default {
     setup() { },
     data() {
         return {
-            type_post: ''
+            type_post: '',
         }
     },
     props: {
@@ -141,7 +144,20 @@ export default {
         else if (this.PostDetail.type_postId == 3) {
             this.type_post = 'music'
         }
-
     },
+    methods:{
+        LikeAction(status){
+           var data ={
+             post_id:this.PostDetail.id,
+             user_id: this.userInfor.id,
+             status:status
+           }
+           UpdateLike(data).then((res)=>{
+            console.log(res);
+           }).catch((e)=>{
+            console.log(e.request.response);
+           })
+        }
+    }
 };
 </script>
